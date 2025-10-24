@@ -24,7 +24,7 @@ metadata:
   name: traefik-middelwares
 spec:
   interval: 1h
-  path: ./kubernetes/apps/network/traefik/middlewares
+  path: ./kubernetes/hcloud/apps/network/traefik/middlewares
   postBuild:
     substituteFrom:
       - name: cluster-secrets
