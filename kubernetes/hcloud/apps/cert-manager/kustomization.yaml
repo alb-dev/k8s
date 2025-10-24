@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: cert-manager
 
 components:
-  - ../../components/sops
+  - ../../flux/components/sops
 
 resources:
   - ./cert-manager/ks.yaml
