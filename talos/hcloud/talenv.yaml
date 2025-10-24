@@ -1,0 +1,10 @@
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+talosVersion: v1.11.2
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetesVersion: v1.34.1
+
+clusterName: hetzner
+
+publicClusterIP: 46.224.13.115
+privateClusterIP: 10.0.0.5 
+serverArch: amd64

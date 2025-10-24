@@ -1,0 +1,123 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "local>onji/renovate-config"
+  ],
+  "pinDigests": false,
+  "labels": [
+    "dependency"
+  ],
+  "helm-values": {
+    "managerFilePatterns": [
+      "/kubernetes/.+\\.ya?ml$/",
+      "/talos/.+\\.ya?ml$/"
+    ],
+    "pinDigests": false
+  },
+  "kubernetes": {
+    "managerFilePatterns": [
+      "/kubernetes/.+\\.ya?ml$/",
+      "/talos/.+\\.ya?ml$/"
+    ],
+    "pinDigests": false
+  },
+  "kustomize": {
+    "managerFilePatterns": [
+      "/kubernetes/.+\\.ya?ml$/",
+      "/talos/.+\\.ya?ml$/"
+    ],
+    "pinDigests": true
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": [
+        "Process CloudnativePG Postgresql version"
+      ],
+      "managerFilePatterns": [
+        "/k8s/.+\\.ya?ml$/",
+      "/talos/.+\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "imageName: (?<depName>\\S+):(?<currentValue>\\S+)"
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "redhat"
+    },
+    {
+      "customType": "regex",
+      "description": "Process various dependencies in YAML files",
+      "managerFilePatterns": [
+        "/k8s/.+\\.ya?ml$/",
+      "/talos/.+\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "\\S+: \"?(?<currentValue>[^\"\\s]+)\"? # ?renovate: depName=(?<depName>\\S+)( datasource=(?<datasource>\\S+))?( versioning=(?<versioning>\\S+))?( extractVersion=(?<extractVersion>\\S+))?( packageName=(?<packageName>\\S+))?",
+        "(?m:^[ \\t]*?# ?renovate: depName=(?<depName>\\S+)( datasource=(?<datasource>\\S+))?( versioning=(?<versioning>\\S+))?( extractVersion=(?<extractVersion>\\S+))?( packageName=(?<packageName>\\S+))?\\n[ \\t ]*?\\S+: \"?(?<currentValue>[^\" ]+?)\"?$)",
+        "(?m:^[ \\t]*?# ?renovate: depName=(?<depName>\\S+)( datasource=(?<datasource>\\S+))?( versioning=(?<versioning>\\S+))?( extractVersion=(?<extractVersion>\\S+))?( packageName=(?<packageName>\\S+))?\\n[ \\t ]*-(?:[ \\t]+)?(?<currentValue>[^#\\r\\n]+))"
+      ],
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
+      "extractVersionTemplate": "{{#if extractVersion}}{{{extractVersion}}}{{else}}^(?<version>.*)${{/if}}",
+      "packageNameTemplate": "{{#if packageName}}{{{packageName}}}{{else}}{{{depName}}}{{/if}}"
+    },
+    {
+      "customType": "regex",
+      "description": "Process GitHub download dependencies in YAML files",
+      "managerFilePatterns": [
+        "/k8s/.+\\.ya?ml$/",
+      "/talos/.+\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "https:\\/\\/github.com\\/(?<depName>\\S+?\\/\\S+?)\\/releases\\/download\\/(?<currentValue>(v|\\d)\\S+?)\\/\\S+",
+        "https:\\/\\/raw.githubusercontent.com\\/(?<depName>\\S+?\\/\\S+?)\\/(?<currentValue>(v|\\d)\\S+?)\\/\\S+"
+      ],
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
+      "extractVersionTemplate": "{{#if extractVersion}}{{{extractVersion}}}{{else}}^(?<version>.*)${{/if}}"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Auto merge digest and patches",
+      "matchDatasources": [
+        "docker",
+        "helm"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "matchUpdateTypes": [
+        "digest",
+        "patch"
+      ]
+    },
+    {
+      "description": "add cluster name to commit message",
+      "matchFileNames": ["kubernetes/hcloud/**"],
+      "addLabels": ["kubernetes/hcloud"]
+    },
+    {
+      "description": "add cluster name to commit message",
+      "matchFileNames": ["kubernetes/home/**"],
+      "addLabels": ["kubernetes/home"]
+    },
+    {
+      "description": "add cluster name to commit message",
+      "matchFileNames": ["bootstrap/**"],
+      "addLabels": ["helmfile"]
+    },
+    {
+      "description": "add cluster name to commit message",
+      "matchFileNames": ["bootstrap/hcloud/**"],
+      "addLabels": ["kubernetes/hcloud"]
+    }
+  ],
+  "automergeStrategy": "fast-forward",
+  "assignAutomerge": true,
+  "assignees": [
+    "@BotRoss"
+  ],
+  "reviewers": [
+    "@naoalb"
+  ]
+}

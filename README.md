@@ -1,0 +1,83 @@
+<div align="center">
+
+# My Home Operations Repository <!-- omit in toc -->
+
+_... managed by fluxcd, Renovate, and Forgejo Actions_ 🤖
+
+[![Discord](https://img.shields.io/discord/673534664354430999?style=for-the-badge&label&logo=discord&logoColor=white&color=blue)](https://discord.gg/k8s-at-home)
+[![Renovate](https://img.shields.io/badge/powered_by-Renovate-blue?style=for-the-badge&logo=renovate)](https://www.mend.io/renovate/)
+
+---
+
+👋 Welcome to my repository. This is a mono repository for my home-, cloud infrastructure and Kubernetes cluster. I try to adhere to Infrastructure as Code (IaC) and GitOps practices using the tools like [Ansible](https://www.ansible.com/), [Opentofu](https://opentofu.org/), [Kubernetes](https://kubernetes.io/), [Flux](https://github.com/fluxcd/flux2), [Renovate](https://docs.renovatebot.com/) and [Forgejo Actions](https://forgejo.org/docs/latest/user/actions/reference/).
+
+--- 
+
+</div>
+
+## 📖 Overview
+- [📖 Overview](#-overview)
+- [⛵ Kubernetes](#-kubernetes)
+  - [Installation](#installation)
+  - [Directories](#directories)
+  - [Networking](#networking)
+- [☁ Cloud Dependencies](#-cloud-dependencies)
+- [🔧 Hardware](#-hardware)
+- [🤝 Special thanks](#-special-thanks)
+
+
+
+# GitOps
+
+[Flux](https://github.com/fluxcd/flux2) watches the clusters in my [kubernetes](./kubernetes/) folder (see Directories below) and makes the changes to my clusters based on the state of my Git repository.
+
+The way Flux works for me here is it will recursively search the `kubernetes/clustername/apps` folder until it finds the most top level `kustomization.yaml` per directory and then apply all the resources listed in it. That aforementioned `kustomization.yaml` will generally only have a namespace resource and one or many Flux kustomizations (`ks.yaml`). Under the control of those Flux kustomizations there will be a `HelmRelease` or other resources related to the application which will be applied.
+
+[Renovate](https://github.com/renovatebot/renovate) watches my **entire** repository looking for dependency updates, when they are found a PR is automatically created. When some PRs are merged Flux applies the changes to my cluster.
+
+
+# Directories
+
+This Git repository contains the following directories under [Kubernetes](./kubernetes/).
+
+```sh
+📁 kubernetes
+├── 📁 hcloud # hcloud cluster
+    ├── 📁 apps # applications
+    ├── 📁 components # re-useable kustomize components
+    └── 📁 flux # flux system configuration    
+├── 📁 home # homelab cluster
+    ├── 📁 apps # applications
+    ├── 📁 components # re-useable kustomize components
+    └── 📁 flux # flux system configuration     
+└── 📁 talos # Talos components for bootstraping nodes
+```
+
+
+# Hnadling fluxcd 
+## Applying age private key secret to flux-system namespace
+
+> [!NOTE]  
+> This is needed to grant the flux-controller the possibility to decrpyt sops secrets. This includes all kustomizations managed by flux
+
+```bash
+cat $HOME/Library/Application\ Support/sops/age/keys.txt | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin    
+```
+
+> [!IMPORTANT]  
+> Keep in Mind that flux needs a cluster referenc with --kubeconfig=~/.kube/hcloud
+## Reconcile source git repository
+```bash
+flux reconcile -n flux-system source git flux-system  
+```
+## Reconcile all kustomizations
+```bash
+flux reconcile -n flux-system kustomization flux-system  
+```
+
+
+# 🤝 Special thanks
+- [Home Operations discord community](https://discord.gg/home-operations)
+- [kubesearch.dev](https://kubesearch.dev/)
+- [sujiba](https://code42.next.offene.cloud/homelab/k8s.git)
+- [bjw-s](https://github.com/bjw-s-labs)

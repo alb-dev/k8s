@@ -1,0 +1,42 @@
+controlplane.yaml
+template.yaml
+talosconfig
+secrets.yaml
+n1.yaml
+keys.txt
+# 1Pass
+onepassword.env
+# Brew
+/.private/
+/.task/
+/.venv/
+Brewfile.lock.json
+# Kubernetes
+kubeconfig
+.decrypted~*
+*.secret.env
+*.secret.yaml
+*.secrets.yaml
+*.agekey
+*.pub
+*.key
+*.pem
+# Other
+*.psql
+# Private
+.private
+.bin
+#Talos
+talosconfig
+**/clusterconfig
+**/clusterconfig*
+# Terraform
+.terraform
+.terraform.tfstate*
+.terraform.lock.hcl
+terraform.tfstate*
+*.tfvars
+# Trash
+.DS_Store
+Thumbs.db
+keys.txt
