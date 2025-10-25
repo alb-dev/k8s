@@ -7,9 +7,18 @@
   "labels": [
     "dependency"
   ],
+  "flux": {
+    "managerFilePatterns": [
+      "/kubernetes/.+\\.ya?ml$/",
+      "/bootstrap/.+\\.ya?ml$/",
+      "/talos/.+\\.ya?ml$/"
+    ],
+    "pinDigests": false
+  },
   "helm-values": {
     "managerFilePatterns": [
       "/kubernetes/.+\\.ya?ml$/",
+      "/bootstrap/.+\\.ya?ml$/",
       "/talos/.+\\.ya?ml$/"
     ],
     "pinDigests": false
@@ -17,6 +26,7 @@
   "kubernetes": {
     "managerFilePatterns": [
       "/kubernetes/.+\\.ya?ml$/",
+      "/bootstrap/.+\\.ya?ml$/",
       "/talos/.+\\.ya?ml$/"
     ],
     "pinDigests": false
@@ -24,6 +34,7 @@
   "kustomize": {
     "managerFilePatterns": [
       "/kubernetes/.+\\.ya?ml$/",
+      "/bootstrap/.+\\.ya?ml$/",
       "/talos/.+\\.ya?ml$/"
     ],
     "pinDigests": true
@@ -35,8 +46,8 @@
         "Process CloudnativePG Postgresql version"
       ],
       "managerFilePatterns": [
-        "/k8s/.+\\.ya?ml$/",
-      "/talos/.+\\.ya?ml$/"
+        "/kubernetes/.+\\.ya?ml$/",
+        "/talos/.+\\.ya?ml$/"
       ],
       "matchStrings": [
         "imageName: (?<depName>\\S+):(?<currentValue>\\S+)"
@@ -48,8 +59,8 @@
       "customType": "regex",
       "description": "Process various dependencies in YAML files",
       "managerFilePatterns": [
-        "/k8s/.+\\.ya?ml$/",
-      "/talos/.+\\.ya?ml$/"
+        "/kubernetes/.+\\.ya?ml$/",
+        "/talos/.+\\.ya?ml$/"
       ],
       "matchStrings": [
         "\\S+: \"?(?<currentValue>[^\"\\s]+)\"? # ?renovate: depName=(?<depName>\\S+)( datasource=(?<datasource>\\S+))?( versioning=(?<versioning>\\S+))?( extractVersion=(?<extractVersion>\\S+))?( packageName=(?<packageName>\\S+))?",
@@ -65,8 +76,8 @@
       "customType": "regex",
       "description": "Process GitHub download dependencies in YAML files",
       "managerFilePatterns": [
-        "/k8s/.+\\.ya?ml$/",
-      "/talos/.+\\.ya?ml$/"
+        "/kubernetes/.+\\.ya?ml$/",
+        "/talos/.+\\.ya?ml$/"
       ],
       "matchStrings": [
         "https:\\/\\/github.com\\/(?<depName>\\S+?\\/\\S+?)\\/releases\\/download\\/(?<currentValue>(v|\\d)\\S+?)\\/\\S+",
