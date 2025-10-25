@@ -33,7 +33,7 @@ spec:
         kind: GitRepository
         url: https://code.onji.space/lab/k8s.git
         ref: refs/heads/main
-        path: kubernetes/hcloud/flux/cluster
+        path: kubernetes/hcloud/flux
         interval: 1h
       commonMetadata:
         labels:

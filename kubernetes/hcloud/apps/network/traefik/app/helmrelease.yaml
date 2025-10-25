@@ -13,6 +13,7 @@ spec:
         kind: HelmRepository
         name: traefik-charts
         namespace: network
+      interval: 30m
   values:
     deployment:
       kind: Deployment
