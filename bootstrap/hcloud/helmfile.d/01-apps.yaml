@@ -47,7 +47,7 @@ releases:
   - name: traefik
     namespace: network
     chart: traefik/traefik
-    version: 37.1.1
+    version: 37.2.0
     values:
       - ./templates/values.yaml.gotmpl
     set:
@@ -72,7 +72,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: oci://quay.io/jetstack/charts/cert-manager
-    version: v1.18.2
+    version: v1.19.1
     values:
       - ./templates/values.yaml.gotmpl
     set:
