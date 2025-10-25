@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: development
 
 components:
-  - ../../flux/components/sops
-  
+  - ../../components/sops
+
 resources:
   - ./forgejo/ks.yaml

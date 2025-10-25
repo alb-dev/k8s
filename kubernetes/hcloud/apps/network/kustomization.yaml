@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: network
 
 components:
-  - ../../flux/components/sops
+  - ../../components/sops
 
 resources:
   - ./namespace.yaml

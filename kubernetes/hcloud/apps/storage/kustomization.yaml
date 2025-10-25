@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: storage
 
 components:
-  - ../../flux/components/sops
+  - ../../components/sops
 
 resources:
   - ./namespace.yaml
