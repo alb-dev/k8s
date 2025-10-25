@@ -8,4 +8,4 @@ components:
   - ../../components/sops
 
 resources:
-  - ./forgejo/ks.yaml
+#  - ./forgejo/ks.yaml
