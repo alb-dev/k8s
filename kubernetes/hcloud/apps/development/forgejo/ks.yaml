@@ -5,7 +5,7 @@ metadata:
   name: forgejo
 spec:
   interval: 1h
-  path: .//kubernetes/hcloud/apps/development/forgejo/app
+  path: ./kubernetes/hcloud/apps/development/forgejo/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets

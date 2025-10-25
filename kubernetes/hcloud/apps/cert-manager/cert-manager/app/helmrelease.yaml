@@ -8,20 +8,16 @@ spec:
   chartRef:
     kind: OCIRepository
     name: cert-manager
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
-crds:
-  enabled: true
-extraArgs:
-- --dns01-recursive-nameservers=185.12.64.2:53
-- --dns01-recursive-nameservers-only
-cainjector:
-  replicaCount: 1
-podDnsPolicy: "None"
-podDnsConfig:
-  nameservers:
-  - "185.12.64.2"
-  - "185.12.64.1"
+    crds:
+      enabled: true
+    extraArgs:
+    - --dns01-recursive-nameservers=185.12.64.2:53
+    - --dns01-recursive-nameservers-only
+    cainjector:
+      replicaCount: 1
+    podDnsPolicy: "None"
+    podDnsConfig:
+      nameservers:
+      - "185.12.64.2"
+      - "185.12.64.1"
