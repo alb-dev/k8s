@@ -61,7 +61,9 @@ This Git repository contains the following directories under [Kubernetes](./kube
 > This is needed to grant the flux-controller the possibility to decrpyt sops secrets. This includes all kustomizations managed by flux
 
 ```bash
-cat $HOME/Library/Application\ Support/sops/age/keys.txt | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin    
+cat $HOME/Library/Application\ Support/sops/age/keys.txt | kubectl -n flux-system create secret generic sops-age --from-file=age.agekey=/dev/stdin
+cd bootstrap/hcloud 
+sops --decrypt bootstrap/hcloud/bootstrap-secrets.sops.yaml | kubectl apply -f -
 ```
 
 > [!IMPORTANT]  
