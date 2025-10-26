@@ -7,5 +7,3 @@ spec:
   kubernetes:
     # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
     version: v1.34.1
-  policy:
-    placement: soft
