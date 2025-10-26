@@ -40,6 +40,7 @@ spec:
               OC_INSECURE: false
               OC_LOG_LEVEL: info
               OC_URL: https://files.onji.space
+              OC_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD: false
               PROXY_TLS: false
             probes:
               liveness:
