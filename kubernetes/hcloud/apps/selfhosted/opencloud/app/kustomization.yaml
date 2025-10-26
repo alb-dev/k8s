@@ -10,4 +10,4 @@ components:
 resources:
   - ./helmrelease.yaml
   - ./pvc.yaml
-  - ./secret.sops.yaml
+  - ./secrets.sops.yaml
