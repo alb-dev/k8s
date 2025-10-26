@@ -18,16 +18,6 @@ spec:
           value:
             spec:
               hostNetwork: true
-              containers:
-              - name: envoy
-                ports:
-                - containerPort: 81
-                  hostPort: 81
-                  name: http
-                  protocol: TCP
-                - containerPort: 443
-                  name: https
-                  protocol: TCP
         container:
           image: mirror.gcr.io/envoyproxy/envoy:v1.36.2
           resources:
