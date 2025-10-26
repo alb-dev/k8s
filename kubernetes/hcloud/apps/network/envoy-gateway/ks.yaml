@@ -30,6 +30,9 @@ spec:
       - name: cluster-secrets
         kind: Secret
   prune: true
+  dependsOn:
+    - name: envoy-gateway
+      namespace: network
   sourceRef:
     kind: GitRepository
     name: flux-system

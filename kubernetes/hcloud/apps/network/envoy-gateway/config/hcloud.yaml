@@ -21,7 +21,7 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: default-public-certificate
+            name: hcloud-public-certificate
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
