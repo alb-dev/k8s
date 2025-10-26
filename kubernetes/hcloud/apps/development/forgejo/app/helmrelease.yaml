@@ -11,14 +11,7 @@ spec:
   values:
     strategy:
       type: 'Recreate'
-
-#    image:
-#      rootless: true
-#      registry: code.forgejo.org
-#      repository: forgejo/forgejo
-#      tag: 13.0.1-rootless
-#      digest: sha256:b34718b23370d19265f9e13ff28651f3258408360b4a13811184e45feff49456
-
+      
     ingress:
       enabled: true
       className: traefik

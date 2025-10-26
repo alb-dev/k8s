@@ -8,14 +8,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: forgejo-runner
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-      strategy: rollback
   values:
     controllers:
       forgejo-runner:
