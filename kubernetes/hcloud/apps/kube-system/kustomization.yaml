@@ -9,4 +9,4 @@ components:
 
 resources:
   - ./namespace.yaml
-#  - ./forgejo/ks.yaml
+  - ./metrics-server/ks.yaml
