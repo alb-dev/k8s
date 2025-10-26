@@ -21,7 +21,7 @@ spec:
               containers:
               - name: envoy
                 ports:
-                - containerPort: 81
+                - containerPort: 80
                   name: http
                   protocol: TCP
                 - containerPort: 443
