@@ -64,25 +64,26 @@ spec:
           http:
             port: 9200
     ingress:
-      enabled: true
-      className: traefik
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-production
-        cert-manager.io/private-key-rotation-policy: Always
-        cert-manager.io/private-key-algorithm: "ECDSA"
-        cert-manager.io/private-key-size: "384"
-        traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
-        kubernetes.io/ingress.class: traefik
-      tls:
-        - hosts:
-            - files.onji.space
-          secretName: files-onji.space
-      hosts:
-        - host: files.onji.space
-          paths:
-            - path: /
-              pathType: Prefix
-              port: app
+      app:
+        className: traefik
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          cert-manager.io/private-key-rotation-policy: Always
+          cert-manager.io/private-key-algorithm: "ECDSA"
+          cert-manager.io/private-key-size: "384"
+          traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
+          kubernetes.io/ingress.class: traefik
+        hosts:
+          - host: "tools.onji.space"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - "tools.onji.space"
+            secretName: tools-onji-space
     persistence:
       data:
         existingClaim: opencloud-local
