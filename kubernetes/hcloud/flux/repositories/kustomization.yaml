@@ -5,4 +5,4 @@ namespace: flux-system
 
 resources:
   - ./traefik-charts.yaml
-  - ./cloudnative-pg.yal
+  - ./cloudnative-pg.yaml
