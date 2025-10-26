@@ -83,3 +83,4 @@ spec:
       - name: network-traefik-middleware-secure-headers@kubernetescrd
       - name: network-traefik-middleware-compress@kubernetescrd
       - name: network-traefik-middleware-redirect@kubernetescrd
+      
