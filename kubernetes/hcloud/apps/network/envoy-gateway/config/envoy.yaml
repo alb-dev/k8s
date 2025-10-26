@@ -1,0 +1,92 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: envoy
+spec:
+  logging:
+    level:
+      default: info
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyDaemonSet:
+        patch:
+          value:
+            spec:
+              hostNetwork: true
+              containers:
+              - name: envoy
+                ports:
+                - containerPort: 80
+                  hostPort: 81
+                  name: http
+                  protocol: TCP
+                - containerPort: 443
+                  hostPort: 444
+                  name: https
+                  protocol: TCP
+        replicas: 1
+        container:
+          image: mirror.gcr.io/envoyproxy/envoy:v1.36.2
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              memory: 1Gi
+      envoyService:
+        externalTrafficPolicy: Cluster
+  shutdown:
+    drainTimeout: 180s
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: envoy
+spec:
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller
+  parametersRef:
+    group: gateway.envoyproxy.io
+    kind: EnvoyProxy
+    name: envoy
+    namespace: network
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: BackendTrafficPolicy
+metadata:
+  name: envoy
+spec:
+  targetSelectors:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+  compression:
+    - type: Brotli
+    - type: Gzip
+  tcpKeepalive: {}
+  timeout:
+    http:
+      requestTimeout: 0s
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: ClientTrafficPolicy
+metadata:
+  name: envoy
+spec:
+  clientIPDetection:
+    xForwardedFor:
+      numTrustedHops: 1
+  http2:
+    onInvalidMessage: TerminateStream
+  http3: {}
+  targetSelectors:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+  tcpKeepalive: {}
+  timeout:
+    http:
+      requestReceivedTimeout: 0s
+  tls:
+    minVersion: "1.2"
+    alpnProtocols:
+      - h2
+      - http/1.1
