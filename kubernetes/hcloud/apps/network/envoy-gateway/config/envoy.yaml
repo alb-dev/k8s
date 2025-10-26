@@ -18,6 +18,24 @@ spec:
           value:
             spec:
               hostNetwork: true
+              containers:
+              - name: envoy
+                securityContext:
+                  allowPrivilegeEscalation: false
+                  capabilities:
+                    drop:
+                      - ALL
+                    add:
+                      - NET_BIND_SERVICE
+                  privileged: false
+                  runAsGroup: 0
+                  runAsNonRoot: false
+                  runAsUser: 0
+                ports:
+                - containerPort: 81
+                  hostPort: 81
+                  name: http
+                  protocol: TCP
         container:
           image: mirror.gcr.io/envoyproxy/envoy:v1.36.2
           resources:
