@@ -74,7 +74,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
           kubernetes.io/ingress.class: traefik
         hosts:
-          - host: "tools.onji.space"
+          - host: "files.onji.space"
             paths:
               - path: /
                 service:
@@ -82,8 +82,8 @@ spec:
                   port: http
         tls:
           - hosts:
-              - "tools.onji.space"
-            secretName: tools-onji-space
+              - "files.onji.space"
+            secretName: files-onji-space
     persistence:
       data:
         existingClaim: opencloud-local
