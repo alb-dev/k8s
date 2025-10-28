@@ -7,3 +7,4 @@ namespace: selfhosted
 resources:
   - ./ocirepository.yaml
   - ./helmrelease.yaml
+  - ./pvc.yaml
