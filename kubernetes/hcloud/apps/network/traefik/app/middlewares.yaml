@@ -56,7 +56,16 @@ spec:
     stsSeconds: 31536000
     stsIncludeSubdomains: true
     referrerPolicy: "same-origin"
-    contentSecurityPolicy: "upgrade-insecure-requests"
+    contentSecurityPolicy: >-
+      default-src 'self' https://onji.space https://*.onji.space;
+      script-src 'self' 'unsafe-inline' https://onji.space https://*.onji.space;
+      connect-src 'self' wss: https://onji.space https://*.onji.space;
+      img-src 'self' data: https://onji.space https://*.onji.space;
+      style-src 'self' 'unsafe-inline' https://onji.space https://*.onji.space;
+      font-src 'self' https://onji.space https://*.onji.space data:;
+      frame-ancestors 'self';
+      object-src 'none';
+      base-uri 'self';
     frameDeny: true
     customFrameOptionsValue: "SAMEORIGIN"
     contentTypeNosniff: true
@@ -83,4 +92,3 @@ spec:
       - name: network-traefik-middleware-secure-headers@kubernetescrd
       - name: network-traefik-middleware-compress@kubernetescrd
       - name: network-traefik-middleware-redirect@kubernetescrd
-      
