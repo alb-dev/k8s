@@ -10,3 +10,4 @@ components:
 resources:
   - ./namespace.yaml
   - ./metrics-server/ks.yaml
+  - ./reloader/ks.yaml
