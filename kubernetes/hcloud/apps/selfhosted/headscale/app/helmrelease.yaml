@@ -21,7 +21,7 @@ spec:
             runAsGroup: 1000
             runAsUser: 1000
         containers:
-          app:
+          headscale:
             image:
               repository: ghcr.io/juanfont/headscale
               tag: v0.27.0
@@ -73,7 +73,7 @@ spec:
                 drop:
                   - ALL
     service:
-      app:
+      headscale:
         ports:
           http:
             port: 8080
@@ -83,7 +83,7 @@ spec:
             port: 8080
             
     ingress:
-      app:
+      headscale:
         className: traefik
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
@@ -98,7 +98,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  identifier: headscale
                   port: http
         tls:
           - hosts:
