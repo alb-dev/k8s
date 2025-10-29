@@ -141,3 +141,4 @@ spec:
         globalMounts:
           - path: /var/run/headscale
             subPath: run
+            readOnly: false
