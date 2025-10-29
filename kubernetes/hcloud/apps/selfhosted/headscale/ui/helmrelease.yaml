@@ -11,30 +11,14 @@ spec:
 
   values:
     controllers:
-      headscale:
+      headscale-ui:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/juanfont/headscale
-              tag: v0.27.0
-            command: [headscale, serve]
-            envFrom:
-                - secretRef:
-                    name: headscale-secret
-            probes:
-              liveness:
-                enabled: true
-                type: HTTP
-                path: /health
-              readiness:
-                enabled: true
-              startup:
-                enabled: true
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
+              repository: ghcr.io/gurucomputing/headscale-ui
+              tag: 2025.08.23
 
             resources:
               requests:
@@ -59,7 +43,6 @@ spec:
       app:
         className: traefik
         annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
           cert-manager.io/private-key-rotation-policy: Always
           cert-manager.io/private-key-algorithm: ECDSA
           cert-manager.io/private-key-size: "384"
@@ -69,7 +52,7 @@ spec:
         hosts:
           - host: "headscale.onji.space"
             paths:
-              - path: /
+              - path: /admin
                 service:
                   identifier: app
                   port: http
@@ -77,26 +60,3 @@ spec:
           - hosts:
               - "headscale.onji.space"
             secretName: headscale-tls
-
-    persistence:
-      data:
-        enabled: true
-        type: persistentVolumeClaim
-        existingClaim: headscale
-        advancedMounts:
-          headscale:
-            config:
-              - path: /etc/headscale
-                subPath: config
-                readOnly: false
-            data:
-              - path: /var/lib/headscale
-                subPath: data
-                readOnly: false
-      tmp:
-        enabled: true
-        type: emptyDir
-        globalMounts:
-          - path: /var/run/headscale
-            subPath: run
-            readOnly: false
