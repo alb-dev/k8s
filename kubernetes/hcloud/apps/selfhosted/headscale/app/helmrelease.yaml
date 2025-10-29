@@ -11,7 +11,7 @@ spec:
 
   values:
     controllers:
-      freshrss:
+      headscale:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
@@ -131,7 +131,7 @@ spec:
         type: persistentVolumeClaim
         existingClaim: headscale
         advancedMounts:
-          app:
+          headscale:
             config:
               - path: /etc/headscale
                 subPath: config
