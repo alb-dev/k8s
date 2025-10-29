@@ -53,7 +53,7 @@ spec:
         hosts:
           - host: "headscale-ui.onji.space"
             paths:
-              - path: /admin
+              - path: /
                 service:
                   identifier: app
                   port: http
