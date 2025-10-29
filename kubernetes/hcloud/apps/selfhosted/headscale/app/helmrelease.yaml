@@ -135,3 +135,9 @@ spec:
               - path: /var/lib/headscale
                 subPath: data
                 readOnly: false
+      tmp:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /var/run/headscale
+            subPath: run
