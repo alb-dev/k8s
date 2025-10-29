@@ -1,0 +1,142 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: headscale
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: headscale
+  interval: 30m
+
+  values:
+    controllers:
+      freshrss:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+            runAsGroup: 1000
+            runAsUser: 1000
+        containers:
+          app:
+            image:
+              repository: ghcr.io/juanfont/headscale
+              tag: v0.27.0
+            envFrom:
+                - secretRef:
+                    name: headscale-secret
+            probes:
+              liveness:
+                enabled: true
+                type: HTTP
+                path: /health
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+
+            resources:
+              requests:
+                cpu: 12m
+                memory: 128M
+              limits:
+                memory: 512M
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+          ui:
+            image:
+              repository: ghcr.io/gurucomputing/headscale-ui
+              tag: 2025.08.23
+
+            resources:
+              requests:
+                cpu: 12m
+                memory: 128M
+              limits:
+                memory: 512M
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop:
+                  - ALL
+    service:
+      app:
+        ports:
+          http:
+            port: 8080
+      ui:
+        ports:
+          http:
+            port: 8080
+            
+    ingress:
+      app:
+        className: traefik
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          cert-manager.io/private-key-rotation-policy: Always
+          cert-manager.io/private-key-algorithm: ECDSA
+          cert-manager.io/private-key-size: "384"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
+          kubernetes.io/ingress.class: traefik
+        hosts:
+          - host: "headscale.onji.space"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - "headscale.onji.space"
+            secretName: headscale-tls
+      ui:
+        className: traefik
+        annotations:
+          cert-manager.io/private-key-rotation-policy: Always
+          cert-manager.io/private-key-algorithm: ECDSA
+          cert-manager.io/private-key-size: "384"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
+          kubernetes.io/ingress.class: traefik
+        hosts:
+          - host: "headscale.onji.space"
+            paths:
+              - path: /admin
+                service:
+                  identifier: ui
+                  port: http
+        tls:
+          - hosts:
+              - "headscale.onji.space"
+            secretName: headscale-tls
+
+    persistence:
+      data:
+        enabled: true
+        type: persistentVolumeClaim
+        existingClaim: headscale
+        advancedMounts:
+          headscale:
+            config:
+              - path: /etc/headscale
+                subPath: config
+                readOnly: false
+            data:
+              - path: /var/lib/headscale
+                subPath: data
+                readOnly: false
