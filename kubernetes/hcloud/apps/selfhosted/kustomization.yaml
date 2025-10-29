@@ -11,4 +11,5 @@ resources:
   - ./namespace.yaml
   - ./opencloud/ks.yaml
   - ./it-tools/ks.yaml
+  - ./headscale/ks.yaml
   - ./freshrss/ks.yaml
