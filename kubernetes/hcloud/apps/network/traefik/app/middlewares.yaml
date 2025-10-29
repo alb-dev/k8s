@@ -72,14 +72,31 @@ spec:
     contentTypeNosniff: true
     browserXssFilter: true
     customResponseHeaders:
-      #permissionsPolicy: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
       X-Frame-Options: "SAMEORIGIN"
       X-Robots-Tag: "noindex, noarchive, nosnippet, nofollow"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
       X-Powered-By: ""
       server: ""
-      #City: X-GEO-City
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: headscale-cors
+  namespace: network
+spec:
+  headers:
+    accessControlAllowOriginList:
+      - https://headscale-ui.onji.space
+    accessControlAllowMethods:
+      - GET
+      - POST
+      - OPTIONS
+      - DELETE
+    accessControlAllowHeaders:
+      - "*"
+    accessControlAllowCredentials: false
+    addVaryHeader: true
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
