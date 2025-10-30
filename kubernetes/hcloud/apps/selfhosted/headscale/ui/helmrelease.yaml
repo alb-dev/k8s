@@ -2,11 +2,11 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: headscale-ui
+  name: headplane
 spec:
   chartRef:
     kind: OCIRepository
-    name: headscale-ui
+    name: headplane
   interval: 30m
 
   values:
@@ -17,8 +17,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/gurucomputing/headscale-ui
-              tag: 2025.08.23
+              repository: ghcr.io/tale/headplane
+              tag: v0.6.1
 
             resources:
               requests:
@@ -26,7 +26,17 @@ spec:
                 memory: 128M
               limits:
                 memory: 512M
-
+            probes:
+              liveness: &probe
+                enabled: true
+                type: HTTP
+                path: /admin/healthz
+              readiness: *probe
+              startup:
+                <<: *probe
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
@@ -37,7 +47,7 @@ spec:
       app:
         ports:
           http:
-            port: 8080
+            port: 3000
             
     ingress:
       app:
@@ -50,7 +60,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           kubernetes.io/ingress.class: traefik
         hosts:
-          - host: "headscale-ui.onji.space"
+          - host: "headplane.onji.space"
             paths:
               - path: /
                 service:
@@ -58,5 +68,27 @@ spec:
                   port: http
         tls:
           - hosts:
-              - "headscale-ui.onji.space"
-            secretName: headscale-ui-tls
+              - "headplane.onji.space"
+            secretName: headplane-tls
+
+    persistence:
+      config:
+        enabled: true
+        type: secret
+        name: headplane-config
+        globalMounts:
+          - path: /etc/headplane
+      data:
+        enabled: true
+        storageClass: openebs-hostpath
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        retain: true
+        globalMounts:
+          - path: /var/lib/headplane
+      tmp:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
