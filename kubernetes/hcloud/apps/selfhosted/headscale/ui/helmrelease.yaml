@@ -8,7 +8,6 @@ spec:
     kind: OCIRepository
     name: headplane
   interval: 30m
-
   values:
     controllers:
       headscale-ui:
