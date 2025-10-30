@@ -87,7 +87,7 @@ metadata:
 spec:
   headers:
     accessControlAllowOriginList:
-      - https://headscale-ui.onji.space
+      - https://headplane.onji.space
     accessControlAllowMethods:
       - GET
       - POST
