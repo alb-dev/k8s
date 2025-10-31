@@ -81,7 +81,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: headscale-config
+        existingClaim: headscale-data
         globalMounts:
           - path: /var/lib/headscale
       config:
