@@ -79,16 +79,16 @@ spec:
             secretName: headscale-tls
 
     persistence:
-      data:
-        enabled: true
-        existingClaim: headscale-data
-        globalMounts:
-          - path: /var/lib/headscale
       config:
         enabled: true
-        existingClaim: headscale-config
+        name: headscale-config
         globalMounts:
           - path: /etc/headscale
+      data:
+        enabled: true
+        name: headscale-data
+        globalMounts:
+          - path: /var/lib/headscale
       tmp:
         enabled: true
         type: emptyDir
