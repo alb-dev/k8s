@@ -79,18 +79,13 @@ spec:
             secretName: headscale-tls
 
     persistence:
-      config:
-        enabled: true
-        name: headscale-config
-        storageClass: openebs-hostpath
+      data:
+        existingClaim: headscale-local
         globalMounts:
           - path: /etc/headscale
-      data:
-        enabled: true
-        name: headscale-data
-        storageClass: openebs-hostpath
-        globalMounts:
+            subPath: config
           - path: /var/lib/headscale
+            subPath: data
       tmp:
         enabled: true
         type: emptyDir
