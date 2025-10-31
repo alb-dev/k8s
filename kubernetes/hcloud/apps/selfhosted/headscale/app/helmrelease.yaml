@@ -82,11 +82,13 @@ spec:
       config:
         enabled: true
         name: headscale-config
+        storageClass: openebs-hostpath
         globalMounts:
           - path: /etc/headscale
       data:
         enabled: true
         name: headscale-data
+        storageClass: openebs-hostpath
         globalMounts:
           - path: /var/lib/headscale
       tmp:
