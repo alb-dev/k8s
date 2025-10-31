@@ -81,18 +81,14 @@ spec:
     persistence:
       data:
         enabled: true
-        type: persistentVolumeClaim
-        existingClaim: headscale
-        advancedMounts:
-          headscale:
-            config:
-              - path: /etc/headscale
-                subPath: config
-                readOnly: false
-            data:
-              - path: /var/lib/headscale
-                subPath: data
-                readOnly: false
+        existingClaim: headscale-config
+        globalMounts:
+          - path: /var/lib/headscale
+      config:
+        enabled: true
+        existingClaim: headscale-config
+        globalMounts:
+          - path: /etc/headscale
       tmp:
         enabled: true
         type: emptyDir
