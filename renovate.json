@@ -42,13 +42,23 @@
   "packageRules": [
     {
       "description": "add cluster name to commit message",
-      "matchFileNames": ["clusters/hcloud/**"],
-      "addLabels": ["cluster/hcloud"]
+      "matchFileNames": ["kubernetes/hcloud/**"],
+      "addLabels": ["kubernetes/hcloud"]
     },
     {
       "description": "add cluster name to commit message",
-      "matchFileNames": ["clusters/home/**"],
-      "addLabels": ["cluster/home"]
+      "matchFileNames": ["bootstrap/hcloud/**"],
+      "addLabels": ["bootstrap/hcloud"]
+    },
+    {
+      "description": "add cluster name to commit message",
+      "matchFileNames": ["bootstrap/home/**"],
+      "addLabels": ["bootstrap/home"]
+    },
+    {
+      "description": "add cluster name to commit message",
+      "matchFileNames": ["kubernetes/home/**"],
+      "addLabels": ["kubernetes/home"]
     }
   ]
 }
