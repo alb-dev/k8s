@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: code.onji.space/lab/symphonia-linktree
-              tag: 2025.11.2
+              tag: 2025.11.4
             env:
               TZ: Europe/Berlin
             probes:
