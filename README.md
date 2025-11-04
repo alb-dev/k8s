@@ -5,11 +5,9 @@
 _... managed by fluxcd, Renovate, and Forgejo Actions_ 🤖
 
 [![Discord](https://img.shields.io/discord/673534664354430999?style=for-the-badge&label&logo=discord&logoColor=white&color=blue)](https://discord.gg/k8s-at-home)
-[![Renovate](https://img.shields.io/badge/powered_by-Renovate-blue?style=for-the-badge&logo=renovate)](https://www.mend.io/renovate/)
-
 ---
 
-👋 Welcome to my repository. This is a mono repository for my home-, cloud infrastructure and Kubernetes cluster. I try to adhere to Infrastructure as Code (IaC) and GitOps practices using the tools like [Ansible](https://www.ansible.com/), [Opentofu](https://opentofu.org/), [Kubernetes](https://kubernetes.io/), [Flux](https://github.com/fluxcd/flux2), [Renovate](https://docs.renovatebot.com/) and [Forgejo Actions](https://forgejo.org/docs/latest/user/actions/reference/).
+👋 Welcome to my repository. This is a mono repository for my home-, cloud infrastructure and Kubernetes cluster. I try to adhere to Infrastructure as Code (IaC) and GitOps practices using the tools like [Kubernetes](https://kubernetes.io/), [Flux](https://github.com/fluxcd/flux2), [Renovate](https://docs.renovatebot.com/) and [Forgejo Actions](https://forgejo.org/docs/latest/user/actions/reference/).
 
 --- 
 
