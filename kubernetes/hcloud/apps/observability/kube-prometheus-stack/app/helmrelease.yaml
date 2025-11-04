@@ -31,8 +31,9 @@ spec:
               - *host
             secretName: "alertmanager-tls"
       alertmanagerSpec:
-        alertmanagerConfiguration:
-          name: alertmanager
+        ## Todo no config right now
+        #alertmanagerConfiguration:
+        #  name: alertmanager
         externalUrl: https://alertmanager.onji.space
         storage:
           volumeClaimTemplate:
