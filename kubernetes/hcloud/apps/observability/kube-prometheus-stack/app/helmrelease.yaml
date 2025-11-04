@@ -24,11 +24,11 @@ spec:
           kubernetes.io/ingress.class: traefik
         pathType: Prefix
         hosts:
-          - &host "altermanager.onji.space"
+          - &host "alertmanager.onji.space"
         tls:
           - hosts:
               - *host
-            secretName: "altermanager-tls"
+            secretName: "alertmanager-tls"
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager
