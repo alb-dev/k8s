@@ -12,32 +12,21 @@
       "/kubernetes/.+\\.ya?ml$/",
       "/bootstrap/.+\\.ya?ml$/",
       "/talos/.+\\.ya?ml$/"
-    ],
-    "pinDigests": false
+    ]
   },
   "helm-values": {
     "managerFilePatterns": [
       "/kubernetes/.+\\.ya?ml$/",
       "/bootstrap/.+\\.ya?ml$/",
       "/talos/.+\\.ya?ml$/"
-    ],
-    "pinDigests": false
+    ]
   },
   "kubernetes": {
     "managerFilePatterns": [
       "/kubernetes/.+\\.ya?ml$/",
       "/bootstrap/.+\\.ya?ml$/",
       "/talos/.+\\.ya?ml$/"
-    ],
-    "pinDigests": false
-  },
-  "kustomize": {
-    "managerFilePatterns": [
-      "/kubernetes/.+\\.ya?ml$/",
-      "/bootstrap/.+\\.ya?ml$/",
-      "/talos/.+\\.ya?ml$/"
-    ],
-    "pinDigests": true
+    ]
   },
   "packageRules": [
     {
