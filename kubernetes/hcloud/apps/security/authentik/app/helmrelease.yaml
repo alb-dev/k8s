@@ -42,7 +42,7 @@ spec:
       replicas: 1
       metrics:
         serviceMonitor:
-          enabled: false
+          enabled: true
       resources:
         requests:
           cpu: 100m
@@ -76,7 +76,7 @@ spec:
           memory: 1Gi
     prometheus:
       rules:
-        enabled: false
+        enabled: true
 
     postgresql:
       enabled: false
