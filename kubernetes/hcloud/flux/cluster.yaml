@@ -8,7 +8,7 @@ spec:
   decryption:
     provider: sops
   deletionPolicy: WaitForTermination
-  interval: 10m
+  interval: 1h
   path: ./kubernetes/hcloud/apps
   prune: true
   sourceRef:
