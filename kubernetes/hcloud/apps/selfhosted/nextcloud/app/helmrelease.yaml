@@ -40,7 +40,7 @@ spec:
       host: cloud.onji.space
       extraEnv:
         - name: REDIS_HOST
-          value: dragonfly.database.svc.cluster.local
+          value: dragonfly.databases.svc.cluster.local
         - name: REDIS_DATABASE
           value: "2"
       existingSecret:
