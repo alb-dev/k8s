@@ -2,13 +2,13 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: nextcloud
+  name: nextcloud-next
   namespace: databases
 spec:
   cluster:
     name: onji-pg-cluster
-  name: nextcloud
-  owner: nextcloud
+  name: nextcloud-next
+  owner: nextcloud-next
   extensions:
     - name: pg_trgm
     - name: citext
