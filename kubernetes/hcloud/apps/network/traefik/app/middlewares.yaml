@@ -73,7 +73,7 @@ spec:
     browserXssFilter: true
     customResponseHeaders:
       X-Frame-Options: "SAMEORIGIN"
-      X-Robots-Tag: "noindex, noarchive, nosnippet, nofollow"
+      X-Robots-Tag: "noindex,nofollow"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
       X-Powered-By: ""
