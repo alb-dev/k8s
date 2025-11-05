@@ -33,9 +33,9 @@ spec:
         traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
         kubernetes.io/ingress.class: traefik
       tls:
-        - hosts:
-            - "cloud.onji.space"
-          secretName: cloud-onji-space
+        - secretName: cloud-onji-tls
+          hosts:
+            - cloud.onji.space
     nextcloud:
       host: cloud.onji.space
       securityContext:
