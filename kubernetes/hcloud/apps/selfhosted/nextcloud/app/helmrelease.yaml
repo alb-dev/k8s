@@ -145,7 +145,7 @@ spec:
         databaseKey: pg-db
         hostKey: pg-host
         passwordKey: pg-password
-        usernameKey: pg-user
+        usernameKey: pg-username
     redis:
       enabled: false
     metrics:
