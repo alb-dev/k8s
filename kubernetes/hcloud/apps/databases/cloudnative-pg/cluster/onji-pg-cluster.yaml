@@ -28,7 +28,7 @@ spec:
         createdb: false
         passwordSecret:
           name: authentik-db-owner
-      - name: nextcloud
+      - name: nextcloud-onji
         login: true
         superuser: false
         createdb: false
