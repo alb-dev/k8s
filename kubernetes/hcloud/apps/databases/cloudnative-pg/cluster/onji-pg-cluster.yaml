@@ -33,4 +33,4 @@ spec:
         superuser: false
         createdb: false
         passwordSecret:
-          name: nextcloud-db-owner
+          name: extcloud-onji-db-owner
