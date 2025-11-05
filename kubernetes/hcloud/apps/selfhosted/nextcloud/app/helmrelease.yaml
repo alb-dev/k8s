@@ -53,7 +53,7 @@ spec:
         usernameKey: nc-admin
         passwordKey: nc-admin-pw
       mail:
-        enabled: true
+        enabled: false
         fromAddress: no-reply
         domain: onji.space
         smtp:
