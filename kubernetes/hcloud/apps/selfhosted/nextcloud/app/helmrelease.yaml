@@ -24,7 +24,7 @@ spec:
       enabled: true
     ingress:
       enabled: true
-      ClassName: traefik
+      className: traefik
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
         cert-manager.io/private-key-rotation-policy: Always
