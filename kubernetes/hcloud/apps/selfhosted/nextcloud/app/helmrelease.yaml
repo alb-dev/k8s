@@ -38,6 +38,11 @@ spec:
             - cloud.onji.space
     nextcloud:
       host: cloud.onji.space
+      securityContext:
+        runAsUser: 82
+        runAsGroup: 82
+        runAsNonRoot: true
+        readOnlyRootFilesystem: false
       extraEnv:
         - name: REDIS_HOST
           value: dragonfly.database.svc.cluster.local
@@ -121,6 +126,8 @@ spec:
         tag: "1.29.3"
       config:
         default: true
+      securityContext:
+        runAsGroup: 82
       resources:
         requests:
           cpu: 50m
@@ -149,5 +156,8 @@ spec:
         enabled: false
     cronjob:
       enabled: true
+      sidecar:
+        securityContext:
+          runAsGroup: 82
     securityContext:
       fsGroupChangePolicy: OnRootMismatch
