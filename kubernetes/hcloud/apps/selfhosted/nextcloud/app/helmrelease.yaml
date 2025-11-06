@@ -101,10 +101,10 @@ spec:
 
       collabora:
         aliasgroups:
-          - host: "https://files.onji.cloud:443"
+          - host: "https://cloud.onji.space:443"
         extra_params: --o:ssl.enable=false
 
-      server_name: collabora.onji.cloud
+      server_name: collabora.onji.space
 
       existingSecret:
         enabled: true
@@ -125,13 +125,13 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
           kubernetes.io/ingress.class: traefik
         hosts:
-          - host: collabora.onji.cloud
+          - host: collabora.onji.space
             paths:
               - path: /
                 pathType: ImplementationSpecific
         tls:
           - hosts:
-              - collabora.onji.cloud
+              - collabora.onji.space
             secretName: collabora-tls
 
     cronjob:
