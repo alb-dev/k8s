@@ -8,7 +8,6 @@ components:
 
 resources:
   - ./namespace.yaml
-  - ./opencloud/ks.yaml
   - ./nextcloud/ks.yaml
   - ./it-tools/ks.yaml
   - ./headscale/ks.yaml
