@@ -59,18 +59,19 @@ spec:
         redis.config.php: false
       configs:
         local.config.php: |-
-          <?php
-          $CONFIG = array(
-            'trusted_proxies' => array(
-              '127.0.0.1',
-              '10.0.0.0/8',
-            ),
-            'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
-            'default_phone_region' => 'DE',
-            'auth.bruteforce.protection.enabled' => true,
-            'maintenance_window_start' => 1,
-            'simpleSignUpLink.shown' => false,
-          );
+            <?php
+            $CONFIG = array(
+              'trusted_proxies' => array(
+                '127.0.0.1',
+                '10.0.0.0/8',
+              ),
+              'forwarded_for_headers' => array('HTTP_X_FORWARDED_FOR'),
+              'default_phone_region' => 'DE',
+              'auth.bruteforce.protection.enabled' => true,
+              'maintenance_window_start' => 1,
+              'simpleSignUpLink.shown' => false,
+              'overwrite.cli.url' => 'https://cloud.onji.space',
+            );
       phpConfigs:
         uploadLimit.ini: |
           upload_max_filesize = 16G
