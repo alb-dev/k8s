@@ -13,3 +13,7 @@ spec:
   commonName: "*.onji.space"
   dnsNames:
     - "*.onji.space"
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    rotationPolicy: Always
