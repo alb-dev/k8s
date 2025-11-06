@@ -10,6 +10,6 @@ spec:
   issuerRef:
     name: letsencrypt-staging
     kind: ClusterIssuer
-  commonName: "*.oni.space"
+  commonName: "*.onji.space"
   dnsNames:
-    - "*.oni.space"
+    - "*.onji.space"
