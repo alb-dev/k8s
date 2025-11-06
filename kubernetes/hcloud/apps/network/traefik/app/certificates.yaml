@@ -12,6 +12,7 @@ spec:
     kind: ClusterIssuer
   commonName: "*.onji.space"
   dnsNames:
+    - onji.space
     - "*.onji.space"
   privateKey:
     algorithm: ECDSA
