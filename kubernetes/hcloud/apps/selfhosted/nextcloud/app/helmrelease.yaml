@@ -102,7 +102,7 @@ spec:
       collabora:
         aliasgroups:
           - host: "https://cloud.onji.space:443"
-        extra_params: --o:ssl.enable=false
+        extra_params: --o:ssl.enable=false --o:ssl.termination=true
 
       server_name: collabora.onji.space
 
