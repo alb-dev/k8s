@@ -8,3 +8,4 @@ resources:
   - ./cloudnative-pg.yaml
   - ./authentik-charts.yaml
   - ./nextcloud.yaml
+  - ./cert-manager-webhook-netcup.yaml

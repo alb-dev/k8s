@@ -25,6 +25,10 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
-    - http01:
-        ingress:
-          class: traefik
+    - dns01:
+        webhook:
+            groupName: com.netcup.webhook
+            solverName: netcup
+            config:
+                secretRef: netcup-secret
+                secretNamespace: cert-manager
