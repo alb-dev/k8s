@@ -2,9 +2,12 @@
 
 # My Home Operations Repository <!-- omit in toc -->
 
-_... managed by fluxcd, Renova 
+_... managed by FluxCD, Renovate, and Forgejo Actions_ 🤖
 
 <div align="center">
+
+
+**_cluster info:_**
 
 [![Discord](https://img.shields.io/discord/673534664354430999?style=for-the-badge&label&logo=discord&logoColor=white&color=blue)](https://discord.gg/home-operations)&nbsp;&nbsp;
 [![Talos](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.onji.space%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&color=blue&label=%20)](https://talos.dev)&nbsp;&nbsp;
@@ -14,6 +17,9 @@ _... managed by fluxcd, Renova
 </div>
 
 <div align="center">
+
+
+**_cluster metrics:_**
 
 [![Age-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.onji.space%2Fcluster_age_days&style=flat-square&label=Age)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![Uptime-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.onji.space%2Fcluster_uptime_days&style=flat-square&label=Uptime)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
