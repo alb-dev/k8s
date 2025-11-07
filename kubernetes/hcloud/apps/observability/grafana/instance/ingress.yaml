@@ -8,8 +8,8 @@ metadata:
     cert-manager.io/private-key-algorithm: "ECDSA"
     cert-manager.io/private-key-size: "384"
     traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
-    
 spec:
+  ingressClassName: traefik
   rules:
     - host: grafana.onji.space
       http:
