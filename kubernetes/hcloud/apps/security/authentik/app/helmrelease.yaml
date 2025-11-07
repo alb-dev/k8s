@@ -58,7 +58,6 @@ spec:
           cert-manager.io/private-key-algorithm: "ECDSA"
           cert-manager.io/private-key-size: "384"
           traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
-          kubernetes.io/ingress.class: traefik
         hosts:
           - auth.onji.space
         tls:
