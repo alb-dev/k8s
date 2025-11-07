@@ -6,9 +6,9 @@ metadata:
   name: onji-space
   namespace: cert-manager
 spec:
-  secretName: onji-space-staging-tls
+  secretName: onji-space-production-tls
   issuerRef:
-    name: letsencrypt-staging
+    name: letsencrypt-production
     kind: ClusterIssuer
   commonName: "*.onji.space"
   dnsNames:
