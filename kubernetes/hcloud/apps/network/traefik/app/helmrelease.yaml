@@ -78,7 +78,7 @@ spec:
     metrics:
       prometheus:
         serviceMonitor:
-          enabled: true
+          enabled: false
     tlsOptions:
       default:
         minVersion: VersionTLS13
