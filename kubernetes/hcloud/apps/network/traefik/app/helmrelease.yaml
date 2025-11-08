@@ -78,7 +78,7 @@ spec:
       metrics:
         port: 8082
         expose:
-          default: false
+          default: true
     tlsOptions:
       default:
         minVersion: VersionTLS13

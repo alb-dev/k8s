@@ -7,3 +7,4 @@ resources:
   - ./helmrelease.yaml
   - ./middlewares.yaml
   - ./certificates.yaml
+  - ./grafanadashboard.yaml
