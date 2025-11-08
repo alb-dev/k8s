@@ -75,10 +75,10 @@ spec:
             readTimeout: 3600s
             idleTimeout: 3600s
             writeTimeout: 3600s
-    metrics:
-      prometheus:
-        serviceMonitor:
-          enabled: false
+      metrics:
+        port: 8082
+        expose:
+          default: false
     tlsOptions:
       default:
         minVersion: VersionTLS13
