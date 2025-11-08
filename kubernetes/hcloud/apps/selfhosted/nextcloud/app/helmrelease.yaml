@@ -49,12 +49,16 @@ spec:
         usernameKey: nc-admin
         passwordKey: nc-admin-pw
       mail:
-        enabled: false
+        enabled: true
         fromAddress: no-reply
-        domain: onji.space
+        domain: ${SECRET_DOMAIN}
         smtp:
-          port: 25
-          secure: ''
+          host: smtp-relay.network.svc.cluster.local
+          secure:
+          port: 2525
+          authtype:
+          name:
+          password:
       defaultConfigs:
         redis.config.php: false
       configs:
