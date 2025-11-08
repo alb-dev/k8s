@@ -51,14 +51,10 @@ spec:
       mail:
         enabled: true
         fromAddress: no-reply
-        domain: ${SECRET_DOMAIN}
+        domain: "${SECRET_DOMAIN}"
         smtp:
-          host: smtp-relay.network.svc.cluster.local
-          secure:
           port: 2525
-          authtype:
-          name:
-          password:
+          secure: ''
       defaultConfigs:
         redis.config.php: false
       configs:
