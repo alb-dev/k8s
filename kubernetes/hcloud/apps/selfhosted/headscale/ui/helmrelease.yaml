@@ -57,6 +57,7 @@ spec:
           cert-manager.io/private-key-algorithm: ECDSA
           cert-manager.io/private-key-size: "384"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "network-authentik@kubernetescrd"
         hosts:
           - host: "headplane.onji.space"
             paths:
