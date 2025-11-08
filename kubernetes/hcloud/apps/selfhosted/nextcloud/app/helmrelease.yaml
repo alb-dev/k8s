@@ -50,7 +50,7 @@ spec:
         passwordKey: nc-admin-pw
       mail:
         enabled: true
-        fromAddress: postermaster
+        fromAddress: postmaster
         domain: "${SECRET_DOMAIN}"
         smtp:
           port: 2525
