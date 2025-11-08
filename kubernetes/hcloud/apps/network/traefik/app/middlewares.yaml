@@ -134,3 +134,17 @@ spec:
       - name: network-traefik-middleware-secure-headers@kubernetescrd
       - name: network-traefik-middleware-compress@kubernetescrd
       - name: network-traefik-middleware-redirect@kubernetescrd
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-chain-auth
+  namespace: network
+spec:
+  chain:
+    middlewares:
+      - name: network-traefik-middleware-rate-limit@kubernetescrd
+      - name: network-traefik-middleware-secure-headers@kubernetescrd
+      - name: network-traefik-middleware-compress@kubernetescrd
+      - name: network-traefik-middleware-redirect@kubernetescrd
+      - name: network-traefik-middleware-authentik@kubernetescrd
