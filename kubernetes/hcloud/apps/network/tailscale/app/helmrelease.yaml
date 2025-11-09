@@ -4,19 +4,10 @@ kind: HelmRelease
 metadata:
   name: &app tailscale
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
-    name: app-template
-    namespace: flux-system
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
+    name: it-tools
+  interval: 30m
   values:
     controllers:
       tailscale:
