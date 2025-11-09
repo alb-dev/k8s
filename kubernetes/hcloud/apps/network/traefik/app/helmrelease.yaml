@@ -70,6 +70,12 @@ spec:
         tls:
           enabled: true
           options: "default"
+          namespacePolicy:
+            from: All
+          protocol: HTTPS
+          certificateRefs:
+            - name: onji-space-production-dns-tls
+          mode: Terminate
         transport:
           respondingTimeouts:
             readTimeout: 3600s
