@@ -5,7 +5,7 @@ metadata:
   name: tailsacle
 spec:
   interval: 1h
-  path: ./kubernetes/hcloud/apps/network/tailsacle/app
+  path: ./kubernetes/hcloud/apps/network/tailscale/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
