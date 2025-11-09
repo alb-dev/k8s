@@ -4,7 +4,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: onji-space-dns
-  namespace: cert-manager
+  namespace: network
 spec:
   secretName: onji-space-production-dns-tls
   issuerRef:
