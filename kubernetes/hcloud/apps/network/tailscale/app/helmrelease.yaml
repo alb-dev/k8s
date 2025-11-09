@@ -33,9 +33,9 @@ spec:
                 --login-server=https://headscale.onji.space
               TS_STATE_DIR: /tmp
               TS_USERSPACE: true
-            #envFrom:
-            #  - secretRef:
-            #      name: tailscale-secret
+            envFrom:
+              - secretRef:
+                  name: tailscale-secret
             probes:
               liveness: &probes
                 enabled: true
