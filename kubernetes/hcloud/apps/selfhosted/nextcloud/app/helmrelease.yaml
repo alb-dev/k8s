@@ -26,14 +26,9 @@ spec:
       enabled: true
       className: traefik
       annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-production
-        cert-manager.io/private-key-rotation-policy: Always
-        cert-manager.io/private-key-algorithm: "ECDSA"
-        cert-manager.io/private-key-size: "384"
         traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
-        
       tls:
-        - secretName: cloud-onji-tls
+        - secretName: onji-space-production-dns-tls
           hosts:
             - cloud.onji.space
     nextcloud:
@@ -118,10 +113,6 @@ spec:
         enabled: true
         className: traefik
         annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
-          cert-manager.io/private-key-rotation-policy: Always
-          cert-manager.io/private-key-algorithm: ECDSA
-          cert-manager.io/private-key-size: "384"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
@@ -132,7 +123,7 @@ spec:
         tls:
           - hosts:
               - collabora.onji.space
-            secretName: collabora-tls
+            secretName: onji-space-production-dns-tls
 
     cronjob:
       enabled: true

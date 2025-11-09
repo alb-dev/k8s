@@ -47,10 +47,6 @@ spec:
       app:
         className: traefik
         annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
-          cert-manager.io/private-key-rotation-policy: Always
-          cert-manager.io/private-key-algorithm: ECDSA
-          cert-manager.io/private-key-size: "384"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: "symphonia.onji.space"
@@ -62,4 +58,4 @@ spec:
         tls:
           - hosts:
               - "symphonia.onji.space"
-            secretName: symphonia-linktree-tls
+            secretName: onji-space-production-dns-tls
