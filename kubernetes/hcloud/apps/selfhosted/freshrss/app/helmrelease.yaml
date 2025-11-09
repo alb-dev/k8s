@@ -59,6 +59,9 @@ spec:
                 service:
                   identifier: app
                   port: http
+        tls:
+          - hosts:
+              - "rss.onji.space"
 
     persistence:
       data:
