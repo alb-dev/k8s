@@ -23,8 +23,6 @@ kind: Kustomization
 metadata:
   name: certificates
 spec:
-  dependsOn:
-    - name: cert-manager
   interval: 1h
   path: ./kubernetes/hcloud/apps/network/traefik/certifcates
   postBuild:
