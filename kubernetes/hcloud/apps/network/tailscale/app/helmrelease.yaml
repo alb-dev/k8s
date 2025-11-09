@@ -6,7 +6,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: it-tools
+    name: tailscale
   interval: 30m
   values:
     controllers:
