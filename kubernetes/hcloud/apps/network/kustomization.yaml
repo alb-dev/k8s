@@ -11,3 +11,4 @@ resources:
   - ./namespace.yaml
   - ./traefik/ks.yaml
   - ./smtp-relay/ks.yaml
+  - ./tailscale/ks.yaml
