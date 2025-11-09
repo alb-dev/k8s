@@ -21,12 +21,12 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: wildcard
+  name: certificates
 spec:
   dependsOn:
     - name: cert-manager
   interval: 1h
-  path: ./kubernetes/hcloud/apps/network/traefik/wildcard
+  path: ./kubernetes/hcloud/apps/network/traefik/certifcates
   postBuild:
     substituteFrom:
       - name: cluster-secrets
