@@ -24,7 +24,7 @@ metadata:
   name: certificates
 spec:
   interval: 1h
-  path: ./kubernetes/hcloud/apps/network/traefik/certifcates
+  path: ./kubernetes/hcloud/apps/network/traefik/certificates
   postBuild:
     substituteFrom:
       - name: cluster-secrets
