@@ -61,7 +61,7 @@ spec:
         hosts:
           - host: "headplane.onji.space"
             paths:
-              - path: /admin/login
+              - path: /
                 service:
                   identifier: app
                   port: http
