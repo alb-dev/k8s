@@ -69,11 +69,6 @@ spec:
           default: false
       web:
         port: 80
-        redirections:
-          entrypoint:
-            to: websecure
-            scheme: https
-            permanent: true
       websecure:
         port: 443
         tls:
