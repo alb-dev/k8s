@@ -75,7 +75,7 @@ spec:
         tls:
           - hosts:
               - "headscale.onji.space"
-            secretName: headscale.onji.space-tls
+            secretName: headscale-tls
 
     persistence:
       data:
