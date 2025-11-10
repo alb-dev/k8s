@@ -59,7 +59,7 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - "symphonia.onji.space"
-            secretName: onji-space-production-dns-tls
+#        tls:
+#          - hosts:
+#              - "symphonia.onji.space"
+#            secretName: onji-space-production-dns-tls
