@@ -68,10 +68,6 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - "headscale.onji.space"
-            secretName: onji-space-production-dns-tls
 
     persistence:
       data:
