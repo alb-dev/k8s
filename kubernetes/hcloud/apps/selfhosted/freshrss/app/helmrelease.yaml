@@ -62,7 +62,7 @@ spec:
         tls:
           - hosts:
               - "rss.onji.space"
-
+            secretName: onji-space-production-dns-tls
     persistence:
       data:
         enabled: true

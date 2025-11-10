@@ -68,7 +68,7 @@ spec:
         tls:
           - hosts:
               - "headplane.onji.space"
-            secretName: headplane-tls
+            secretName: onji-space-production-dns-tls
 
     persistence:
       config:

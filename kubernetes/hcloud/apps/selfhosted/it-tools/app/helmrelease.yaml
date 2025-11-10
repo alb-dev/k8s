@@ -75,4 +75,4 @@ spec:
         tls:
           - hosts:
               - "tools.onji.space"
-            secretName: tools-onji-space
+            secretName: onji-space-production-dns-tls

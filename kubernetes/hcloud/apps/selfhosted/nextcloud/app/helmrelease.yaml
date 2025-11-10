@@ -33,7 +33,7 @@ spec:
         traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
         
       tls:
-        - secretName: cloud-onji-tls
+        - secretName: onji-space-production-dns-tls
           hosts:
             - cloud.onji.space
     nextcloud:
@@ -132,7 +132,7 @@ spec:
         tls:
           - hosts:
               - collabora.onji.space
-            secretName: collabora-tls
+            secretName: onji-space-production-dns-tls
 
     cronjob:
       enabled: true
