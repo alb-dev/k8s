@@ -80,7 +80,7 @@ spec:
             idleTimeout: 3600s
             writeTimeout: 3600s
         http3:
-          enabled: true
+          enabled: false
       metrics:
         # -- When using hostNetwork, use another port to avoid conflict with node exporter:
         port: 8082
