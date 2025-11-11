@@ -13,3 +13,4 @@ resources:
   - ./headscale/ks.yaml
   - ./freshrss/ks.yaml
   - ./zola-sites/ks.yaml
+  - ./ntfy/ks.yaml
