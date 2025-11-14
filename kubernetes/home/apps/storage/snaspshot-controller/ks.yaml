@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: openebs
+  name: snapshot-controller
 spec:
   interval: 1h
   path: ./kubernetes/home/apps/storage/snapshot-controller/app
