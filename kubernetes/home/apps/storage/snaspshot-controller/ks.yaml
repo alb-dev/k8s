@@ -5,7 +5,7 @@ metadata:
   name: openebs
 spec:
   interval: 1h
-  path: .//kubernetes/hcloud/apps/storage/snapshot-controller/app
+  path: ./kubernetes/home/apps/storage/snapshot-controller/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets

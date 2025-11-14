@@ -5,7 +5,7 @@ metadata:
   name: openebs
 spec:
   interval: 1h
-  path: ./kubernetes/home/apps/storage/openebs/app
+  path: ./kubernetes/home/apps/storage/volsync/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
