@@ -12,6 +12,10 @@ spec:
   dnsNames:
     - int.onji.space
     - "*.int.onji.space"
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -26,3 +30,7 @@ spec:
   dnsNames:
     - vpn.onji.space
     - "*.vpn.onji.space"
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
