@@ -37,7 +37,7 @@ cat $HOME/Library/Application\ Support/sops/age/keys.txt | kubectl -n flux-syste
 helmfile init
 
 # render all necessary crds
-helmfile -f 0-crds.yaml template -q | kubectl apply --server-side -f -
+helmfile -f 00-crds.yaml template -q | kubectl apply --server-side -f -
 
 # sync helm
 helmfile -f 1-apps.yaml sync
