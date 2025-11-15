@@ -10,5 +10,6 @@ components:
 resources:
   - ./namespace.yaml
   - ./metrics-server/ks.yaml
+  - ./cilium/ks.yaml
   - ./snapshot-controller/ks.yaml
   - ./reloader/ks.yaml
