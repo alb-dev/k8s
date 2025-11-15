@@ -11,15 +11,6 @@ releases:
     version: 1.18.4
     values:
       - templates/values.yaml.gotmpl
-    hooks:
-      # Wait for Cilium CRDs to be available
-      - command: bash
-        args:
-          - -c
-          - until kubectl get crd ciliumloadbalancerippools.cilium.io ciliumbgpadvertisements.cilium.io ciliumbgppeerconfigs.cilium.io ciliumbgpclusterconfigs.cilium.io &>/dev/null; do sleep 5; done
-        events:
-          - postsync
-        showlogs: true
 
   - name: cert-manager
     namespace: cert-manager
@@ -30,14 +21,6 @@ releases:
     set:
       - name: crds.enabled
         value: "true"
-    hooks:
-      - events: ["postsync"]
-        showlogs: true
-        command: kubectl
-        args:
-          - apply
-          - -f
-          - ../../../kubernetes/home/apps/cert-manager/cert-manager/app/cluster-issuers.yaml
 
   - name: flux-operator
     namespace: flux-system

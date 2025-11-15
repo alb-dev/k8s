@@ -11,7 +11,7 @@ spec:
   values:
     crds:
       enabled: true
-    dns01RecursiveNameservers: ${PRIVATE_DNS_IP}:53
+    dns01RecursiveNameservers: 1.1.1.1:53
     dns01RecursiveNameserversOnly: true
     prometheus:
       enabled: true
@@ -22,4 +22,4 @@ spec:
     podDnsPolicy: "None"
     podDnsConfig:
       nameservers:
-      - ${PRIVATE_DNS_IP}
+      - 1.1.1.1
