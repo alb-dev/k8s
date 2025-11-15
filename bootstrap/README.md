@@ -20,9 +20,6 @@ brew install helm helmfile kubectl fluxcd/tap/flux
 # Create Namespaces for flux and forgejo
 ```bash
 kubectl create namespace flux-system
-kubectl create ns forgejo
-sops --decrypt forgejo.secrets.sops.yaml | kubectl apply -f -
-kubectl -n forgejo apply -f forgejo.secrets.yaml 
 sops --decrypt kubernetes/flux/vars/cluster-secrets.sops.yaml | kubectl apply -f -
 kubectl apply -f kubernetes/flux/vars/cluster-settings.yaml
 ```
@@ -39,7 +36,18 @@ cat $HOME/Library/Application\ Support/sops/age/keys.txt | kubectl -n flux-syste
 # initiate helmfile
 helmfile init
 
-# sync before apply, to install crds
-helmfile sync
-helmfile apply
+# render all necessary crds
+helmfile -f 0-crds.yaml template -q | kubectl apply --server-side -f -
+
+# sync helm
+helmfile -f 1-apps.yaml sync
+```
+
+Troubleshooting
+```bash
+flux get all -A --status-selector ready=false --kubeconfig ~/.kube/home
+
+flux get helmreleases --all-namespaces --watch --kubeconfig ~/.kube/home
+
+flux logs --all-namespaces --follow --level=error
 ```

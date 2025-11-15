@@ -12,7 +12,7 @@ spec:
     crds:
       enabled: true
     extraArgs:
-    - --dns01-recursive-nameservers=185.12.64.2:53
+    - --dns01-recursive-nameservers=root-dns.netcup.net:53
     - --dns01-recursive-nameservers-only
     prometheus:
       enabled: true
@@ -23,5 +23,4 @@ spec:
     podDnsPolicy: "None"
     podDnsConfig:
       nameservers:
-      - "185.12.64.2"
-      - "185.12.64.1"
+      - "root-dns.netcup.net"
