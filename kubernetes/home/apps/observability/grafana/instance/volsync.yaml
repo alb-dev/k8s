@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: grafana-restic-config
+  namespace: observability
+type: Opaque
+stringData:
+  RESTIC_REPOSITORY: "s3:https://${S3_DOMAIN_EXTERNAL}/grafana"
+  RESTIC_PASSWORD: ${SECRET_VOLSYNC_RESTIC_PASSWORD}
+  AWS_ACCESS_KEY_ID: ${SECRET_VOLSYNC_S3_ACCESS_KEY}
+  AWS_SECRET_ACCESS_KEY: ${SECRET_VOLSYNC_S3_SECRET_KEY}
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: grafana
+  namespace: observability
+spec:
+  sourcePVC: grafana-config
+  trigger:
+    schedule: "0 9 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 10
+    repository: grafana-restic-config
+    cacheCapacity: 2Gi
+    volumeSnapshotClassName: csi-local-hostpath
+    storageClassName: local-hostpath
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    retain:
+      daily: 10
+      within: 3d

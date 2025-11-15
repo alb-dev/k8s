@@ -6,3 +6,4 @@ resources:
   - ./grafana.yaml
   - ./servicemonitor.yaml
   - ./httproute.yaml
+  - ./volsync.yaml

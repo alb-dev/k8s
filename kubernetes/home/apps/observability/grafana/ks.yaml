@@ -4,6 +4,10 @@ kind: Kustomization
 metadata:
   name: grafana
 spec:
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   interval: 1h
   path: ./kubernetes/home/apps/observability/grafana/app
   prune: true
@@ -23,6 +27,10 @@ spec:
     - name: grafana
     - name: democratic-csi
       namespace: storage
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   interval: 1h
   path: ./kubernetes/home/apps/observability/grafana/instance
   prune: true
