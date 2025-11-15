@@ -17,7 +17,7 @@ metadata:
   name: grafana
   namespace: observability
 spec:
-  sourcePVC: grafana-config
+  sourcePVC: grafana-pvc
   trigger:
     schedule: "0 9 * * *"
   restic:
