@@ -6,3 +6,4 @@ resources:
   - ./helmrelease.yaml
   - ./grafanadashboard.yaml
   - ./ocirepository.yaml
+  - ./observability.yaml
