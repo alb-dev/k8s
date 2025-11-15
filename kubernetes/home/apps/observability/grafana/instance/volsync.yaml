@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: grafana-restic-config
+  name: grafana-volsync
   namespace: observability
 type: Opaque
 stringData:
@@ -19,18 +19,22 @@ metadata:
 spec:
   sourcePVC: grafana-pvc
   trigger:
-    schedule: "0 9 * * *"
+    schedule: "0 * * * *"
   restic:
     copyMethod: Snapshot
-    pruneIntervalDays: 10
-    repository: grafana-restic-config
-    cacheCapacity: 2Gi
+    pruneIntervalDays: 7
+    repository: grafana-volsync
     volumeSnapshotClassName: csi-local-hostpath
+    cacheCapacity: 5Gi
+    cacheStorageClassName: local-hostpath
+    cacheAccessModes: ["ReadWriteOnce"]
     storageClassName: local-hostpath
+    accessModes: ["ReadWriteOnce"]
     moverSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 0
+      runAsGroup: 0
+      fsGroup: 0
     retain:
-      daily: 10
-      within: 3d
+      hourly: 24
+      daily: 7
+      weekly: 5
