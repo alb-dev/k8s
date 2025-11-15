@@ -5,4 +5,3 @@ resources:
   - ./grafanadatasource.yaml
   - ./grafana.yaml
   - ./servicemonitor.yaml
-  - ./ingress.yaml
