@@ -12,3 +12,17 @@ spec:
   dnsNames:
     - int.onji.space
     - "*.int.onji.space"
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: onji-vpn
+spec:
+  secretName: onji-vpn-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: vpn.onji.space
+  dnsNames:
+    - vpn.onji.space
+    - "*.vpn.onji.space"

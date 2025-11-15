@@ -5,7 +5,7 @@ metadata:
   name: grafana
 spec:
   interval: 1h
-  path: ./kubernetes/hcloud/apps/observability/grafana/app
+  path: ./kubernetes/home/apps/observability/grafana/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -21,10 +21,10 @@ metadata:
 spec:
   dependsOn:
     - name: grafana
-    - name: openebs
+    - name: democratic-csi
       namespace: storage
   interval: 1h
-  path: ./kubernetes/hcloud/apps/observability/grafana/instance
+  path: ./kubernetes/home/apps/observability/grafana/instance
   prune: true
   sourceRef:
     kind: GitRepository

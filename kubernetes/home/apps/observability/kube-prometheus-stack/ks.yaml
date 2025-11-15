@@ -5,7 +5,7 @@ metadata:
   name: kube-prometheus-stack
 spec:
   interval: 1h
-  path: ./kubernetes/hcloud/apps/observability/kube-prometheus-stack/app
+  path: ./kubernetes/home/apps/observability/kube-prometheus-stack/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
