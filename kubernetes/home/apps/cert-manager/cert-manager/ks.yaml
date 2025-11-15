@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   interval: 30m
-  path: "./kubernetes/hcloud/apps/cert-manager/cert-manager/app"
+  path: "./kubernetes/homelab/apps/cert-manager/cert-manager/app"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -36,7 +36,7 @@ spec:
   dependsOn:
     - name: cert-manager
   interval: 30m
-  path: "./kubernetes/hcloud/apps/cert-manager/cert-manager/netcup"
+  path: "./kubernetes/homelab/apps/cert-manager/cert-manager/netcup"
   prune: true
   sourceRef:
     kind: GitRepository
