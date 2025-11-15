@@ -6,4 +6,3 @@ kubernetesVersion: v1.34.2
 clusterName: homelab
 
 privateClusterIP: 192.168.178.2
-serverArch: amd64

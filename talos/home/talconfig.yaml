@@ -26,7 +26,7 @@ nodes:
     nameservers:
       - 9.9.9.9       
     installDisk: /dev/nvme0n1
-    talosImageURL: factory.talos.dev/metal-installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    talosImageURL: factory.talos.dev/metal-installer-secureboot/bf2113e1bea48d566f7d1e08eb780f832ccb56bbd7cf2f95769f7a04f9f2b184
     machineSpec:
       mode: metal
       arch: amd64
@@ -36,26 +36,26 @@ nodes:
 controlPlane:
   schematic:
     customization:
-        extraKernelArgs:
-          - -init_on_alloc # Less security, faster puter
-          - -init_on_free # Less security, faster puter
-          - -selinux # Less security, faster puter
-          - apparmor=0 # Less security, faster puter
-          - i915.enable_guc=3 # Meteor Lake CPU & Intel iGPU
-          - init_on_alloc=0 # Less security, faster puter
-          - init_on_free=0 # Less security, faster puter
-          - intel_iommu=on # PCI Passthrough
-          - iommu=pt # PCI Passthrough
-          - mitigations=off # Less security, faster puter
-          - security=none # Less security, faster puter
-          - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU & Intel iGPU
-          - talos.auditd.disabled=1 # Less security, faster puter
-        systemExtensions:
-            officialExtensions:
-                - siderolabs/i915 # Intel iGPU
-                - siderolabs/intel-ucode # Intel iGPU
-                - siderolabs/mei # Intel iGPU
-                - siderolabs/thunderbolt # Thunderbolt NICs
+      extraKernelArgs:
+        - -init_on_alloc # Less security, faster puter
+        - -init_on_free # Less security, faster puter
+        - -selinux # Less security, faster puter
+        - apparmor=0 # Less security, faster puter
+        - i915.enable_guc=3 # Meteor Lake CPU & Intel iGPU
+        - init_on_alloc=0 # Less security, faster puter
+        - init_on_free=0 # Less security, faster puter
+        - intel_iommu=on # PCI Passthrough
+        - iommu=pt # PCI Passthrough
+        - mitigations=off # Less security, faster puter
+        - security=none # Less security, faster puter
+        - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU & Intel iGPU
+        - talos.auditd.disabled=1 # Less security, faster puter
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/i915
+          - siderolabs/intel-ucode
+          - siderolabs/mei
+          - siderolabs/thunderbolt
   nodeLabels:
     topology.kubernetes.io/region: *clusterName
     topology.kubernetes.io/zone: cologne
@@ -88,7 +88,7 @@ controlPlane:
                 - rw
           nodeIP:
             validSubnets:
-              - ${privateClusterIP}/32  
+              - 192.168.178.0/24
       cluster:
         network:
           cni:
@@ -107,7 +107,7 @@ controlPlane:
       machine:
         time:
           servers:
-            - 10.10.10.1
+            - 192.168.178.1
     # NFS Server Config
     - |-
       machine:
