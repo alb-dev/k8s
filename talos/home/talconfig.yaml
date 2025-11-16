@@ -24,7 +24,7 @@ nodes:
             gateway: 192.168.178.1
         dhcp: false
     nameservers:
-      - 9.9.9.9       
+      - 192.168.178.9      
     installDisk: /dev/nvme0n1
     talosImageURL: factory.talos.dev/metal-installer-secureboot/bf2113e1bea48d566f7d1e08eb780f832ccb56bbd7cf2f95769f7a04f9f2b184
     machineSpec:
