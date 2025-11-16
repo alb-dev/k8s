@@ -34,6 +34,7 @@ spec:
       enabled: true
     devices: enp+
     enableIPv4BIGTCP: true
+    enableIPv6BIGTCP: true
     endpointRoutes:
       enabled: true
     envoy:
