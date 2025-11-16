@@ -73,6 +73,12 @@ spec:
           - name: envoy-internal
             namespace: network
             sectionName: https
+      vpn:
+        hostnames: ["{{ .Release.Name }}.${VPN_DOMIAN}"]
+        parentRefs:
+          - name: envoy-vpn
+            namespace: network
+            sectionName: https
     persistence:
       config:
         existingClaim: ${VOLSYNC_CLAIM}
