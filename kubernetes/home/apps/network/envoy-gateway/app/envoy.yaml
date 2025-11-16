@@ -49,7 +49,7 @@ spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      lbipam.cilium.io/ips: 192.168.178.230
+      lbipam.cilium.io/ips: 192.168.178.230,fdd5:aa8:9535:21::80
   listeners:
     - name: http
       protocol: HTTP
@@ -76,7 +76,7 @@ spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      lbipam.cilium.io/ips: 192.168.178.231
+      lbipam.cilium.io/ips: 192.168.178.231,fdd5:aa8:9535:21::81
   listeners:
     - name: http
       protocol: HTTP
