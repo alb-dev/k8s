@@ -1,9 +1,0 @@
-{
-    "yaml.schemas": {
-        "https://www.schemastore.org/yamllint.json": [
-            "file:///Users/alb/Documents/development/k8s-cluster_fluxcd/kubernetes/hcloud/flux/cluster/cluster.yaml",
-            "file:///Users/alb/Documents/development/k8s-cluster_fluxcd/kubernetes/hcloud/flux/cluster.yaml",
-            "file:///Users/alb/Documents/development/k8s-cluster_fluxcd/kubernetes/home/flux/cluster.yaml"
-        ]
-    }
-}

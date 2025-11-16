@@ -31,6 +31,7 @@ spec:
               TS_EXTRA_ARGS: >-
                 --advertise-exit-node
                 --login-server=https://headscale.onji.space
+                --advertise-routes=192.168.178.0/24
               TS_STATE_DIR: /tmp
               TS_USERSPACE: true
             envFrom:

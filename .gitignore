@@ -38,5 +38,6 @@ terraform.tfstate*
 *.tfvars
 # Trash
 .DS_Store
+.vscode
 Thumbs.db
 keys.txt
