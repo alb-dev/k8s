@@ -5,10 +5,10 @@ kind: HelmRelease
 metadata:
   name: jellyfin
 spec:
-  interval: 1m
+  interval: 30m
   chartRef:
     kind: OCIRepository
-    name: app-template
+    name: jellyfin
   values:
     controllers:
       jellyfin:

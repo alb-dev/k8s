@@ -7,7 +7,7 @@ spec:
   dependsOn:
     - name: intel-gpu-resource-driver
       namespace: kube-system
-  interval: 1m
+  interval: 1h
   path: ./kubernetes/home/apps/selfhosted/jellyfin/app
   postBuild:
     substituteFrom:
