@@ -86,9 +86,6 @@ spec:
                     port: 9999
                   initialDelaySeconds: 10
                   timeoutSeconds: 10
-            resources:
-              limits:
-                kernel.org/tun: 1
             restartPolicy: Always
             securityContext:
               <<: *securityContext
