@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: sabnzbd
 spec:
-  interval: 1h
+  interval: 1m
   path: ./kubernetes/home/apps/selfhosted/sabnzbd/app
   postBuild:
     substituteFrom:
