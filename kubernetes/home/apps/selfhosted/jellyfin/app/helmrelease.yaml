@@ -47,9 +47,9 @@ spec:
                 - name: gpu
               requests:
                 cpu: 100m
-                memory: 1Gi
+                memory: 2Gi
               limits:
-                memory: 4Gi
+                memory: 8Gi
         pod:
           resourceClaims:
             - name: gpu
