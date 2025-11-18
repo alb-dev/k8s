@@ -32,7 +32,6 @@ spec:
             - path: /
               pathType: Prefix
               port: anubis
-
     service:
       ssh:
         ipFamilyPolicy: SingleStack # todo: remove after apply
