@@ -93,7 +93,7 @@ spec:
       tls:
         certificateRefs:
           - kind: Secret
-            name: int-onji-vpn-tls
+            name: ext-onji-vpn-tls
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: BackendTrafficPolicy

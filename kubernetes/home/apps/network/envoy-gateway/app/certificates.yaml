@@ -34,3 +34,21 @@ spec:
     algorithm: ECDSA
     size: 384
     rotationPolicy: Always
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ext-onji-vpn
+spec:
+  secretName: ext-onji-vpn-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: vpn.onji.space
+  dnsNames:
+    - ext.onji.space
+    - "*.ext.onji.space"
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    rotationPolicy: Always
