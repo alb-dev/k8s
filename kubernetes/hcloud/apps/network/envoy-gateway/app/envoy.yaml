@@ -33,6 +33,27 @@ spec:
       prometheus:
         compression:
           type: Gzip
+  # --------------------------------------------------------------------
+  # CUSTOM HEADSCALE UPSTREAM CLUSTER (H2C for /ts2021)
+  # --------------------------------------------------------------------
+  bootstrap:
+    staticResources:
+      clusters:
+        - name: headscale
+          connectTimeout: 2s
+          type: LOGICAL_DNS
+          lbPolicy: ROUND_ROBIN
+          loadAssignment:
+            clusterName: headscale
+            endpoints:
+              - lbEndpoints:
+                  - endpoint:
+                      address:
+                        socketAddress:
+                          address: headscale.selfhosted.svc.cluster.local
+                          portValue: 8080
+          # This is the critical part:
+          http2ProtocolOptions: {}
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
