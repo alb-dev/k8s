@@ -5,39 +5,33 @@ metadata:
   name: headscale
   namespace: selfhosted
 spec:
-  hostnames:
-    - "headscale.${CLUSTER_DOMAIN}"
   parentRefs:
     - name: envoy-external
       namespace: network
+  hostnames:
+    - "headscale.onji.space"
   rules:
-    - backendRefs:
-        - name: headscale
-          namespace: selfhosted
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: headscale  # dein Service Name
           port: 8080
-      filters:
-        - type: RequestHeaderModifier
-          requestHeaderModifier:
-            set:
-              - name: X-Forwarded-For
-                value: "%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%"
-              - name: X-Forwarded-Proto
-                value: "https"
-
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: BackendTrafficPolicy
 metadata:
-  name: headscale-upstream-h2c
+  name: headscale-upgrade-policy
   namespace: selfhosted
 spec:
-  # Apply the policy to the HTTPRoute
-  targetRef:
-    group: gateway.networking.k8s.io
-    kind: HTTPRoute
-    name: headscale
-    namespace: selfhosted
-    
-  # THIS is the magic that Headscale requires:
-  protocol:
-    upstreamProtocol: H2C
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: headscale
+  http2:
+    onConnect: true
+  # Wichtig für WebSocket/Upgrade
+  timeout:
+    http:
+      requestTimeout: 0s  # Kein Timeout für lange Verbindungen
