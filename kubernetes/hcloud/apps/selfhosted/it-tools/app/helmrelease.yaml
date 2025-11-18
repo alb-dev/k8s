@@ -63,3 +63,14 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            filters:
+              - type: ResponseHeaderModifier
+                responseHeaderModifier:
+                  add:
+                    - name: strict-transport-security
+                      value: max-age=31536000
