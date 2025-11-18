@@ -9,4 +9,4 @@ resources:
   - ./helmrelease.yaml
   - ./pvc.yaml
   - ./secrets.sops.yaml
-  - ./httproute.yaml
+#  - ./httproute.yaml

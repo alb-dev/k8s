@@ -54,7 +54,15 @@ spec:
         ports:
           http:
             port: 8080
-
+            
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.${CLUSTER_DOMAIN}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+            
     persistence:
       data:
         existingClaim: headscale-local
