@@ -50,12 +50,25 @@ spec:
             
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.${CLUSTER_DOMAIN}"]
+        hostnames: ["headscale.${CLUSTER_DOMAIN}"]
         parentRefs:
           - name: envoy-external
             namespace: network
             sectionName: https
-            
+        rules:
+          - backendRefs: &backendRef
+              - name: headplane
+                port: 3000
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /admin
+            filters:
+              - type: ResponseHeaderModifier
+                responseHeaderModifier:
+                  add:
+                    - name: strict-transport-security
+                      value: max-age=31536000
     persistence:
       config:
         enabled: true
