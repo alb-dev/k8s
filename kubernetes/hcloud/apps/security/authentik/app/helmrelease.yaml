@@ -64,7 +64,14 @@ spec:
           - hosts:
               - auth.onji.space
             secretName: "auth-onji-space-tls"
-
+      route:
+        main:
+          enabled: true
+          hostnames: ["auth.onji.space"]
+          parentRefs:
+            - name: envoy-external
+              namespace: network
+              sectionName: https
     worker:
       replicas: 1
       resources:
