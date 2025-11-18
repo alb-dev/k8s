@@ -33,5 +33,5 @@ spec:
     group: gateway.networking.k8s.io
     kind: HTTPRoute
     name: headlscale
-  httpUpgrade:
-    - type: tailscale-control-protocol
+  protocol:
+    upstreamProtocol: H2C
