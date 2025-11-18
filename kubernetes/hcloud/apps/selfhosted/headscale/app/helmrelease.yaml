@@ -62,7 +62,10 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
-
+        rules:
+          - backendRefs: &backendRef
+              - name: headscale
+                port: 8080
     persistence:
       data:
         existingClaim: headscale-local
