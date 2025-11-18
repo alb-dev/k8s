@@ -33,8 +33,5 @@ spec:
     group: gateway.networking.k8s.io
     kind: HTTPRoute
     name: headlscale
-  protocol:
-    type: HTTP
-    http:
-      upgrade:
-        - type: tailscale-control-protocol
+  httpUpgrade:
+    - type: tailscale-control-protocol
