@@ -66,6 +66,10 @@ spec:
           - backendRefs: &backendRef
               - name: headscale
                 port: 8080
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /api
     persistence:
       data:
         existingClaim: headscale-local
