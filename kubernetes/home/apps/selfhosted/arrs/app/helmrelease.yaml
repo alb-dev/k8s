@@ -40,7 +40,7 @@ spec:
             securityContext: &securityContext
               allowPrivilegeEscalation: false
               capabilities: { drop: ["ALL"] }
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
           radarr:
             image:
               repository: ghcr.io/home-operations/radarr
