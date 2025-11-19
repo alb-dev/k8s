@@ -216,24 +216,21 @@ spec:
           http:
             port: 8989
     persistence:
-      sabnzbd:
-        existingClaim: sabnzbd-config
+      config:
+        existingClaim: arrs-config
         advancedMounts:
           sabnzbd:
             app:
               - path: "/config"
-      sonarr:
-        existingClaim: sonarr-config
-        advancedMounts:
+                subPath: "sabnzbd-config"
           sonarr:
             app:
               - path: "/config"
-      radarr:
-        existingClaim: radarr-config
-        advancedMounts:
+                subPath: "sonarr-config"
           radarr:
             app:
               - path: "/config"
+                subPath: "radarr-config"
       downloads:
         existingClaim: arrs-downloads
         advancedMounts:
