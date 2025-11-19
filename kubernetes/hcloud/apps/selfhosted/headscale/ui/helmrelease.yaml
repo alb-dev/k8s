@@ -48,27 +48,28 @@ spec:
           http:
             port: 3000
             
-    route:
+    ingress:
       app:
-        hostnames: ["headscale.${CLUSTER_DOMAIN}"]
-        parentRefs:
-          - name: envoy-external
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs: &backendRef
-              - name: headplane
-                port: 3000
-            matches:
-              - path:
-                  type: PathPrefix
-                  value: /admin
-            filters:
-              - type: ResponseHeaderModifier
-                responseHeaderModifier:
-                  add:
-                    - name: strict-transport-security
-                      value: max-age=31536000
+        className: traefik
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          cert-manager.io/private-key-rotation-policy: Always
+          cert-manager.io/private-key-algorithm: ECDSA
+          cert-manager.io/private-key-size: "384"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          #traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-auth@kubernetescrd"
+        hosts:
+          - host: "headplane.onji.space"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - "headplane.onji.space"
+            secretName: headplane.onji.space-tls
+
     persistence:
       config:
         enabled: true
