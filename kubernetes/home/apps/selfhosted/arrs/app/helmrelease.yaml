@@ -219,48 +219,43 @@ spec:
       config:
         existingClaim: arrs-config
         advancedMounts:
-          sabnzbd:
-            app:
+          arrs:
+            sabnzbd:
               - path: "/config"
                 subPath: "sabnzbd-config"
-          sonarr:
-            app:
+            sonarr:
               - path: "/config"
                 subPath: "sonarr-config"
-          radarr:
-            app:
+            radarr:
               - path: "/config"
                 subPath: "radarr-config"
       downloads:
         existingClaim: arrs-downloads
         advancedMounts:
-          sabnzbd:
-            app:
+          arrs:
+            sabnzbd:
               - path: "/downloads"
                 subPath: ""
-          radarr:
-            app:
+            sonarr:
               - path: "/downloads"
                 subPath: ""
-          sonarr:
-            app:
+            radarr:
               - path: "/downloads"
                 subPath: ""
       media:
         existingClaim: media-nfs
         advancedMounts:
-          radarr:
-            app:
+          arrs:
+            radarr:
               - path: "/filme"
                 subPath: filme
-          sonarr:
-            app:
+            sonarr:
               - path: "/serien"
                 subPath: serien
       logs:
         type: emptyDir
         advancedMounts:
-          sabnzbd:
+          arrs:
             sabnzbd:
               - path: /config/logs
       run:
