@@ -11,6 +11,7 @@ spec:
       - name: cluster-secrets
         kind: Secret
     substitute:
+      APP: ARRS
       VOLSYNC_CAPACITY: 100Gi
       VOLSYNC_GID: "1000"
       VOLSYNC_UID: "1000"
