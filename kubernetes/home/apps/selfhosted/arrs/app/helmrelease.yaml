@@ -201,19 +201,19 @@ spec:
                 port: 8989
     service:
       sabnzbd:
-        controller: sabnzbd
+        controller: arrs
         ports:
-          http:
+          sabnzbd:
             port: 80
       radarr:
-        controller: radarr
+        controller: arrs
         ports:
-          http:
+          radarr:
             port: 7878
       sonarr:
-        controller: sonarr
+        controller: arrs
         ports:
-          http:
+          sonarr:
             port: 8989
     persistence:
       config:
