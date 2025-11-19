@@ -177,7 +177,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: sabnzbd
+              - name: arrs-sabnzbd
                 port: 80
       radarr:
         hostnames: ["radarr.${CLUSTER_DOMAIN}"]
@@ -187,7 +187,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: radarr
+              - name: arrs-radarr
                 port: 7878
       sonarr:
         hostnames: ["sonarr.${CLUSTER_DOMAIN}"]
@@ -197,7 +197,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: sonarr
+              - name: arrs-sonarr
                 port: 8989
     service:
       sabnzbd:
