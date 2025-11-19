@@ -46,13 +46,26 @@ spec:
           http:
             port: *port
 
-    route:
+    ingress:
       app:
-        hostnames: ["rss.${CLUSTER_DOMAIN}"]
-        parentRefs:
-          - name: envoy-external
-            namespace: network
-            sectionName: https
+        className: traefik
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          cert-manager.io/private-key-rotation-policy: Always
+          cert-manager.io/private-key-algorithm: ECDSA
+          cert-manager.io/private-key-size: "384"
+          traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
+        hosts:
+          - host: "rss.onji.space"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - "rss.onji.space"
+            secretName: rss.onji.space-tls
     persistence:
       data:
         enabled: true
