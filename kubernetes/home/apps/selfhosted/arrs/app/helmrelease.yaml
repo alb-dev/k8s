@@ -10,7 +10,7 @@ spec:
     name: arrs
   values:
     controllers:
-      sabnzbd:
+      arrs:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -74,7 +74,7 @@ spec:
                 cpu: 100m
               limits:
                 memory: 4Gi
-          app:
+          sonarr:
             image:
               repository: ghcr.io/home-operations/sonarr
               tag: 4.0.16.2943@sha256:0a1b8f5cb5b072f7ad8c6ff64a25dc512115d1a114ecf19a58a3b4f870207ddd
@@ -225,13 +225,13 @@ spec:
       sonarr:
         existingClaim: sonarr-config
         advancedMounts:
-          sabnzbd:
+          sonarr:
             app:
               - path: "/config"
       radarr:
         existingClaim: radarr-config
         advancedMounts:
-          sabnzbd:
+          radarr:
             app:
               - path: "/config"
       downloads:
