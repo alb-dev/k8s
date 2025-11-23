@@ -112,9 +112,11 @@ spec:
               - path: /data/local
       nas:
         existingClaim: paperless-nas
-        globalMounts:
-          - path: /data/nas
-
+        advancedMounts:
+          arrs:
+            radarr:
+              - path: "/data/nas"
+                subPath: paperless
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${CLUSTER_DOMAIN}"]

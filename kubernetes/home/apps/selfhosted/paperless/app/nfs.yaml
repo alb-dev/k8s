@@ -12,7 +12,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: "${SECRET_MEDIA_SERVER}"
-    path: /volume1/apps/paperless
+    path: /volume1/apps
   mountOptions:
     - nfsvers=4
     - nconnect=16
