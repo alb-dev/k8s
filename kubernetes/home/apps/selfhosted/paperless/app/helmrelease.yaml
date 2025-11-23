@@ -1,0 +1,77 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: paperless
+spec:
+  interval: 15m
+  chartRef:
+    kind: OCIRepository
+    name: paperless
+  values:
+    controllers:
+      paperless:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/paperless-ngx/paperless-ngx
+              tag: 2.19.5
+            env:
+              USERMAP_UID: "${VOLSYNC_GID}"
+              USERMAP_GID: "${VOLSYNC_UID}"
+              PAPERLESS_TIME_ZONE: "${TIMEZONE}"
+              PAPERLESS_PORT: &port 8000
+              PAPERLESS_REDIS: redis://dragonfly.database.svc.cluster.local:6379/1
+              PAPERLESS_TASK_WORKERS: 2
+              PAPERLESS_URL: "https://{{ .Release.Name }}.${CLUSTER_DOMAIN}"
+              PAPERLESS_ALLOWED_HOSTS: "{{ .Release.Name }}.${CLUSTER_DOMAIN}"
+              PAPERLESS_FILENAME_FORMAT: "{{`{{ created_year }}/{{ correspondent }}/{{ created }}-{{ title }}`}}"
+              PAPERLESS_CONSUMPTION_DIR: /library/consume
+              PAPERLESS_DATA_DIR: /library/data
+              PAPERLESS_MEDIA_ROOT: /library/media
+              PAPERLESS_EXPORT_DIR: /library/export
+              PAPERLESS_CONSUMER_POLLING: 60
+              PAPERLESS_CONSUMER_IGNORE_PATTERNS: '[".DS_STORE/*", "._*", ".stfolder/*", "@eaDir/*"]'
+              PAPERLESS_TRUSTED_PROXIES: "10.42.0.0/16"
+              PAPERLESS_CONSUMER_DELETE_DUPLICATES: true
+              PAPERLESS_CONSUMER_RECURSIVE: true
+              PAPERLESS_OCR_LANGUAGE: deu+eng
+            envFrom: 
+              - secretRef:
+                  name: paperless-secret
+            resources:
+              requests:
+                cpu: 35m
+                memory: 926Mi
+              limits:
+                memory: 2Gi
+
+    service:
+      app:
+        controller: paperless
+        ports:
+          http:
+            port: *port
+
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.${CLUSTER_DOMAIN}"
+        parentRefs:
+          - name: envoy-internal
+            namespace: kube-system
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: *port
+
+    persistence:
+      app:
+        enabled: true
+        existingClaim: ${VOLSYNC_CLAIM}
+        globalMounts:
+          - path: /library

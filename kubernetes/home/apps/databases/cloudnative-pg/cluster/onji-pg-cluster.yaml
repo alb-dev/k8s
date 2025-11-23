@@ -22,15 +22,9 @@ spec:
       wal_keep_size: "128MB"    # Keep less WAL for replicas (down from 512MB)
   managed:
     roles:
-      - name: authentik
+      - name: paperless
         login: true
         superuser: false
         createdb: false
         passwordSecret:
-          name: authentik-db-owner
-      - name: nextcloud-next
-        login: true
-        superuser: false
-        createdb: false
-        passwordSecret:
-          name: nextcloud-next-db-owner
+          name: paperless-db-owner

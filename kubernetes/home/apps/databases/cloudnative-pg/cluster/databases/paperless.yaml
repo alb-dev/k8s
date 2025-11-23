@@ -2,13 +2,13 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
 metadata:
-  name: nextcloud-next
+  name: paperless
   namespace: databases
 spec:
   cluster:
     name: onji-pg-cluster
-  name: nextcloud-next
-  owner: nextcloud-next
+  name: paperless
+  owner: paperless
   extensions:
     - name: pg_trgm
     - name: citext
