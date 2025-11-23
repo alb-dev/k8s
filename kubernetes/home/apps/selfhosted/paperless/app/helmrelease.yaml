@@ -113,8 +113,8 @@ spec:
       nas:
         existingClaim: paperless-nas
         advancedMounts:
-          arrs:
-            radarr:
+          paperless:
+            paperless:
               - path: "/data/nas"
                 subPath: paperless
     route:
