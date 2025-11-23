@@ -7,7 +7,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: gatus
-  interval: 1h
+  interval: 1m
   path: ./kubernetes/home/apps/observability/gatus/app
   postBuild:
     substituteFrom:
