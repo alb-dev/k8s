@@ -11,6 +11,7 @@ spec:
   values:
     controllers:
       paperless:
+        forceRename: paperless
         annotations:
           reloader.stakater.com/auto: "true"
 
@@ -18,60 +19,113 @@ spec:
           app:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.19.5
+              tag: 2.20.0
             env:
-              USERMAP_UID: "${VOLSYNC_GID}"
-              USERMAP_GID: "${VOLSYNC_UID}"
-              PAPERLESS_TIME_ZONE: "${TIMEZONE}"
-              PAPERLESS_PORT: &port 8000
-              PAPERLESS_REDIS: redis://dragonfly.databases.svc.cluster.local:6379/1
-              PAPERLESS_TASK_WORKERS: 2
+              # Configure application
+              PAPERLESS_SECRET_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secret
+                    key: PAPERLESS_SECRET_KEY
               PAPERLESS_URL: "https://{{ .Release.Name }}.${CLUSTER_DOMAIN}"
-              PAPERLESS_ALLOWED_HOSTS: "{{ .Release.Name }}.${CLUSTER_DOMAIN}"
-              PAPERLESS_FILENAME_FORMAT: "{{`{{ created_year }}/{{ correspondent }}/{{ created }}-{{ title }}`}}"
-              PAPERLESS_CONSUMPTION_DIR: /library/consume
-              PAPERLESS_DATA_DIR: /library/data
-              PAPERLESS_MEDIA_ROOT: /library/media
-              PAPERLESS_EXPORT_DIR: /library/export
-              PAPERLESS_CONSUMER_POLLING: 60
-              PAPERLESS_CONSUMER_IGNORE_PATTERNS: '[".DS_STORE/*", "._*", ".stfolder/*", "@eaDir/*"]'
-              PAPERLESS_TRUSTED_PROXIES: "10.42.0.0/16"
-              PAPERLESS_CONSUMER_DELETE_DUPLICATES: true
-              PAPERLESS_CONSUMER_RECURSIVE: true
-              PAPERLESS_OCR_LANGUAGE: deu+eng
-            envFrom: 
-              - secretRef:
-                  name: paperless-secret
+              PAPERLESS_PORT: "8000"
+              PAPERLESS_TIME_ZONE: "Europe/Amsterdam"
+              PAPERLESS_WEBSERVER_WORKERS: "2"
+              PAPERLESS_TASK_WORKERS: "2"
+              # Configure folders
+              PAPERLESS_CONSUMPTION_DIR: /data/nas/incoming
+              PAPERLESS_DATA_DIR: /data/local/data
+              PAPERLESS_EXPORT_DIR: /data/nas/export
+              PAPERLESS_MEDIA_ROOT: /data/local/media
+              # Configure folder importer
+              PAPERLESS_CONSUMER_POLLING: "60"
+              PAPERLESS_CONSUMER_RECURSIVE: "true"
+              PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
+              # Configure OCR
+              PAPERLESS_OCR_LANGUAGES: deu
+              PAPERLESS_OCR_LANGUAGE: deu
+              # Configure redis integration
+              PAPERLESS_REDIS: redis://paperless-redis.selfhosted.svc.cluster.local:6379
+              # Configure user permissions
+              USERMAP_GID: "100" # synology:users
+              # Configure admin user
+              PAPERLESS_ADMIN_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secret
+                    key: PAPERLESS_ADMIN_USER
+              PAPERLESS_ADMIN_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secret
+                    key: PAPERLESS_ADMIN_PASSWORD
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
             resources:
               requests:
-                cpu: 35m
-                memory: 926Mi
-              limits:
+                cpu: 25m
                 memory: 2Gi
+              limits:
+                memory: 6Gi
+
+      redis:
+        containers:
+          redis:
+            image:
+              repository: ghcr.io/valkey-io/valkey
+              tag: 9.0.0
+            resources:
+              requests:
+                cpu: 5m
+                memory: 32Mi
+              limits:
+                memory: 128Mi
 
     service:
       app:
+        forceRename: paperless
+        primary: true
         controller: paperless
         ports:
           http:
-            port: *port
+            port: &port 8000
+      redis:
+        controller: redis
+        ports:
+          http:
+            port: 6379
+
+    persistence:
+      data:
+        existingClaim: paperless-data
+        advancedMounts:
+          paperless:
+            app:
+              - path: /data/local
+      nas:
+        type: nfs
+        path: /volume1/apps
+        server: ${SECRET_MEDIA_SERVER}
+        advancedMounts:
+          paperless:
+            app:
+              - path: /data/nas
 
     route:
       app:
-        hostnames:
-          - "{{ .Release.Name }}.${CLUSTER_DOMAIN}"
+        hostnames: ["{{ .Release.Name }}.${CLUSTER_DOMAIN}"]
         parentRefs:
           - name: envoy-internal
             namespace: network
-            sectionName: https
         rules:
           - backendRefs:
               - identifier: app
                 port: *port
-
-    persistence:
-      app:
-        enabled: true
-        existingClaim: ${VOLSYNC_CLAIM}
-        globalMounts:
-          - path: /library
