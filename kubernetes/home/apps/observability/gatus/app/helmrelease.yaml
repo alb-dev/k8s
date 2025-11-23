@@ -57,7 +57,7 @@ spec:
                 cpu: 15m
                 memory: 105Mi
               limits:
-                memory: 256Mi
+                memory: 512Mi
     service:
       app:
         controller: gatus
