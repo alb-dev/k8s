@@ -71,13 +71,13 @@ spec:
             namespace: network
             sectionName: https
     persistence:
-      config:
+      config-file:
         type: secret
         name: gatus-secret
         globalMounts:
           - path: /config/config.yaml
             subPath: config.yaml
             readOnly: true
-      data:
+      config:
         type: persistentVolumeClaim
         existingClaim: gatus-pvc
