@@ -11,7 +11,7 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: "${SECRET_MEDA_SERVER}"
+    server: "${SECRET_MEDIA_SERVER}"
     path: /volume1/apps/paperless
   mountOptions:
     - nfsvers=4
@@ -22,7 +22,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: paperless-nas
-  namespace: paperless
+  namespace: media
 spec:
   accessModes:
     - ReadWriteMany
