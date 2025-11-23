@@ -29,7 +29,7 @@ spec:
                     key: PAPERLESS_SECRET_KEY
               PAPERLESS_URL: "https://{{ .Release.Name }}.${CLUSTER_DOMAIN}"
               PAPERLESS_PORT: "8000"
-              PAPERLESS_TIME_ZONE: "Europe/Amsterdam"
+              PAPERLESS_TIME_ZONE: "${TIMEZONE}"
               PAPERLESS_WEBSERVER_WORKERS: "2"
               PAPERLESS_TASK_WORKERS: "2"
               # Configure folders
@@ -111,13 +111,9 @@ spec:
             app:
               - path: /data/local
       nas:
-        type: nfs
-        path: /volume1/apps
-        server: ${SECRET_MEDIA_SERVER}
-        advancedMounts:
-          paperless:
-            app:
-              - path: /data/nas
+        existingClaim: paperless-nfs
+        globalMounts:
+          - path: /data/nas
 
     route:
       app:

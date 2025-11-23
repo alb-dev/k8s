@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: paperless-nas
+spec:
+  storageClassName: paperless-nas
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: "${SECRET_paperless_SERVER}"
+    path: /volume1/apps/paperless
+  mountOptions:
+    - nfsvers=4
+    - nconnect=16
+    - soft
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paperless-nas
+  namespace: paperless
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: paperless-nas
+  resources:
+    requests:
+      storage: 1Mi
