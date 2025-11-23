@@ -24,7 +24,7 @@ spec:
               USERMAP_GID: "${VOLSYNC_UID}"
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
               PAPERLESS_PORT: &port 8000
-              PAPERLESS_REDIS: redis://dragonfly.database.svc.cluster.local:6379/1
+              PAPERLESS_REDIS: redis://dragonfly.databases.svc.cluster.local:6379/1
               PAPERLESS_TASK_WORKERS: 2
               PAPERLESS_URL: "https://{{ .Release.Name }}.${CLUSTER_DOMAIN}"
               PAPERLESS_ALLOWED_HOSTS: "{{ .Release.Name }}.${CLUSTER_DOMAIN}"
