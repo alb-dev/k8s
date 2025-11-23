@@ -111,7 +111,7 @@ spec:
             app:
               - path: /data/local
       nas:
-        existingClaim: paperless-nfs
+        existingClaim: paperless-nas
         globalMounts:
           - path: /data/nas
 

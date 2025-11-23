@@ -11,7 +11,7 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: "${SECRET_paperless_SERVER}"
+    server: "${SECRET_MEDA_SERVER}"
     path: /volume1/apps/paperless
   mountOptions:
     - nfsvers=4
