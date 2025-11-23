@@ -91,7 +91,7 @@ spec:
         existingClaim: media-nfs
         globalMounts:
           - path: /media
-            readOnly: true
+            #readOnly: true
       tmpfs:
         type: emptyDir
         advancedMounts:
