@@ -26,7 +26,7 @@ spec:
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
-  commonName: vpn.onji.space
+  commonName: ext.onji.space
   dnsNames:
     - ext.onji.space
     - "*.ext.onji.space"
