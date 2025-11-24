@@ -10,6 +10,13 @@ spec:
     name: paperless
   values:
     controllers:
+    defaultPodOptions:
+      securityContext:
+        #        runAsUser: 1000
+        #        runAsGroup: 1000
+        #        #          runAsNonRoot: true
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
       paperless:
         forceRename: paperless
         annotations:
@@ -29,8 +36,6 @@ spec:
                     key: PAPERLESS_SECRET_KEY
               PAPERLESS_URL: "https://{{ .Release.Name }}.${CLUSTER_DOMAIN}"
               PAPERLESS_PORT: "8000"
-              USERMAP_UID: ${VOLSYNC_UID}
-              USERMAP_GID: ${VOLSYNC_GID}
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
               PAPERLESS_WEBSERVER_WORKERS: "2"
               PAPERLESS_TASK_WORKERS: "2"
@@ -70,11 +75,6 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
-            securityContext:
-              fsGroup: 1000
-              fsGroupChangePolicy: OnRootMismatch
-              allowPrivilegeEscalation: true  # s6 container, can't run as rootless, see https://github.com/paperless-ngx/paperless-ngx/blob/f0b6e79d14a0b2aa7e2a2b0383cdd0bdacbf6f50/docs/setup.md#use-docker-compose-docker
-              readOnlyRootFilesystem: false  # s6 container
             resources:
               requests:
                 cpu: 10m
