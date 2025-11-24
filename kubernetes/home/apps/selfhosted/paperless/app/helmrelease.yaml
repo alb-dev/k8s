@@ -70,12 +70,15 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
             resources:
               requests:
-                cpu: 25m
-                memory: 2Gi
+                cpu: 10m
+                memory: 256Mi
               limits:
-                memory: 6Gi
+                memory: 2500Mi
 
       redis:
         containers:
