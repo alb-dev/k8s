@@ -29,6 +29,8 @@ spec:
                     key: PAPERLESS_SECRET_KEY
               PAPERLESS_URL: "https://{{ .Release.Name }}.${CLUSTER_DOMAIN}"
               PAPERLESS_PORT: "8000"
+              USERMAP_UID: 1000
+              USERMAP_GID: 1000
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
               PAPERLESS_WEBSERVER_WORKERS: "2"
               PAPERLESS_TASK_WORKERS: "2"
@@ -47,7 +49,6 @@ spec:
               # Configure redis integration
               PAPERLESS_REDIS: redis://paperless-redis.selfhosted.svc.cluster.local:6379
               # Configure user permissions
-              #USERMAP_GID: "100" # synology:users
               # Configure admin user
               PAPERLESS_ADMIN_USER:
                 valueFrom:
