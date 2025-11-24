@@ -103,7 +103,10 @@ spec:
         advancedMounts:
           paperless:
             app:
-              - path: /usr/src/paperless/
+              - path: /usr/src/paperless/data
+                subPath: data
+              - path: /usr/src/paperless/media
+                subPath: media
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${CLUSTER_DOMAIN}"]
