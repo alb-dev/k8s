@@ -64,7 +64,9 @@ spec:
             port: *port
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.${CLUSTER_DOMAIN}"]
+        hostnames:
+          - "{{ .Release.Name }}.${CLUSTER_DOMAIN}"
+          - "status.${CLUSTER_DOMAIN}"
         parentRefs:
           - name: envoy-internal
             namespace: network
