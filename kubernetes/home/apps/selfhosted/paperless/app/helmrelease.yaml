@@ -32,7 +32,8 @@ spec:
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
               PAPERLESS_WEBSERVER_WORKERS: "2"
               PAPERLESS_TASK_WORKERS: "2"
-              # Configure folder importer
+              PAPERLESS_DATA_DIR: /data/local/data
+              PAPERLESS_MEDIA_ROOT: /data/local/media
               PAPERLESS_CONSUMER_POLLING: "60"
               PAPERLESS_CONSUMER_RECURSIVE: "true"
               PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
@@ -97,17 +98,12 @@ spec:
             port: 6379
 
     persistence:
-          data:
-            existingClaim: ${VOLSYNC_CLAIM}
-            advancedMounts:
-              paperless:
-                app:
-                  - path: /usr/src/paperless/data
-                    subPath: data
-                  - path: /usr/src/paperless/media
-                    subPath: media
-                  - path: /usr/src/paperless/consume
-                    subPath: consume
+      data:
+        existingClaim: ${VOLSYNC_CLAIM}
+        advancedMounts:
+          paperless:
+            app:
+              - path: /data/local
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${CLUSTER_DOMAIN}"]
