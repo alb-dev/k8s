@@ -47,7 +47,7 @@ spec:
               # Configure redis integration
               PAPERLESS_REDIS: redis://paperless-redis.selfhosted.svc.cluster.local:6379
               # Configure user permissions
-              USERMAP_GID: "100" # synology:users
+              #USERMAP_GID: "100" # synology:users
               # Configure admin user
               PAPERLESS_ADMIN_USER:
                 valueFrom:
