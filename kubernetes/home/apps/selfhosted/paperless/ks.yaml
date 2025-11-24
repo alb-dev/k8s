@@ -13,7 +13,7 @@ spec:
     substitute:
       APP: paperless
       VOLSYNC_UID: "1000"
-      VOLSYNC_GID: "65542"
+      VOLSYNC_GID: "1000"
       VOLSYNC_CLAIM: paperless-data
       VOLSYNC_CAPACITY: 15Gi
   prune: true
