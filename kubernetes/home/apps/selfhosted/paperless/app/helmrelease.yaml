@@ -10,13 +10,6 @@ spec:
     name: paperless
   values:
     controllers:
-    defaultPodOptions:
-      securityContext:
-        #        runAsUser: 1000
-        #        runAsGroup: 1000
-        #        #          runAsNonRoot: true
-        fsGroup: 1000
-        fsGroupChangePolicy: "OnRootMismatch"
       paperless:
         forceRename: paperless
         annotations:
@@ -40,10 +33,10 @@ spec:
               PAPERLESS_WEBSERVER_WORKERS: "2"
               PAPERLESS_TASK_WORKERS: "2"
               # Configure folders
-              #PAPERLESS_CONSUMPTION_DIR: /data/nas/incoming
-              PAPERLESS_DATA_DIR: /data/local/data
-              #PAPERLESS_EXPORT_DIR: /data/nas/export
-              PAPERLESS_MEDIA_ROOT: /data/local/media
+              PAPERLESS_CONSUMPTION_DIR: /data/nas/incoming
+              PAPERLESS_DATA_DIR: /usr/src/paperless/data
+              PAPERLESS_EXPORT_DIR: /data/nas/export
+              PAPERLESS_MEDIA_ROOT: /usr/src/paperless/media
               # Configure folder importer
               PAPERLESS_CONSUMER_POLLING: "60"
               PAPERLESS_CONSUMER_RECURSIVE: "true"
@@ -114,7 +107,7 @@ spec:
         advancedMounts:
           paperless:
             app:
-              - path: /data/local
+              - path: /usr/src/paperless/
       nas:
         existingClaim: paperless-nas
         advancedMounts:
