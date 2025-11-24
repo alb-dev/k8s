@@ -33,9 +33,7 @@ spec:
               PAPERLESS_WEBSERVER_WORKERS: "2"
               PAPERLESS_TASK_WORKERS: "2"
               # Configure folders
-              PAPERLESS_CONSUMPTION_DIR: /data/nas/incoming
               PAPERLESS_DATA_DIR: /usr/src/paperless/data
-              PAPERLESS_EXPORT_DIR: /data/nas/export
               PAPERLESS_MEDIA_ROOT: /usr/src/paperless/media
               # Configure folder importer
               PAPERLESS_CONSUMER_POLLING: "60"
@@ -108,13 +106,6 @@ spec:
           paperless:
             app:
               - path: /usr/src/paperless/
-      nas:
-        existingClaim: paperless-nas
-        advancedMounts:
-          paperless:
-            paperless:
-              - path: "/data/nas"
-                subPath: paperless
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${CLUSTER_DOMAIN}"]
