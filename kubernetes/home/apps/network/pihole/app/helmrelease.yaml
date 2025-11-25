@@ -80,7 +80,7 @@ spec:
             namespace: network
         rules:
           - backendRefs:
-              - name: pihole-pihole
+              - name: pihole
                 port: 80
         #rules:
         #  - backendRefs: [{ identifier: app }]
