@@ -1,0 +1,119 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: pihole
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: pihole
+  interval: 1h
+  values:
+    controllers:
+      pihole:
+        replicas: 1
+        strategy: RollingUpdate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          pihole:
+            image:
+              repository: ghcr.io/pi-hole/pihole
+              tag: 2025.11.0@sha256:e28e239f55e648a9d32c8f065650acfe987ddebf1cd5f64f1c071e8716156ceb
+            env:
+              TZ: ${TIMEZONE}
+              FTLCONF_dns_listeningMode: all
+              FTLCONF_webserver_port: &pihole-port 80
+              FTLCONF_dns_upstreams: 127.0.0.1#5335
+              FTLCONF_dns_dnssec: true
+            envFrom:
+              - secretRef:
+                  name: "pihole-secret"
+            probes:
+              liveness: &pihole-probes
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - /usr/bin/nslookup
+                      - pihole
+                      - '127.0.0.1'
+              startup: *pihole-probes
+              readiness: *pihole-probes
+            securityContext:
+              allowPrivilegeEscalation: false
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                # looking at the query log can spike the memory usage very high
+                memory: 512Mi
+          unbound:
+            image:
+              repository: alpinelinux/unbound
+              tag: latest
+            securityContext:
+              allowPrivilegeEscalation: false
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 512Mi
+    service:
+      app:
+        forceRename: pihole
+        controller: pihole
+        type: LoadBalancer
+        #ipFamilies: [IPv4, IPv6]
+        #ipFamilyPolicy: PreferDualStack
+        annotations:
+          lbipam.cilium.io/ips: 192.168.178.3
+        ports:
+          dns-udp:
+            port: 53
+            protocol: UDP
+          dns-tcp:
+            port: 53
+            protocol: TCP
+          http:
+            primary: true
+            port: *pihole-port
+            protocol: HTTP
+          https:
+            port: 443
+            protocol: HTTPS
+    route:
+      app:
+        hostnames:
+          - '{{ .Release.Name }}.${SECRET_DOMAIN}'
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - name: pihole-pihole
+                port: 80
+        #rules:
+        #  - backendRefs: [{ identifier: app }]
+        #    sessionPersistence:
+        #      sessionName: pihole
+        #      type: Cookie
+        #      absoluteTimeout: 35m
+    persistence:
+      unbound-config:
+        type: configMap
+        name: unbound-config
+        advancedMounts:
+          pihole:
+            unbound:
+              - path: "/etc/unbound/unbound.conf"
+                subPath: "unbound.conf"
+      root-hints:
+        type: configMap
+        name: root-hints
+        advancedMounts:
+          pihole:
+            unbound:
+              - path: "/var/lib/unbound/root.hints"
+                subPath: "root.hints"                
