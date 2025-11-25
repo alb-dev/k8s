@@ -44,6 +44,7 @@ spec:
               PAPERLESS_REDIS: redis://paperless-redis.selfhosted.svc.cluster.local:6379
               # Configure user permissions
               # Configure admin user
+              PAPERLESS_FILENAME_FORMAT: "{correspondent}/{created_year}/{correspondent}_{document_type}_{created}"
               PAPERLESS_ADMIN_USER:
                 valueFrom:
                   secretKeyRef:
