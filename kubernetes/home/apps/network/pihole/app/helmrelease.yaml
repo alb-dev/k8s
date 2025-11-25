@@ -101,6 +101,13 @@ spec:
         #      type: Cookie
         #      absoluteTimeout: 35m
     persistence:
+      config:
+        existingClaim: ${VOLSYNC_CLAIM}
+        advancedMounts:
+          pihole:
+            pihole:
+              - path: "/etc/pihole"
+                subPath: "pihole"
       unbound-config:
         type: configMap
         name: unbound-conf
