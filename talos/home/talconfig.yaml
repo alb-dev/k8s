@@ -24,7 +24,7 @@ nodes:
             gateway: 192.168.178.1
         dhcp: false
     nameservers:
-      - 192.168.178.3  
+      - 192.168.178.3
     installDisk: /dev/nvme0n1
     talosImageURL: factory.talos.dev/metal-installer-secureboot/cc720ffb8efc8f12637b8660a86448a88b3f89f516995fb9c67bf80564e723b1
     machineSpec:
@@ -68,12 +68,14 @@ controlPlane:
             path: /etc/cri/conf.d/20-customization.part
             content: |
               [plugins]
+                [plugins."io.containerd.cri.v1.images"]
+                  discard_unpacked_layers = false
                 [plugins."io.containerd.grpc.v1.cri"]
                   enable_unprivileged_ports = true
                   enable_unprivileged_icmp = true
-              [plugins."io.containerd.cri.v1.runtime"]
-                cdi_spec_dirs = ["/var/cdi/static", "/var/cdi/dynamic"]
-                device_ownership_from_security_context = true
+                [plugins."io.containerd.cri.v1.runtime"]
+                  cdi_spec_dirs = ["/var/cdi/static", "/var/cdi/dynamic"]
+                  device_ownership_from_security_context = true
     - |-
       machine:
         kubelet:
