@@ -103,7 +103,7 @@ spec:
     persistence:
       unbound-config:
         type: configMap
-        name: unbound-config
+        name: unbound-conf
         advancedMounts:
           pihole:
             unbound:
