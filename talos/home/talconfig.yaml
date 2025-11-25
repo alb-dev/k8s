@@ -101,12 +101,13 @@ controlPlane:
       machine:
         network:
           disableSearchDomain: true
-    # Timeserver Config
+    # Setup Timeserver
     - |-
       machine:
         time:
+          disabled: false
           servers:
-            - 192.168.178.1
+              - de.pool.ntp.org
     # NFS Server Config
     - |-
       machine:
