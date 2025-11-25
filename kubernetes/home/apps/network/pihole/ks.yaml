@@ -12,8 +12,8 @@ spec:
         kind: Secret
     substitute:
       APP: pihole
-      VOLSYNC_UID: "0"
-      VOLSYNC_GID: "0"
+      VOLSYNC_UID: "1000"
+      VOLSYNC_GID: "1000"
       VOLSYNC_CLAIM: pihole-data
       VOLSYNC_CAPACITY: 10Gi
   prune: true
