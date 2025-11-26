@@ -114,9 +114,12 @@ spec:
               tag: v3.40.3@sha256:23f4a7d62102af5e5d96401a89bc9e6911580b4d87dabb85474a732fc4ee851d
             env:
               BLOCK_MALICIOUS: off # save 300MB of RAM; https://github.com/qdm12/gluetun/issues/2054
-              DOT: off
+              DOT: on
               DOT_CACHING: off
               DOT_IPV6: off
+              DNS_CACHING: off
+              DNS_UPSTREAM_RESOLVER_TYPE: dot
+              DNS_UPSTREAM_RESOLVERS: quad9
               FIREWALL_DEBUG: on
               FIREWALL_INPUT_PORTS: "80,7878,8989,9999"
               HEALTH_SERVER_ADDRESS: ":9999"
@@ -126,7 +129,7 @@ spec:
               UPDATER_PERIOD: 24h
               VERSION_INFORMATION: off
               VPN_IPV6_SERVER: off
-              DNS_ADDRESS: 194.242.2.2
+              DNS_ADDRESS: 9.9.9.9
               TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
