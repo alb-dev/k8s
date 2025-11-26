@@ -126,6 +126,7 @@ spec:
               UPDATER_PERIOD: 24h
               VERSION_INFORMATION: off
               VPN_IPV6_SERVER: off
+              DNS_ADDRESS: dns.mullvad.net
               TZ: ${TIMEZONE}
             envFrom:
               - secretRef:

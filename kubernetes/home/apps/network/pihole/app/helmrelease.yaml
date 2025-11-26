@@ -40,7 +40,7 @@ spec:
           unbound:
             image:
               repository: alpinelinux/unbound
-              tag: latest
+              tag: latest@sha256:f8c40676e083953cd3ed0c953928c87cebd9876c5ec7616b3933a42c7fe62fa4
             securityContext:
               allowPrivilegeEscalation: false
             resources:
