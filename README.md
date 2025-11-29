@@ -1,33 +1,26 @@
 <div align="center">
 
-# My Home Operations Repository <!-- omit in toc -->
+# Home Operations <!-- omit in toc -->
 
 _... managed by FluxCD, Renovate, and Forgejo Actions_ 🤖
 
-<div align="center">
+[![Discord](https://img.shields.io/discord/673534664354430999?style=for-the-badge&label&logo=discord&logoColor=white&color=5A65EA)](https://discord.gg/k8s-at-home)
+[![Renovate](https://img.shields.io/badge/Renovate-193B87?style=for-the-badge&logo=renovate&logoColor=white)](https://www.mend.io/renovate/)
+[![Forgejo](https://img.shields.io/badge/Forgejo-EC622A?style=for-the-badge&logo=forgejo&logoColor=white)](https://forgejo.org)
 
+_hcloud cluster stats:_
 
-**_cluster info:_**
+[![Talos](https://img.shields.io/endpoint?url=https://kromgo.onji.space/talos_version&style=for-the-badge&logo=talos&logoColor=white&color=D14459&label=%20)](https://talos.dev)
+[![Kubernetes](https://img.shields.io/endpoint?url=https://kromgo.onji.space/kubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=white&color=416BDD&label=%20)](https://kubernetes.io)
+[![Flux](https://img.shields.io/endpoint?url=https://kromgo.onji.space/flux_version&style=for-the-badge&logo=flux&logoColor=white&color=416BDD&label=%20)](https://fluxcd.io)
 
-[![Discord](https://img.shields.io/discord/673534664354430999?style=for-the-badge&label&logo=discord&logoColor=white&color=blue)](https://discord.gg/home-operations)&nbsp;&nbsp;
-[![Talos](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.onji.space%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&color=blue&label=%20)](https://talos.dev)&nbsp;&nbsp;
-[![Kubernetes](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.onji.space%2Fkubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=white&color=blue&label=%20)](https://kubernetes.io)&nbsp;&nbsp;
-[![Flux](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.onji.space%2Fflux_version&style=for-the-badge&logo=flux&logoColor=white&color=blue&label=%20)](https://fluxcd.io)&nbsp;&nbsp;
-
-</div>
-
-<div align="center">
-
-
-**_cluster metrics:_**
-
-[![Age-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.onji.space%2Fcluster_age_days&style=flat-square&label=Age)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
-[![Uptime-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.onji.space%2Fcluster_uptime_days&style=flat-square&label=Uptime)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
-[![Node-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.onji.space%2Fcluster_node_count&style=flat-square&label=Nodes)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
-[![Pod-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.onji.space%2Fcluster_pod_count&style=flat-square&label=Pods)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
-[![CPU-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.onji.space%2Fcluster_cpu_usage&style=flat-square&label=CPU)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
-[![Memory-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.onji.space%2Fcluster_memory_usage&style=flat-square&label=Memory)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
-[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.onji.space%2Fcluster_alert_count&style=flat-square&label=Alerts)](https://github.com/kashalls/kromgo)
+![Age-Days](https://img.shields.io/endpoint?url=https://kromgo.onji.space/cluster_age_days&style=flat-square&label=Age)
+![Uptime-Days](https://img.shields.io/endpoint?url=https://kromgo.onji.space/cluster_uptime_days&style=flat-square&label=Uptime)
+![Node-Count](https://img.shields.io/endpoint?url=https://kromgo.onji.space/cluster_node_count&style=flat-square&label=Nodes)
+![Pod-Count](https://img.shields.io/endpoint?url=https://kromgo.onji.space/cluster_pod_count&style=flat-square&label=Pods)
+![CPU-Usage](https://img.shields.io/endpoint?url=https://kromgo.onji.space/cluster_cpu_usage&style=flat-square&label=CPU)
+![Memory-Usage](https://img.shields.io/endpoint?url=https://kromgo.onji.space/cluster_memory_usage&style=flat-square&label=Memory)
+![Alerts](https://img.shields.io/endpoint?url=https://kromgo.onji.space/cluster_alert_count&style=flat-square&label=Alerts)
 
 </div>
 
@@ -62,7 +55,7 @@ This Git repository contains the following directories under [Kubernetes](./kube
 ```
 
 
-# Hnadling fluxcd 
+# Handling fluxcd 
 ## Applying age private key secret to flux-system namespace
 
 > [!NOTE]  
@@ -86,8 +79,15 @@ flux reconcile -n flux-system kustomization flux-system
 ```
 
 
-# 🤝 Special thanks
+## 🔧 Hardware
+
+| Device                      | Num | OS Disk Size | Data Disk Size                  | Ram  | OS            | Function                |
+|-----------------------------|-----|--------------|---------------------------------|------|---------------|-------------------------|
+| ASUS NUC 15 Pro CU 5 225H   | 1   | 1TB SSD      | -                               | 96GB | Talos         | Kubernetes              |
+| Synology RS1221+            | 1   | -            | 5x12TB btrfs (SHR-2)            | 4GB  | DSM           | NFS                     |
+
+## 🤝 Special thanks
 - [Home Operations discord community](https://discord.gg/home-operations)
 - [kubesearch.dev](https://kubesearch.dev/)
-- [sujiba](https://code42.next.offene.cloud/homelab/k8s.git)
+- [sujiba](https://code.onji.space/homelab/kops)
 - [bjw-s](https://github.com/bjw-s-labs)
