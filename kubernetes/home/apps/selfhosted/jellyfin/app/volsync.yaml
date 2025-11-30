@@ -26,4 +26,4 @@ spec:
       hourly: 24
       daily: 7
     storageClassName: local-hostpath
-    volumeSnapshotClassName: local-hostpath
+    volumeSnapshotClassName: csi-local-hostpath
