@@ -13,8 +13,7 @@ spec:
     cacheAccessModes:
       - ReadWriteOnce
     cacheCapacity: "${VOLSYNC_CAPACITY}"
-    cacheStorageClassName: local-hostpath
-    compression: zstd-fastest
+    compression: zstd
     copyMethod: Snapshot
     moverSecurityContext:
       runAsUser: ${VOLSYNC_UID}
@@ -25,5 +24,3 @@ spec:
     retain:
       hourly: 24
       daily: 7
-    storageClassName: local-hostpath
-    volumeSnapshotClassName: csi-local-hostpath
