@@ -7,7 +7,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: headplane
-  interval: 30m
+  interval: 15m
   values:
     controllers:
       headscale-ui:

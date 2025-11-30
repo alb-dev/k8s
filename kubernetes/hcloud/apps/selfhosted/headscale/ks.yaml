@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: headscale
 spec:
-  interval: 1m
+  interval: 15m
   path: ./kubernetes/hcloud/apps/selfhosted/headscale/app
   postBuild:
     substituteFrom:
@@ -23,7 +23,7 @@ kind: Kustomization
 metadata:
   name: headplane
 spec:
-  interval: 1h
+  interval: 15m
   path: ./kubernetes/hcloud/apps/selfhosted/headscale/ui
   postBuild:
     substituteFrom:

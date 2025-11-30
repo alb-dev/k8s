@@ -4,7 +4,7 @@ kind: HelmRelease
 metadata:
   name: flux-instance
 spec:
-  interval: 1h
+  interval: 15m
   chartRef:
     kind: OCIRepository
     name: flux-instance
@@ -34,7 +34,7 @@ spec:
         url: https://code.onji.space/lab/k8s.git
         ref: refs/heads/main
         path: kubernetes/home/flux
-        interval: 1h
+        interval: 15m
       commonMetadata:
         labels:
           app.kubernetes.io/name: flux

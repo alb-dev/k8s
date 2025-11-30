@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: grafana
 spec:
-  interval: 1h
+  interval: 15m
   path: ./kubernetes/hcloud/apps/observability/grafana/app
   prune: true
   sourceRef:
@@ -23,7 +23,7 @@ spec:
     - name: grafana
     - name: openebs
       namespace: storage
-  interval: 1h
+  interval: 15m
   path: ./kubernetes/hcloud/apps/observability/grafana/instance
   prune: true
   sourceRef:

@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: authentik
 spec:
-  interval: 1h
+  interval: 15m
   path: ./kubernetes/hcloud/apps/security/authentik/app
   postBuild:
     substituteFrom:
