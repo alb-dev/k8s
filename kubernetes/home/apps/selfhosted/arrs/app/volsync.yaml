@@ -6,7 +6,7 @@ metadata:
 spec:
   sourcePVC: arrs-config
   trigger:
-    schedule: "*/5 * * * *"
+    schedule: "0 12 * * *"
   kopia:
     accessModes:
       - ReadWriteOnce
