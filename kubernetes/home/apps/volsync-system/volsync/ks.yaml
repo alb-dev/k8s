@@ -5,6 +5,7 @@ metadata:
   name: volsync
 spec:
   interval: 15m
+  timeout: 5m
   path: ./kubernetes/home/apps/volsync-system/volsync/app
   postBuild:
     substituteFrom:

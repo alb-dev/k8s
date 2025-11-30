@@ -6,7 +6,7 @@ metadata:
 spec:
   sourcePVC: ${VOLSYNC_CLAIM}
   trigger:
-    schedule: "*/5 * * * *"
+    schedule: "0 * * * *"
   kopia:
     accessModes:
       - ReadWriteOnce
@@ -21,7 +21,7 @@ spec:
       runAsGroup: ${VOLSYNC_GID}
       fsGroup: ${VOLSYNC_GID}
     parallelism: 2
-    repository: "volsync-kopia-secret"
+    repository: "${APP}-kopia-secret"
     retain:
       hourly: 24
       daily: 7

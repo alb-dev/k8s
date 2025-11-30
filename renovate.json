@@ -36,6 +36,11 @@
     },
     {
       "description": "add cluster name to commit message",
+      "matchFileNames": ["talos/hcloud/**"],
+      "addLabels": ["talos/hcloud"]
+    },
+    {
+      "description": "add cluster name to commit message",
       "matchFileNames": ["bootstrap/hcloud/**"],
       "addLabels": ["bootstrap/hcloud"]
     },
@@ -43,6 +48,11 @@
       "description": "add cluster name to commit message",
       "matchFileNames": ["bootstrap/home/**"],
       "addLabels": ["bootstrap/home"]
+    },
+    {
+      "description": "add cluster name to commit message",
+      "matchFileNames": ["talos/home/**"],
+      "addLabels": ["talos/home"]
     },
     {
       "description": "add cluster name to commit message",
