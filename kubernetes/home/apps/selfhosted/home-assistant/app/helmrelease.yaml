@@ -1,0 +1,131 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: home-assistant
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: home-assistant
+  interval: 30m
+  values:
+    controllers:
+      home-assistant:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            fsGroup: 65533
+            fsGroupChangePolicy: OnRootMismatch
+            runAsGroup: 65533
+            runAsUser: 65534
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/home-assistant
+              tag: 2025.11.3
+            resources:
+              requests:
+                cpu: 100m
+                memory: 2Gi
+              limits:
+                memory: 2Gi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+#          code-server:
+#            image:
+#              repository: ghcr.io/coder/code-server
+#              tag: 4.106.2@sha256:cca5c0bbff928df75ba9344a878e4ca7a321c0d42c34b39e02722b29855a56ac
+#            args:
+#              - --auth
+#              - none
+#              - --disable-telemetry
+#              - --disable-update-check
+#              - --user-data-dir
+#              - /data/user-data
+#              - --extensions-dir
+#              - /data/extensions
+#              - --port
+#              - "12321"
+#              - /config
+#            env:
+#              HASS_SERVER: https://hass.${CLUSTER_DOMAIN}
+#              HASS_TOKEN:
+#                secretKeyRef:
+#                  name: home-assistant-secret
+#                  key: vscode_hass_token
+#            resources:
+#              requests:
+#                cpu: 100m
+#                memory: 1Gi
+#              limits:
+#                memory: 2Gi
+    service:
+      app:
+        ports:
+          http:
+            appProtocol: kubernetes.io/wss
+            port: 8123
+        primary: true
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 192.168.178.4
+#      code-server:
+#        ports:
+#          code-server:
+#            port: 12321
+    persistence:
+      config:
+        existingClaim: home-assistant
+        advancedMounts:
+          home-assistant:
+            app:
+              - path: /config
+                subPath: config
+#            code-server:
+#              - path: /config
+#                subPath: config
+#              - path: /data
+#                subPath: code-server
+      hass-cache:
+        existingClaim: hass-cache
+        advancedMounts:
+          home-assistant:
+            app:
+              - path: /config/.venv
+                subPath: hass-venv
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          home-assistant:
+            app:
+              - path: /tmp
+                subPath: hass-tmp
+#            code-server:
+#              - path: /tmp
+#                subPath: code-server-tmp
+#              - path: /nonexistent
+#                subPath: nonexistent
+    route:
+      app:
+        hostnames: ["hass.${CLUSTER_DOMAIN}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 8123
+#      code:
+#        hostnames: ["hass-code.${CLUSTER_DOMAIN}"]
+#        parentRefs:
+#          - name: envoy-internal
+#             namespace: network
+#        rules:
+#          - backendRefs:
+#              - identifier: code-server
+#                port: 12321

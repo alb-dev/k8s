@@ -1,38 +1,29 @@
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: ${APP}-volsync
-type: Opaque
-stringData:
-  RESTIC_REPOSITORY: "s3:https://${S3_DOMAIN_EXTERNAL}/homelab-${APP}"
-  RESTIC_PASSWORD: ${SECRET_VOLSYNC_RESTIC_PASSWORD}
-  AWS_ACCESS_KEY_ID: ${SECRET_VOLSYNC_S3_ACCESS_KEY}
-  AWS_SECRET_ACCESS_KEY: ${SECRET_VOLSYNC_S3_SECRET_KEY}
----
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: ${APP}
+  name: ${APP}-backup
 spec:
   sourcePVC: ${VOLSYNC_CLAIM}
   trigger:
     schedule: "0 * * * *"
-  restic:
-    copyMethod: Snapshot
-    pruneIntervalDays: 7
-    repository: ${APP}-volsync
-    volumeSnapshotClassName: csi-local-hostpath
-    cacheCapacity: ${VOLSYNC_CAPACITY}
+  kopia:
+    accessModes:
+      - ReadWriteOnce
+    cacheAccessModes:
+      - ReadWriteOnce
+    cacheCapacity: "${VOLSYNC_CAPACITY}"
     cacheStorageClassName: local-hostpath
-    cacheAccessModes: ["ReadWriteOnce"]
-    storageClassName: local-hostpath
-    accessModes: ["ReadWriteOnce"]
+    compression: zstd-fastest
+    copyMethod: Snapshot
     moverSecurityContext:
       runAsUser: ${VOLSYNC_UID}
       runAsGroup: ${VOLSYNC_GID}
       fsGroup: ${VOLSYNC_GID}
+    parallelism: 2
+    repository: volsync-kopia-secret
     retain:
       hourly: 24
       daily: 7
-      weekly: 5
+    storageClassName: local-hostpath
+    volumeSnapshotClassName: csi-local-hostpath

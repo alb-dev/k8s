@@ -9,3 +9,4 @@ resources:
   - ./ocirepository.yaml
   - ./resources
   - ./pvc.yaml
+  - ./volsync.yaml
