@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: home-assistant
-  path: "./kubernetes/home/apps/selfhosted/home-assistant/app"
+  path: "./kubernetes/home/apps/home-automation/home-assistant/app"
   postBuild:
     substituteFrom:
       - name: cluster-secrets
