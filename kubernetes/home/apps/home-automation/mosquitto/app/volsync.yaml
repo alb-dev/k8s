@@ -1,0 +1,29 @@
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: ${APP}-backup
+spec:
+  sourcePVC: ${VOLSYNC_CLAIM}
+  trigger:
+    schedule: "0 * * * *"
+  kopia:
+    accessModes:
+      - ReadWriteOnce
+    cacheAccessModes:
+      - ReadWriteOnce
+    cacheCapacity: "${VOLSYNC_CAPACITY}"
+    cacheStorageClassName: local-hostpath
+    compression: zstd-fastest
+    copyMethod: Snapshot
+    moverSecurityContext:
+      runAsUser: ${VOLSYNC_UID}
+      runAsGroup: ${VOLSYNC_GID}
+      fsGroup: ${VOLSYNC_GID}
+    parallelism: 2
+    repository: volsync-kopia-secret
+    retain:
+      hourly: 24
+      daily: 7
+    storageClassName: local-hostpath
+    volumeSnapshotClassName: csi-local-hostpath
