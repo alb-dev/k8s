@@ -6,3 +6,4 @@ resources:
   - ./pvc.yaml
   - ./volsync.yaml
   - ./ocirepository.yaml
+  - ./secrets.sops.yaml
