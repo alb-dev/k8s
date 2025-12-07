@@ -14,6 +14,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
+          hostNetwork: true
           securityContext:
             fsGroup: 65533
             fsGroupChangePolicy: OnRootMismatch
@@ -70,13 +71,6 @@ spec:
           http:
             appProtocol: kubernetes.io/wss
             port: 8123
-          homekit:
-            enabled: true
-            port: 21065
-        primary: true
-        type: LoadBalancer
-        annotations:
-          lbipam.cilium.io/ips: 192.168.178.4
       code-server:
         ports:
           code-server:
