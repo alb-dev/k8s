@@ -1,0 +1,12 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: cdn-proxy
+spec:
+  endpoints:
+    - address:
+        ip: SECRET_MEDIA_SERVER
+        port: 5001
+  tls:
+    insecureSkipVerify: true
