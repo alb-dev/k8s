@@ -6,7 +6,7 @@ metadata:
 spec:
   endpoints:
     - address:
-        ip: SECRET_MEDIA_SERVER
+        hostname: "${SECRET_MEDIA_SERVER}"
         port: 5001
   tls:
     insecureSkipVerify: true
