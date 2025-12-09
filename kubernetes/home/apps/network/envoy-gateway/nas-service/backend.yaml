@@ -5,8 +5,8 @@ metadata:
   name: nas-service
 spec:
   endpoints:
-    - address:
-        hostname: "${SECRET_MEDIA_SERVER}"
+    - ip:
+        address: "${SECRET_MEDIA_SERVER}"
         port: 5001
   tls:
     insecureSkipVerify: true
