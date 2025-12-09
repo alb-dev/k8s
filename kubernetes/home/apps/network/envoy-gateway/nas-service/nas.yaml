@@ -8,9 +8,9 @@ spec:
   endpoints:
     - ip:
         address: "${SECRET_MEDIA_SERVER}"
-        port: 5001
-  tls:
-    insecureSkipVerify: true
+        port: 5000
+#  tls:
+#    insecureSkipVerify: true
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
