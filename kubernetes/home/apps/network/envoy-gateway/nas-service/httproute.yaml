@@ -14,7 +14,7 @@ spec:
         - group: gateway.envoyproxy.io
           kind: Backend
           name: nas-service
-          port: 5001
+          port: 5000
       matches:
         - path:
             type: PathPrefix
