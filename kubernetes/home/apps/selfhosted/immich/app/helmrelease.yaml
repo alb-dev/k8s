@@ -176,7 +176,8 @@ spec:
             app:
               - path: /usr/src/app/upload
                 subPath: immich
-
+              - path: /usr/src/app/external
+              
       machine-learning:
         type: emptyDir
         advancedMounts:
