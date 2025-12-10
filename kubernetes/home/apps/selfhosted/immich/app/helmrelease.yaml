@@ -183,7 +183,7 @@ spec:
             app:
               - path: /
 
-      database:
+      postgresql:
         existingClaim: immich-postgresql-data
         advancedMounts:
           postgresql:

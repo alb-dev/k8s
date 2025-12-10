@@ -4,12 +4,11 @@ kind: PersistentVolumeClaim
 metadata:
   name: immich-postgresql-data
 spec:
-  storageClassName: local-hostpath
-  accessModes:
-  - ReadWriteOnce
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
       storage: 10Gi
+  storageClassName: local-hostpath
 ---
 apiVersion: v1
 kind: PersistentVolume
