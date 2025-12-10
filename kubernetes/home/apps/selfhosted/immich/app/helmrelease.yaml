@@ -21,11 +21,9 @@ spec:
               DB_HOSTNAME: immich-postgresql
               DB_DATABASE_NAME: immich
               DB_USERNAME: immich
+              DB_PASSWORD: "${SECRET_IMMICH_DB_PASSWORD}"
               REDIS_HOSTNAME: immich-valkey
               IMMICH_LOG_LEVEL: verbose
-            envFrom:
-              - secretRef:
-                  name: immich-secret
             resources:
               requests:
                 cpu: 100m
@@ -58,9 +56,7 @@ spec:
               DB_USERNAME: immich
               REDIS_HOSTNAME: immich-valkey
               REDIS_PORT: "6379"
-            envFrom:
-              - secretRef:
-                  name: immich-secret
+              DB_PASSWORD: "${SECRET_IMMICH_DB_PASSWORD}"
             resources:
               requests:
                 cpu: 100m
@@ -120,10 +116,8 @@ spec:
             env:
               POSTGRES_DB: immich
               POSTGRES_USER: immich
+              POSTGRES_PASSWORD: ${SECRET_IMMICH_DB_PASSWORD}
               PGDATA: /var/lib/postgresql/data
-            envFrom:
-              - secretRef:
-                  name: immich-secret
             resources:
               requests:
                 cpu: 500m
