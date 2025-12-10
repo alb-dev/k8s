@@ -189,3 +189,4 @@ spec:
           postgresql:
             app:
               - path: /var/lib/postgresql/data/pgdata
+                subPath: data
