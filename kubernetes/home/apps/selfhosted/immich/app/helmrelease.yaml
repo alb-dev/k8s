@@ -181,7 +181,7 @@ spec:
         advancedMounts:
           machine-learning:
             app:
-              - path: /
+              - path: /cache
 
       postgresql:
         existingClaim: immich-postgresql-data
