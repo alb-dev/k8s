@@ -188,5 +188,5 @@ spec:
         advancedMounts:
           postgresql:
             app:
-              - path: /var/lib/postgresql/data/pgdata
+              - path: /var/lib/postgresql/data
                 subPath: data
