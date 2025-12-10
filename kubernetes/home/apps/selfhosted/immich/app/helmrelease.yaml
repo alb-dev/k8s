@@ -120,8 +120,10 @@ spec:
             env:
               POSTGRES_DB: immich
               POSTGRES_USER: immich
-              POSTGRES_PASSWORD: ${SECRET_IMMICH_DB_PASSWORD}
               PGDATA: /var/lib/postgresql/data
+            envFrom:
+              - secretRef:
+                  name: immich-secret
             resources:
               requests:
                 cpu: 500m
