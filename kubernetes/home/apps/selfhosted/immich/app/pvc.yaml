@@ -23,7 +23,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     server: "${SECRET_MEDIA_SERVER}"
-    path: /volume1/photos
+    path: /volume1/photo
   mountOptions:
     - nfsvers=4
     - nconnect=16
