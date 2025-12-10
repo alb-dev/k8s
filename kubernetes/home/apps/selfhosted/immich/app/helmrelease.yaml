@@ -175,6 +175,7 @@ spec:
           immich:
             app:
               - path: /usr/src/app/upload
+                subPath: immich
 
       machine-learning:
         type: emptyDir
