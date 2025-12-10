@@ -11,6 +11,7 @@ spec:
   values:
     controllers:
       immich:
+        type: statefulset
         containers:
           app:
             image:
@@ -44,6 +45,7 @@ spec:
                   periodSeconds: 5
 
       machine-learning:
+        type: statefulset
         containers:
           app:
             image:
@@ -76,6 +78,7 @@ spec:
                 enabled: true
 
       valkey:
+        type: statefulset
         containers:
           app:
             image:
