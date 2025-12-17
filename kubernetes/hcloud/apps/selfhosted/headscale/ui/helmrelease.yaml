@@ -71,11 +71,18 @@ spec:
             secretName: headplane.onji.space-tls
     route: 
       app:
-        hostnames: ["headplane.onji.space"]
+        hostnames: ["headscale.onji.space"]
         parentRefs:
           - name: envoy-external
             namespace: network
             sectionName: https
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /admin
+            backendRefs:
+              - identifier: headplane
     persistence:
       config:
         enabled: true
