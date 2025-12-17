@@ -76,14 +76,41 @@ spec:
           - hosts:
               - "headscale.onji.space"
             secretName: headscale-tls
-    route: 
-      app:
-        hostnames: ["headscale.onji.space"]
+    route:
+      headscale:
         parentRefs:
           - name: envoy-external
             namespace: network
             sectionName: https
-            
+        hostnames:
+          - headscale.onji.space
+        rules:
+          - backendRefs:
+              - identifier: headscale
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /api
+            filters:
+              - type: ExtensionRef
+                extensionRef:
+                  group: gateway.envoyproxy.io
+                  kind: HTTPRouteFilter
+                  name: headscale
+
+    rawResources:
+      respond-403:
+        apiVersion: gateway.envoyproxy.io/v1alpha1
+        kind: HTTPRouteFilter
+        spec:
+          spec:
+            directResponse:
+              contentType: text/plain
+              statusCode: 403
+              body:
+                type: Inline
+                inline: Access Denied
+
     persistence:
       data:
         existingClaim: headscale-local
