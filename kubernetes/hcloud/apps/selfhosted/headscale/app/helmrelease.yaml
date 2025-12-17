@@ -85,7 +85,7 @@ spec:
           - headscale.onji.space
         rules:
           - backendRefs:
-              - identifier: headscale
+              - identifier: app
           - matches:
               - path:
                   type: PathPrefix
