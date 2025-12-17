@@ -135,10 +135,6 @@ spec:
     name: envoy-external
   type: JSONPatch
   jsonPatches:
-
-    # -------------------------------------------------
-    # Zstd compression (HTTPS)
-    # -------------------------------------------------
     - type: type.googleapis.com/envoy.config.listener.v3.Listener
       name: network/envoy-external/https
       operation: &zstd-operation
@@ -156,38 +152,6 @@ spec:
               "@type": type.googleapis.com/envoy.extensions.compression.zstd.compressor.v3.Zstd
           response_direction_config:
             remove_accept_encoding_header: true
-
-    # -------------------------------------------------
-    # Zstd compression (QUIC)
-    # -------------------------------------------------
     - type: type.googleapis.com/envoy.config.listener.v3.Listener
       name: network/envoy-external/https-quic
       operation: *zstd-operation
-
-    # -------------------------------------------------
-    # Headscale + WebSocket upgrades (HTTPS)
-    # -------------------------------------------------
-    - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: network/envoy-external/https
-      operation:
-        op: add
-        jsonPath: >
-          ..filters[*].typed_config
-          [?(@["@type"]=="type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager")]
-          .upgrade_configs
-        value:
-          - upgrade_type: websocket
-
-    # -------------------------------------------------
-    # Headscale + WebSocket upgrades (QUIC)
-    # -------------------------------------------------
-    - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: network/envoy-external/https-quic
-      operation:
-        op: add
-        jsonPath: >
-          ..filters[*].typed_config
-          [?(@["@type"]=="type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager")]
-          .upgrade_configs
-        value:
-          - upgrade_type: websocket
