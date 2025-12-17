@@ -77,7 +77,7 @@ spec:
               - "headscale.onji.space"
             secretName: headscale-tls
     route:
-      headscale:
+      app:
         parentRefs:
           - name: envoy-external
             namespace: network
