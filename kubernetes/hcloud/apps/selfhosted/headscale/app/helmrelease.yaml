@@ -50,11 +50,9 @@ spec:
                 drop:
                   - ALL
     service:
-      headscale:
-        controller: headscale
+      app:
         ports:
           http:
-            primary: true
             port: 8080
             
 #    ingress:

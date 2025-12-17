@@ -43,8 +43,7 @@ spec:
                 drop:
                   - ALL
     service:
-      headplane:
-        controller: headscale-ui
+      app:
         ports:
           http:
             port: 3000
