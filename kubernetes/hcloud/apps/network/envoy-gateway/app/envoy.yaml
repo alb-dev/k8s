@@ -188,7 +188,7 @@ spec:
           [?(@["@type"]=="type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager")]
           .upgrade_configs
         value:
-          - upgrade_type: tailscale-control-protocol
+          - upgrade_type: websocket
 
     # -------------------------------------------------
     # Headscale + WebSocket upgrades (QUIC)
@@ -202,4 +202,4 @@ spec:
           [?(@["@type"]=="type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager")]
           .upgrade_configs
         value:
-          - upgrade_type: tailscale-control-protocol
+          - upgrade_type: websocket
