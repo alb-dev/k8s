@@ -72,7 +72,7 @@ spec:
 #            secretName: headplane.onji.space-tls
     route: 
       app:
-        hostnames: ["headscale.onji.space"]
+        hostnames: ["headplane.onji.space"]
         parentRefs:
           - name: envoy-external
             namespace: network
