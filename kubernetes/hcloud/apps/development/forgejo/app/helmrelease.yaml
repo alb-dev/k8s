@@ -32,6 +32,13 @@ spec:
             - path: /
               pathType: Prefix
               port: anubis
+    httpRoute:
+      enabled: true
+      hostnames: [ "code.onji.space" ]
+      parentRefs:
+        - name: external
+          namespace: network
+          sectionName: https
     service:
       ssh:
         ipFamilyPolicy: SingleStack # todo: remove after apply

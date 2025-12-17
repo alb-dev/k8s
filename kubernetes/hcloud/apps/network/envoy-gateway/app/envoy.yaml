@@ -176,11 +176,18 @@ spec:
     name: envoy-internal
   type: JSONPatch
   jsonPatches:
+
+    # -------------------------------------------------
+    # Zstd compression (HTTPS)
+    # -------------------------------------------------
     - type: type.googleapis.com/envoy.config.listener.v3.Listener
       name: network/envoy-internal/https
-      operation: &operation
+      operation: &zstd-operation
         op: add
-        jsonPath: ..filters[*].typed_config.http_filters[?(@.name=="envoy.filters.http.compressor.zstd")].typed_config
+        jsonPath: >
+          ..filters[*].typed_config.http_filters
+          [?(@.name=="envoy.filters.http.compressor.zstd")]
+          .typed_config
         value:
           "@type": type.googleapis.com/envoy.extensions.filters.http.compressor.v3.Compressor
           choose_first: true
@@ -190,6 +197,38 @@ spec:
               "@type": type.googleapis.com/envoy.extensions.compression.zstd.compressor.v3.Zstd
           response_direction_config:
             remove_accept_encoding_header: true
+
+    # -------------------------------------------------
+    # Zstd compression (QUIC)
+    # -------------------------------------------------
     - type: type.googleapis.com/envoy.config.listener.v3.Listener
       name: network/envoy-internal/https-quic
-      operation: *operation
+      operation: *zstd-operation
+
+    # -------------------------------------------------
+    # Headscale + WebSocket upgrades (HTTPS)
+    # -------------------------------------------------
+    - type: type.googleapis.com/envoy.config.listener.v3.Listener
+      name: network/envoy-internal/https
+      operation:
+        op: add
+        jsonPath: >
+          ..filters[*].typed_config
+          [?(@["@type"]=="type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager")]
+          .upgrade_configs
+        value:
+          - upgrade_type: tailscale-control-protocol
+
+    # -------------------------------------------------
+    # Headscale + WebSocket upgrades (QUIC)
+    # -------------------------------------------------
+    - type: type.googleapis.com/envoy.config.listener.v3.Listener
+      name: network/envoy-internal/https-quic
+      operation:
+        op: add
+        jsonPath: >
+          ..filters[*].typed_config
+          [?(@["@type"]=="type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager")]
+          .upgrade_configs
+        value:
+          - upgrade_type: tailscale-control-protocol

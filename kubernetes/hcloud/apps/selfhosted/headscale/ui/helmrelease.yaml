@@ -69,7 +69,13 @@ spec:
           - hosts:
               - "headplane.onji.space"
             secretName: headplane.onji.space-tls
-
+    route: 
+      app:
+        hostnames: ["headplane.onji.space"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
     persistence:
       config:
         enabled: true

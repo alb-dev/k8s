@@ -76,7 +76,13 @@ spec:
           - hosts:
               - "headscale.onji.space"
             secretName: headscale-tls
-
+    route: 
+      app:
+        hostnames: ["headscale.onji.space"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
     persistence:
       data:
         existingClaim: headscale-local
