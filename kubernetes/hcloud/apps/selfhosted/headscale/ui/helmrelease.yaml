@@ -43,10 +43,11 @@ spec:
                 drop:
                   - ALL
     service:
-      app:
+      headplane:
+        controller: headscale-ui
         ports:
           http:
-            port: 3000
+            port: 3001
             
     ingress:
       app:
@@ -75,7 +76,6 @@ spec:
         parentRefs:
           - name: envoy-external
             namespace: network
-            sectionName: https
         rules:
           - matches:
               - path:
