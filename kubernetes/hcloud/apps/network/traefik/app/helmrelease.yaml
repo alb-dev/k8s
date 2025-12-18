@@ -75,8 +75,18 @@ spec:
             readTimeout: 3600s
             idleTimeout: 3600s
             writeTimeout: 3600s
+        http:
+          encodedCharacters:
+            allowEncodedSlash: true
+            allowEncodedBackSlash: false
+            allowEncodedNullCharacter: false
+            allowEncodedSemicolon: false
+            allowEncodedPercent: false
+            allowEncodedQuestionMark: true
+            allowEncodedHash: false
+          #sanitizePath: false
         http3:
-          enabled: false
+          enabled: true
       metrics:
         # -- When using hostNetwork, use another port to avoid conflict with node exporter:
         port: 8082
