@@ -47,7 +47,7 @@ releases:
   - name: traefik
     namespace: network
     chart: traefik/traefik
-    version: 37.4.0
+    version: 38.0.0
     values:
       - ./templates/values.yaml.gotmpl
     set:
