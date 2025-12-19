@@ -31,7 +31,7 @@ spec:
             env:
               ALLOW_USER_SIGNUPS: disabled
               ANALYTICS_DISABLED: true
-              APP_URL: https://id.onji.space
+              APP_URL: https://id.albdev.cloud
               DB_CONNECTION_STRING: file:/data/pocket-id.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(2500)&_txlock=immediate
               DB_PROVIDER: sqlite
               EMAILS_VERIFIED: true
