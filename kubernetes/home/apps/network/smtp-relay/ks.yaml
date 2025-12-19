@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: smtp-relay
 spec:
-  interval: 15m
+  interval: 30m
   path: ./kubernetes/home/apps/network/smtp-relay/app
   postBuild:
     substituteFrom:

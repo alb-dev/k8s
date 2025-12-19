@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: kromgo
 spec:
-  interval: 15m
+  interval: 30m
   path: ./kubernetes/hcloud/apps/observability/kromgo/app
   prune: true
   sourceRef:

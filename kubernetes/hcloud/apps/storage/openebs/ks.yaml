@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: openebs
 spec:
-  interval: 15m
+  interval: 30m
   path: .//kubernetes/hcloud/apps/storage/openebs/app
   postBuild:
     substituteFrom:

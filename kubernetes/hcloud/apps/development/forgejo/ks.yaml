@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: forgejo
 spec:
-  interval: 15m
+  interval: 30m
   path: ./kubernetes/hcloud/apps/development/forgejo/app
   postBuild:
     substituteFrom:
@@ -23,7 +23,7 @@ kind: Kustomization
 metadata:
   name: forgejo-runner
 spec:
-  interval: 15m
+  interval: 30m
   path: ./kubernetes/hcloud/apps/development/forgejo/runner
   postBuild:
     substituteFrom:

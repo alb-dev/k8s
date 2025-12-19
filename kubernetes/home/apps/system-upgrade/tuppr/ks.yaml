@@ -12,7 +12,7 @@ spec:
       kind: HelmRelease
       name: tuppr
       namespace: system-upgrade
-  interval: 15m
+  interval: 30m
   path: "./kubernetes/hcloud/apps/system-upgrade/tuppr/app"
   prune: true
   sourceRef:
@@ -32,7 +32,7 @@ spec:
       app.kubernetes.io/name: tuppr
   dependsOn:
     - name: tuppr
-  interval: 15m
+  interval: 30m
   path: "./kubernetes/hcloud/apps/system-upgrade/tuppr/upgrades"
   prune: true
   sourceRef:

@@ -7,7 +7,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: openebs
-  interval: 15m
+  interval: 30m
   values:
     preUpgradeHook:
       enabled: false

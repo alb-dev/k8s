@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: traefik
 spec:
-  interval: 15m
+  interval: 30m
   path: ./kubernetes/hcloud/apps/network/traefik/app
   postBuild:
     substituteFrom:
@@ -23,7 +23,7 @@ kind: Kustomization
 metadata:
   name: certificates
 spec:
-  interval: 15m
+  interval: 30m
   path: ./kubernetes/hcloud/apps/network/traefik/certificates
   postBuild:
     substituteFrom:

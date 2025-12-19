@@ -4,7 +4,7 @@ kind: HelmRelease
 metadata:
   name: authentik
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       # renovate: registryUrl=https://charts.goauthentik.io/
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: authentik-charts
         namespace: flux-system
-      interval: 15m
+      interval: 30m
   values:
     authentik:
       secret_key: "${AUTHENTIK_KEY}"

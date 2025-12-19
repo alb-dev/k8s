@@ -8,7 +8,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: mosquitto
-  interval: 15m
+  interval: 30m
   values:
     configMaps:
       config:
