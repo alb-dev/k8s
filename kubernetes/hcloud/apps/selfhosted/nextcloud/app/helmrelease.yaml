@@ -33,11 +33,11 @@ spec:
         traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
         
       tls:
-        - secretName: cloud.onji.space-tls
+        - secretName: nextcloud-tls
           hosts:
-            - cloud.onji.space
+            - files.albdev.cloud
     nextcloud:
-      host: cloud.onji.space
+      host: files.albdev.cloud
       extraEnv:
         - name: REDIS_HOST
           value: dragonfly.databases.svc.cluster.local
@@ -70,7 +70,7 @@ spec:
               'auth.bruteforce.protection.enabled' => true,
               'maintenance_window_start' => 1,
               'simpleSignUpLink.shown' => false,
-              'overwrite.cli.url' => 'https://cloud.onji.space',
+              'overwrite.cli.url' => 'https://files.albdev.cloud',
             );
       phpConfigs:
         uploadLimit.ini: |
@@ -102,10 +102,10 @@ spec:
 
       collabora:
         aliasgroups:
-          - host: "https://cloud.onji.space:443"
+          - host: "https://cloud.albdev.cloud:443"
         extra_params: --o:ssl.enable=false --o:ssl.termination=true
 
-      server_name: collabora.onji.space
+      server_name: collabora.albdev.cloud
 
       existingSecret:
         enabled: true
@@ -125,14 +125,14 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: collabora.onji.space
+          - host: collabora.albdev.cloud
             paths:
               - path: /
                 pathType: ImplementationSpecific
         tls:
           - hosts:
-              - collabora.onji.space
-            secretName: collabora.onji.space-tls
+              - collabora.albdev.cloud
+            secretName: collabora-tls
 
     cronjob:
       enabled: true

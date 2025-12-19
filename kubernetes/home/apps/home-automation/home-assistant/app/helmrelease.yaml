@@ -18,6 +18,7 @@ spec:
           reloader.stakater.com/auto: "true"
 
         pod:
+          hostNetwork: true
           securityContext:
             runAsNonRoot: true
             runAsUser: ${VOLSYNC_UID}
