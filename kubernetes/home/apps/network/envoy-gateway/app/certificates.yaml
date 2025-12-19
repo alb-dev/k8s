@@ -2,6 +2,42 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: int-onji-tls
+spec:
+  secretName: int-onji-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: int.onji.space
+  dnsNames:
+    - int.onji.space
+    - "*.int.onji.space"
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    rotationPolicy: Always
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ext-onji-vpn-tls
+spec:
+  secretName: ext-onji-vpn-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: ext.onji.space
+  dnsNames:
+    - ext.onji.space
+    - "*.ext.onji.space"
+  privateKey:
+    algorithm: ECDSA
+    size: 384
+    rotationPolicy: Always
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: int-albdev-tls
 spec:
   secretName: int-albdev-tls
@@ -10,8 +46,6 @@ spec:
     kind: ClusterIssuer
   commonName: int.albdev.cloud
   dnsNames:
-    - int.onji.space
-    - "*.int.onji.space"
     - int.albdev.cloud
     - "*.int.albdev.cloud"
   privateKey:
@@ -22,16 +56,14 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ext-albdev-vpn-tls
+  name: ext-albdev-tls
 spec:
-  secretName: ext-albdev-vpn-tls
+  secretName: ext-albdev-tls
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer
   commonName: ext.albdev.cloud
   dnsNames:
-    - ext.onji.space
-    - "*.ext.onji.space"
     - ext.albdev.cloud
     - "*.ext.albdev.cloud"
   privateKey:
