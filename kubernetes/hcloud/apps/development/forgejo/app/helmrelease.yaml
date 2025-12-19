@@ -33,6 +33,11 @@ spec:
             - path: /
               pathType: Prefix
               port: anubis
+        - host: code.albdev.cloud
+          paths:
+            - path: /
+              pathType: Prefix
+              port: anubis
     httpRoute:
       enabled: true
       hostnames: [ "code.onji.space" ]
