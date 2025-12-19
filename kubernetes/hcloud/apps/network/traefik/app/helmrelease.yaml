@@ -78,13 +78,12 @@ spec:
         http:
           encodedCharacters:
             allowEncodedSlash: true
-            allowEncodedBackSlash: true
-            allowEncodedNullCharacter: true
-            allowEncodedSemicolon: true
-            allowEncodedPercent: true
+            allowEncodedBackSlash: false
+            allowEncodedNullCharacter: false
+            allowEncodedSemicolon: false
+            allowEncodedPercent: false
             allowEncodedQuestionMark: true
-            allowEncodedHash: true
-          #sanitizePath: false
+            allowEncodedHash: false
         http3:
           enabled: true
       metrics:
