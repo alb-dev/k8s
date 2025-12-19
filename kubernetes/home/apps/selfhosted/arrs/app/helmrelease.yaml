@@ -11,8 +11,10 @@ spec:
   values:
     controllers:
       arrs:
+      
         annotations:
           reloader.stakater.com/auto: "true"
+
         containers:
           sabnzbd:
             image:
@@ -41,6 +43,7 @@ spec:
               allowPrivilegeEscalation: false
               capabilities: { drop: ["ALL"] }
               readOnlyRootFilesystem: false
+
           radarr:
             image:
               repository: ghcr.io/home-operations/radarr
@@ -74,6 +77,7 @@ spec:
                 cpu: 100m
               limits:
                 memory: 4Gi
+
           sonarr:
             image:
               repository: ghcr.io/home-operations/sonarr
@@ -107,30 +111,32 @@ spec:
                 cpu: 100m
               limits:
                 memory: 4Gi
+
         initContainers:
           gluetun:
             image:
-              repository: ghcr.io/jfroy/gluetun
-              tag: v3.40.3@sha256:23f4a7d62102af5e5d96401a89bc9e6911580b4d87dabb85474a732fc4ee851d
+              repository: ghcr.io/qdm12/gluetun
+              tag: latest
             env:
-              BLOCK_MALICIOUS: off # save 300MB of RAM; https://github.com/qdm12/gluetun/issues/2054
-              DOT: on
-              DOT_CACHING: off
-              DOT_IPV6: off
-              DNS_CACHING: off
+              # Other options
+              TZ: ${TIMEZONE}
+              LOG_LEVEL: debug
+              VERSION_INFORMATION: off
+              # DNS options
+              DNS_SERVER: on
               DNS_UPSTREAM_RESOLVER_TYPE: dot
               DNS_UPSTREAM_RESOLVERS: quad9
+              DNS_CACHING: off
+              DNS_UPSTREAM_IPV6: off
+              # Firewall options
+              FIREWALL_INPUT_PORTS: "80,1080,7878,8989,8990,9696,9999"
               FIREWALL_DEBUG: on
-              FIREWALL_INPUT_PORTS: "80,7878,8989,9999"
+              # Healthcheck options
               HEALTH_SERVER_ADDRESS: ":9999"
-              HEALTH_SERVER_DISABLE_LOOP: on
-              LOG_LEVEL: debug
+              # Storage options
               STORAGE_FILEPATH: "" # prevent memory spike and avoid I/O
+              # Updater options
               UPDATER_PERIOD: 24h
-              VERSION_INFORMATION: off
-              VPN_IPV6_SERVER: off
-              DNS_ADDRESS: 9.9.9.9
-              TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
                   name: gluetun-secret
@@ -155,7 +161,7 @@ spec:
                   timeoutSeconds: 10
             restartPolicy: Always
             securityContext:
-              <<: *securityContext
+              allowPrivilegeEscalation: false
               capabilities: { add: ["NET_ADMIN", "NET_RAW"] }
               readOnlyRootFilesystem: false
               runAsNonRoot: false

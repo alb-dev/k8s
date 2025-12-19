@@ -16,9 +16,21 @@ spec:
         runAsUser: ${VOLSYNC_UID}
     controllers:
       zigbee2mqtt:
+        replicas: 1
+        strategy: RollingUpdate
+
         annotations:
           reloader.stakater.com/auto: "true"
+
+
         pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: ${VOLSYNC_UID}
+            runAsGroup: ${VOLSYNC_GID}
+            fsGroup: ${VOLSYNC_GID}
+            fsGroupChangePolicy: OnRootMismatch
+
         containers:
           app:
             image:
@@ -72,21 +84,24 @@ spec:
               ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://192.168.178.240:6638
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: false
-            resources:
-              requests:
-                cpu: 50m
-                memory: 384Mi
-              limits:
-                memory: 384Mi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 15m
+                memory: 150Mi
+              limits:
+                memory: 500Mi
+
       code-server:
+        replicas: 1
+        strategy: RollingUpdate
+        
         annotations:
           reloader.stakater.com/auto: "true"
+
         containers:
           code-server:
             image:
@@ -109,34 +124,7 @@ spec:
                 cpu: 10m
               limits:
                 memory: 512Mi
-    service:
-      app:
-        controller: zigbee2mqtt
-        ports:
-          http:
-            primary: true
-            port: *httpPort
-          metrics:
-            port: 9000
-      code-server:
-        controller: code-server
-        ports:
-          http:
-            port: 12321
-    persistence:
-      data:
-        existingClaim: "${VOLSYNC_CLAIM}"
-        advancedMounts:
-          zigbee2mqtt:
-            app:
-              - path: /data
-                subPath: data
-          code-server:
-            code-server:
-              - path: /data
-                subPath: data
-              - path: /mnt/code-server
-                subPath: code-server
+
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${CLUSTER_DOMAIN}"]
@@ -156,3 +144,33 @@ spec:
           - backendRefs:
               - identifier: code-server
                 port: 12321
+
+    service:
+      app:
+        controller: zigbee2mqtt
+        ports:
+          http:
+            primary: true
+            port: *httpPort
+          metrics:
+            port: 9000
+      code-server:
+        controller: code-server
+        ports:
+          http:
+            port: 12321
+
+    persistence:
+      data:
+        existingClaim: "${VOLSYNC_CLAIM}"
+        advancedMounts:
+          zigbee2mqtt:
+            app:
+              - path: /data
+                subPath: data
+          code-server:
+            code-server:
+              - path: /data
+                subPath: data
+              - path: /mnt/code-server
+                subPath: code-server

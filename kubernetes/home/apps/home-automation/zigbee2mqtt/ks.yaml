@@ -18,8 +18,8 @@ spec:
       APP: zigbee2mqtt
       VOLSYNC_CAPACITY: 5Gi
       VOLSYNC_CLAIM: zigbee2mqtt-data
-      VOLSYNC_GID: "2000"
-      VOLSYNC_UID: "2000"
+      VOLSYNC_GID: "1000"
+      VOLSYNC_UID: "1000"
   prune: true
   sourceRef:
     kind: GitRepository

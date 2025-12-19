@@ -129,6 +129,7 @@ spec:
                 enabled: true
               readiness:
                 enabled: true
+                
     service:
       immich:
         controller: immich
