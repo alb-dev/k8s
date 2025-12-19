@@ -23,13 +23,13 @@ spec:
           reloader.stakater.com/auto: "true"
 
 
-        pod:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: ${VOLSYNC_UID}
-            runAsGroup: ${VOLSYNC_GID}
-            fsGroup: ${VOLSYNC_GID}
-            fsGroupChangePolicy: OnRootMismatch
+        #pod:
+        #  securityContext:
+        #    runAsNonRoot: true
+        #    runAsUser: ${VOLSYNC_UID}
+        #    runAsGroup: ${VOLSYNC_GID}
+        #    fsGroup: ${VOLSYNC_GID}
+        #    fsGroupChangePolicy: OnRootMismatch
 
         containers:
           app:
@@ -98,7 +98,7 @@ spec:
       code-server:
         replicas: 1
         strategy: RollingUpdate
-        
+
         annotations:
           reloader.stakater.com/auto: "true"
 
