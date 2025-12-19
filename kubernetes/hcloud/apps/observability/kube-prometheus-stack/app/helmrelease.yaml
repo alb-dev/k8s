@@ -24,7 +24,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
         pathType: Prefix
         hosts:
-          - &host "alertmanager.onji.space"
+          - &host "alertmanager.albdev.cloud"
         tls:
           - hosts:
               - *host
@@ -33,7 +33,7 @@ spec:
         ## Todo no config right now
         #alertmanagerConfiguration:
         #  name: alertmanager
-        externalUrl: https://alertmanager.onji.space
+        externalUrl: https://alertmanager.albdev.cloud
         storage:
           volumeClaimTemplate:
             spec:
@@ -60,14 +60,14 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
           
         pathType: Prefix
-        hosts:
-          - &host "prometheus.onji.space"
+        hosts: 
+          - &host "prometheus.albdev.cloud"
         tls:
           - hosts:
               - *host
             secretName: "prometheus-tls"
       prometheusSpec:
-        externalUrl: https://prometheus.onji.space
+        externalUrl: https://prometheus.albdev.cloud
         version: v2.55.1 # override 'unsupported Prometheus version' error
         image:
           registry: docker.io

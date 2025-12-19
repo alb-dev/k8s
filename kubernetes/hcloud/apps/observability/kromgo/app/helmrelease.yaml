@@ -67,7 +67,7 @@ spec:
           cert-manager.io/private-key-size: "384"
           traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: "kromgo.onji.space"
+          - host: "kromgo.albdev.cloud"
             paths:
               - path: /
                 service:
@@ -75,7 +75,6 @@ spec:
                   port: http
         tls:
           - hosts:
-              - "kromgo.onji.space"
               - "kromgo.albdev.cloud"
             secretName: kromgo-tls
     persistence:

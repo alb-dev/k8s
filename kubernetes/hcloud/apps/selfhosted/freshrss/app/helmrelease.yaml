@@ -56,7 +56,7 @@ spec:
           cert-manager.io/private-key-size: "384"
           traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: "rss.onji.space"
+          - host: "rss.albdev.cloud"
             paths:
               - path: /
                 service:
@@ -64,8 +64,8 @@ spec:
                   port: http
         tls:
           - hosts:
-              - "rss.onji.space"
-            secretName: rss.onji.space-tls
+              - "rss.albdev.cloud"
+            secretName: freshrss-tls
     persistence:
       data:
         enabled: true

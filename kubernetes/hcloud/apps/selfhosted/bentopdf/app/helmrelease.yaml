@@ -61,7 +61,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
 
         hosts:
-          - host: "pdf.onji.space"
+          - host: "pdf.albdev.cloud"
             paths:
               - path: /
                 service:
@@ -69,7 +69,7 @@ spec:
                   port: http
         tls:
           - hosts:
-              - "pdf.onji.space"
+              - "pdf.albdev.cloud"
             secretName: bentopdf-tls
 
     persistence:

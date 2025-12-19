@@ -103,7 +103,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: "ntfy.onji.space"
+          - host: "ntfy.albdev.cloud"
             paths:
               - path: /
                 service:
@@ -111,7 +111,7 @@ spec:
                   port: http
         tls:
           - hosts:
-              - "ntfy.onji.space"
+              - "ntfy.albdev.cloud"
             secretName: ntfy-tls
 
     persistence:

@@ -5,6 +5,5 @@ kind: Kustomization
 namespace: databases
 
 resources:
-  - ./authentik.yaml
   - ./nextcloud.yaml
   - ./secrets.sops.yaml

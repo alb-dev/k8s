@@ -84,7 +84,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
-          - host: "id.onji.space"
+          - host: "id.albdev.cloud"
             paths:
               - path: /
                 service:
@@ -92,7 +92,7 @@ spec:
                   port: http
         tls:
           - hosts:
-              - "id.onji.space"
+              - "id.albdev.cloud"
             secretName: id-onji-space-tls
 
     persistence:

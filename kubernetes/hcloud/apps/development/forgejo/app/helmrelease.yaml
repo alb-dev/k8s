@@ -80,9 +80,9 @@ spec:
         log.file:
           LEVEL: Debug
         server:
-          ROOT_URL: https://code.onji.space/
-          DOMAIN: code.onji.space
-          SSH_DOMAIN: code.onji.space
+          ROOT_URL: https://code.albdev.cloud
+          DOMAIN: code.albdev.cloud
+          SSH_DOMAIN: code.albdev.cloud
           LFS_START_SERVER: true
           OFFLINE_MODE: true
           LANDING_PAGE: login
