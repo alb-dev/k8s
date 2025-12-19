@@ -2,18 +2,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app traefik
+  name: traefik
 spec:
+  chartRef:
+    kind: OCIRepository
+    name: traefik
   interval: 30m
-  chart:
-    spec:
-      chart: *app
-      version: 38.0.0
-      sourceRef:
-        kind: HelmRepository
-        name: traefik-charts
-        namespace: flux-system
-      interval: 30m
   values:
     deployment:
       kind: Deployment
