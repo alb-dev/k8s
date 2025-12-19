@@ -26,4 +26,5 @@ spec:
   tls:
     - hosts:
         - grafana.onji.space
+        - grafana.albdev.cloud
       secretName: grafana-tls

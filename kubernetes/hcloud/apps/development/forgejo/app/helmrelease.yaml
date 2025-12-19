@@ -25,7 +25,8 @@ spec:
       tls:
         - hosts:
             - code.onji.space
-          secretName: code-onji.space
+            - code.albdev.cloud
+          secretName: forgejo-tls
       hosts:
         - host: code.onji.space
           paths:
