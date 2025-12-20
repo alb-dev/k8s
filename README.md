@@ -10,16 +10,16 @@ _... managed by FluxCD, Renovate, and Forgejo Actions_ 🤖
 
 _hcloud cluster stats:_
 
-[![Talos](https://img.shields.io/endpoint?url=https://kromgo.onji.space/talos_version&style=for-the-badge&logo=talos&logoColor=white&color=D14459&label=%20)](https://talos.dev)
-[![Kubernetes](https://img.shields.io/endpoint?url=https://kromgo.onji.space/kubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=white&color=416BDD&label=%20)](https://kubernetes.io)
-[![Flux](https://img.shields.io/endpoint?url=https://kromgo.onji.space/flux_version&style=for-the-badge&logo=flux&logoColor=white&color=416BDD&label=%20)](https://fluxcd.io)
+[![Talos](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/talos_version&style=for-the-badge&logo=talos&logoColor=white&color=D14459&label=%20)](https://talos.dev)
+[![Kubernetes](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/kubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=white&color=416BDD&label=%20)](https://kubernetes.io)
+[![Flux](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/flux_version&style=for-the-badge&logo=flux&logoColor=white&color=416BDD&label=%20)](https://fluxcd.io)
 
-![Age-Days](https://img.shields.io/endpoint?url=https://kromgo.onji.space/cluster_age_days&style=flat-square&label=Age)
-![Uptime-Days](https://img.shields.io/endpoint?url=https://kromgo.onji.space/cluster_uptime_days&style=flat-square&label=Uptime)
-![Node-Count](https://img.shields.io/endpoint?url=https://kromgo.onji.space/cluster_node_count&style=flat-square&label=Nodes)
-![Pod-Count](https://img.shields.io/endpoint?url=https://kromgo.onji.space/cluster_pod_count&style=flat-square&label=Pods)
-![CPU-Usage](https://img.shields.io/endpoint?url=https://kromgo.onji.space/cluster_cpu_usage&style=flat-square&label=CPU)
-![Memory-Usage](https://img.shields.io/endpoint?url=https://kromgo.onji.space/cluster_memory_usage&style=flat-square&label=Memory)
+![Age-Days](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/cluster_age_days&style=flat-square&label=Age)
+![Uptime-Days](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/cluster_uptime_days&style=flat-square&label=Uptime)
+![Node-Count](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/cluster_node_count&style=flat-square&label=Nodes)
+![Pod-Count](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/cluster_pod_count&style=flat-square&label=Pods)
+![CPU-Usage](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/cluster_cpu_usage&style=flat-square&label=CPU)
+![Memory-Usage](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/cluster_memory_usage&style=flat-square&label=Memory)
 
 </div>
 
@@ -88,5 +88,5 @@ flux reconcile -n flux-system kustomization flux-system
 ## 🤝 Special thanks
 - [Home Operations discord community](https://discord.gg/home-operations)
 - [kubesearch.dev](https://kubesearch.dev/)
-- [sujiba](https://code.onji.space/homelab/kops)
+- [sujiba](https://code.albdev.cloud/homelab/kops)
 - [bjw-s](https://github.com/bjw-s-labs)
