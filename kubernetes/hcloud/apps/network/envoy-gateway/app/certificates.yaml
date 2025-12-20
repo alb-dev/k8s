@@ -2,16 +2,16 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: public-onji-tls
+  name: albdev-tls
 spec:
-  secretName: public-onji-tls
+  secretName: albdev-tls
   issuerRef:
     name: letsencrypt-production-dns
     kind: ClusterIssuer
-  commonName: onji.space
+  commonName: albdev.cloud
   dnsNames:
-    - onji.space
-    - "*.onji.space"
+    - albdev.cloud
+    - "*.albdev.cloud"
   privateKey:
     algorithm: ECDSA
     size: 384
