@@ -7,3 +7,4 @@ resources:
   - ./volsync.yaml
   - ./ocirepository.yaml
   - ./secrets.sops.yaml
+  - ./oidc.yaml
