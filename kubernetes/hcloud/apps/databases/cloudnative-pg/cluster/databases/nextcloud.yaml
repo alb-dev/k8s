@@ -6,7 +6,7 @@ metadata:
   namespace: databases
 spec:
   cluster:
-    name: onji-pg-cluster
+    name: postgres-cluster
   name: nextcloud-next
   owner: nextcloud-next
   extensions:

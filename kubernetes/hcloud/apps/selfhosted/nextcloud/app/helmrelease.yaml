@@ -102,7 +102,7 @@ spec:
 
       collabora:
         aliasgroups:
-          - host: "https://cloud.albdev.cloud:443"
+          - host: "https://files.albdev.cloud:443"
         extra_params: --o:ssl.enable=false --o:ssl.termination=true
 
       server_name: collabora.albdev.cloud
