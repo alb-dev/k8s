@@ -10,7 +10,7 @@ spec:
       name: kopia
   oidc:
     provider:
-      issuer: "https://id.albdev.cloud"
+      issuer: "https://id.albdev.cloud:444"
     clientIDRef:
       name: "envoy-oidc-secret"
     clientSecret:
