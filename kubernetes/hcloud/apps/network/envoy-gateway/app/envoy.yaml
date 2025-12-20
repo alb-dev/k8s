@@ -25,7 +25,6 @@ spec:
           securityContext:
             runAsUser: 0
             allowPrivilegeEscalation: true
-          image: mirror.gcr.io/envoyproxy/envoy:distroless-v1.36.2
   shutdown:
     drainTimeout: 180s
   telemetry:
