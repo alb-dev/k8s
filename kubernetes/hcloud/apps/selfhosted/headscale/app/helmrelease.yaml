@@ -89,22 +89,6 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
-        rules:
-          - backendRefs:
-              - port: 8080
-
-    rawResources:
-      respond-403:
-        apiVersion: gateway.envoyproxy.io/v1alpha1
-        kind: HTTPRouteFilter
-        spec:
-          spec:
-            directResponse:
-              contentType: text/plain
-              statusCode: 403
-              body:
-                type: Inline
-                inline: Access Denied
 
     persistence:
       data:
