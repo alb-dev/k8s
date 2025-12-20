@@ -89,6 +89,9 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+        rules:
+          - backendRefs:
+              - port: 8080
 
     persistence:
       data:
