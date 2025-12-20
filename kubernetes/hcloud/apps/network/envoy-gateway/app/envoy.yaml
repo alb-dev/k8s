@@ -54,20 +54,20 @@ spec:
   listeners:
     - name: http
       protocol: HTTP
-      port: 80
+      port: 81
       allowedRoutes:
         namespaces:
           from: Same
     - name: https
       protocol: HTTPS
-      port: 443
+      port: 444
       allowedRoutes:
         namespaces:
           from: All
       tls:
         certificateRefs:
           - kind: Secret
-            name: public-onji-tls
+            name: albdev-tls
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: BackendTrafficPolicy
@@ -93,7 +93,26 @@ kind: ClientTrafficPolicy
 metadata:
   name: envoy
 spec:
+  clientIPDetection:
+    xForwardedFor:
+      numTrustedHops: 1
+  connection:
+    bufferLimit: 8Mi
+    maxAcceptPerSocketEvent: 0
+  http2:
+    initialStreamWindowSize: 2Mi
+    initialConnectionWindowSize: 32Mi
+    onInvalidMessage: TerminateStream
+  tcpKeepalive: {}
+  timeout:
+    http:
+      requestReceivedTimeout: 0s
   http3: {}
+  tls:
+    minVersion: "1.2"
+    alpnProtocols:
+      - h2
+      - http/1.1
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
@@ -138,7 +157,6 @@ spec:
     name: envoy-external
   type: JSONPatch
   jsonPatches:
-
     # -------------------------------------------------
     # Zstd compression (HTTPS)
     # -------------------------------------------------
@@ -166,31 +184,3 @@ spec:
     - type: type.googleapis.com/envoy.config.listener.v3.Listener
       name: network/envoy-external/https-quic
       operation: *zstd-operation
-
-    # -------------------------------------------------
-    # Headscale + WebSocket upgrades (HTTPS)
-    # -------------------------------------------------
-    - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: network/envoy-external/https
-      operation:
-        op: add
-        jsonPath: >
-          ..filters[*].typed_config
-          [?(@["@type"]=="type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager")]
-          .upgrade_configs
-        value:
-          - upgrade_type: websocket
-
-    # -------------------------------------------------
-    # Headscale + WebSocket upgrades (QUIC)
-    # -------------------------------------------------
-    - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: network/envoy-external/https-quic
-      operation:
-        op: add
-        jsonPath: >
-          ..filters[*].typed_config
-          [?(@["@type"]=="type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager")]
-          .upgrade_configs
-        value:
-          - upgrade_type: websocket
