@@ -5,7 +5,7 @@ metadata:
   name: grafana
 spec:
   hostnames:
-    - grafana.int.onji.space
+    - "grafana.${CLUSTER_DOMAIN}"
   parentRefs:
     - name: envoy-internal
       namespace: network
