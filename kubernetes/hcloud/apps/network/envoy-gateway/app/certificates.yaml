@@ -14,5 +14,5 @@ spec:
     - "*.albdev.cloud"
   privateKey:
     algorithm: ECDSA
-    size: 384
+    size: 256
     rotationPolicy: Always
