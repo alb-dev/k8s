@@ -57,9 +57,9 @@ spec:
         expose:
           default: false
       web:
-        port: 80
+        port: 81
       websecure:
-        port: 443
+        port: 444
         tls:
           enabled: true
           options: "default"
