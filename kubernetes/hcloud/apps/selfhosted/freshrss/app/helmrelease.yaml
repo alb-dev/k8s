@@ -12,6 +12,9 @@ spec:
   values:
     controllers:
       freshrss:
+        replicas: 1
+        strategy: RollingUpdate
+
         annotations:
           reloader.stakater.com/auto: "true"
 
@@ -66,6 +69,7 @@ spec:
           - hosts:
               - "rss.albdev.cloud"
             secretName: freshrss-tls
+            
     persistence:
       data:
         enabled: true

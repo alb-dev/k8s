@@ -11,7 +11,9 @@ spec:
   values:
     controllers:
       paperless:
-        forceRename: paperless
+        replicas: 1
+        strategy: RollingUpdate
+
         annotations:
           reloader.stakater.com/auto: "true"
 
@@ -72,6 +74,9 @@ spec:
               limits:
                 memory: 2500Mi
       redis:
+        replicas: 1
+        strategy: RollingUpdate
+        
         containers:
           redis:
             image:
