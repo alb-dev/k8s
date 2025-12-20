@@ -91,7 +91,7 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - identifier: headscale
+              - identifier: app
           - matches:
               - path:
                   type: PathPrefix
