@@ -17,9 +17,9 @@ spec:
     compression: zstd-fastest
     copyMethod: Snapshot
     moverSecurityContext:
-      runAsUser: ${VOLSYNC_UID}
-      runAsGroup: ${VOLSYNC_GID}
-      fsGroup: ${VOLSYNC_GID}
+      runAsUser: 0
+      runAsGroup: 0
+      fsGroup: 0
     parallelism: 2
     repository: volsync-kopia-secret
     retain:
