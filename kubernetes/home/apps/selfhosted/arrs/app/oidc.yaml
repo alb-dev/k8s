@@ -12,10 +12,10 @@ spec:
     provider:
       issuer: "https://id.albdev.cloud"
     clientIDRef:
-      name: "envoy-oidc-secret"
+      name: "envoy-oidc-secret-radarr"
     clientSecret:
-      name: "envoy-oidc-secret"
-    redirectURL: "https://kopia.${CLUSTER_DOMAIN}/oauth2/callback"
+      name: "envoy-oidc-secret-radarr"
+    redirectURL: "https://radarr.${CLUSTER_DOMAIN}/oauth2/callback"
     logoutPath: "/logout"
     scopes: ["openid", "profile", "email"]
 ---
@@ -32,10 +32,10 @@ spec:
     provider:
       issuer: "https://id.albdev.cloud"
     clientIDRef:
-      name: "envoy-oidc-secret"
+      name: "envoy-oidc-secret-sonarr"
     clientSecret:
-      name: "envoy-oidc-secret"
-    redirectURL: "https://kopia.${CLUSTER_DOMAIN}/oauth2/callback"
+      name: "envoy-oidc-secret-sonarr"
+    redirectURL: "https://sonarr.${CLUSTER_DOMAIN}/oauth2/callback"
     logoutPath: "/logout"
     scopes: ["openid", "profile", "email"]
 ---
@@ -52,9 +52,9 @@ spec:
     provider:
       issuer: "https://id.albdev.cloud"
     clientIDRef:
-      name: "envoy-oidc-secret"
+      name: "envoy-oidc-secret-sabnzbd"
     clientSecret:
-      name: "envoy-oidc-secret"
-    redirectURL: "https://kopia.${CLUSTER_DOMAIN}/oauth2/callback"
+      name: "envoy-oidc-secret-sabnzbd"
+    redirectURL: "https://sabnzbd.${CLUSTER_DOMAIN}/oauth2/callback"
     logoutPath: "/logout"
     scopes: ["openid", "profile", "email"]
