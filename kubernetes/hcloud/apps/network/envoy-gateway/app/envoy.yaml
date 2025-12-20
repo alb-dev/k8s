@@ -157,17 +157,11 @@ spec:
     name: envoy-external
   type: JSONPatch
   jsonPatches:
-    # -------------------------------------------------
-    # Zstd compression (HTTPS)
-    # -------------------------------------------------
     - type: type.googleapis.com/envoy.config.listener.v3.Listener
       name: network/envoy-external/https
-      operation: &zstd-operation
+      operation: &operation
         op: add
-        jsonPath: >
-          ..filters[*].typed_config.http_filters
-          [?(@.name=="envoy.filters.http.compressor.zstd")]
-          .typed_config
+        jsonPath: ..filters[*].typed_config.http_filters[?(@.name=="envoy.filters.http.compressor.zstd")].typed_config
         value:
           "@type": type.googleapis.com/envoy.extensions.filters.http.compressor.v3.Compressor
           choose_first: true
@@ -177,10 +171,6 @@ spec:
               "@type": type.googleapis.com/envoy.extensions.compression.zstd.compressor.v3.Zstd
           response_direction_config:
             remove_accept_encoding_header: true
-
-    # -------------------------------------------------
-    # Zstd compression (QUIC)
-    # -------------------------------------------------
     - type: type.googleapis.com/envoy.config.listener.v3.Listener
       name: network/envoy-external/https-quic
-      operation: *zstd-operation
+      operation: *operation
