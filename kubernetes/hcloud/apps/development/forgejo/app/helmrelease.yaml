@@ -40,7 +40,7 @@ spec:
               port: anubis
     httpRoute:
       enabled: true
-      hostnames: [ "code.onji.space" ]
+      hostnames: [ "code.${CLUSTER_DOMAIN}" ]
       parentRefs:
         - name: external
           namespace: network
