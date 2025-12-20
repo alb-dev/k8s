@@ -91,7 +91,11 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - port: 8080
+              - identifier: headscale
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /api
 
     persistence:
       data:
