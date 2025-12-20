@@ -94,17 +94,7 @@ spec:
           - hosts:
               - "id.albdev.cloud"
             secretName: id-onji-space-tls
-    route:
-      app:
-        hostnames:
-          - 'id.${CLUSTER_DOMAIN}'
-        parentRefs:
-          - name: envoy-external
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - port: 1411
+
     persistence:
       data:
         existingClaim: pocket-id-pvc
