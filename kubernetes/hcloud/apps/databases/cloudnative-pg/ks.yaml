@@ -25,7 +25,7 @@ metadata:
 spec:
   dependsOn:
     - name: cloudnative-pg
-  interval: 1m
+  interval: 30m
   path: ./kubernetes/hcloud/apps/databases/cloudnative-pg/cluster
   postBuild:
     substituteFrom:

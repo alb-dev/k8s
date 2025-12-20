@@ -21,6 +21,7 @@ spec:
       archive_timeout: "30min"  # Reduce WAL generation on idle database (default was 5min)
       wal_keep_size: "128MB"    # Keep less WAL for replicas (down from 512MB)
   managed:
+    roles:
       - name: nextcloud-next
         login: true
         superuser: false
