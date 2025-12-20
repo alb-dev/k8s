@@ -8,7 +8,7 @@ spec:
   trigger:
     schedule: "0 16 * * *" # Daily at 4 PM UTC or 5 PM CET
   kopia:
-    capacity: ${VOLSYNC_CAPACITY}
+    capacity: 10Gi
     compression: zstd
     copyMethod: Snapshot
     moverSecurityContext:
