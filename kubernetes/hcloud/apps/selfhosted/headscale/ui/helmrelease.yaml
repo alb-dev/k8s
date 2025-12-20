@@ -69,13 +69,17 @@ spec:
           - hosts:
               - "headplane.onji.space"
             secretName: headplane.onji.space-tls
-    route: 
+    route:
       app:
-        hostnames: ["headplane.onji.space"]
+        hostnames:
+          - '{{ .Release.Name }}.${CLUSTER_DOMAIN}'
         parentRefs:
           - name: envoy-external
             namespace: network
             sectionName: https
+        rules:
+          - backendRefs:
+              - port: 3000
 
     persistence:
       config:

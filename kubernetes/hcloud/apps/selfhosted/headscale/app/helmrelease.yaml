@@ -80,26 +80,18 @@ spec:
           - hosts:
               - "headscale.onji.space"
             secretName: headscale-tls
+
     route:
       app:
+        hostnames:
+          - '{{ .Release.Name }}.${CLUSTER_DOMAIN}'
         parentRefs:
           - name: envoy-external
             namespace: network
-        hostnames:
-          - headscale.onji.space
+            sectionName: https
         rules:
           - backendRefs:
-              - identifier: app
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /api
-            filters:
-              - type: ExtensionRef
-                extensionRef:
-                  group: gateway.envoyproxy.io
-                  kind: HTTPRouteFilter
-                  name: headscale
+              - port: 8080
 
     rawResources:
       respond-403:
