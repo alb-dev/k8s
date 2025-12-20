@@ -25,6 +25,12 @@ spec:
           securityContext:
             runAsUser: 0
             allowPrivilegeEscalation: true
+          imageRepository: mirror.gcr.io/envoyproxy/envoy
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              memory: 1Gi
   shutdown:
     drainTimeout: 180s
   telemetry:
