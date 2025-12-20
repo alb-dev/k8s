@@ -104,7 +104,11 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - port: 1411
+              - identifier: headscale
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /api
     persistence:
       data:
         existingClaim: pocket-id-pvc
