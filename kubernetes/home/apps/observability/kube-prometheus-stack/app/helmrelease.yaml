@@ -16,7 +16,7 @@ spec:
         main:
           enabled: true
           hostnames:
-            - "alertmanager.int.${CLUSTER_DOMAIN}"
+            - "alertmanager.${CLUSTER_DOMAIN}"
           parentRefs:
             - name: envoy-internal
               namespace: network
