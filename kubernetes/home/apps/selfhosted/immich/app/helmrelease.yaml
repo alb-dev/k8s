@@ -61,10 +61,6 @@ spec:
               REDIS_HOSTNAME: immich-valkey
               REDIS_PORT: "6379"
               DB_PASSWORD: "${SECRET_IMMICH_DB_PASSWORD}"
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: [ 'ALL' ] }
             resources:
               requests:
                 cpu: 100m
