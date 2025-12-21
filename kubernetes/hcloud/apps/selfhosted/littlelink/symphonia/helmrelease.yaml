@@ -41,8 +41,8 @@ spec:
               OG_TITLE: Symphonia Costumes Links
               OG_DESCRIPTION: A collection of all of my relevant links
               OG_URL: https://symphonia.${SECRET_DOMAIN}
-              AVATAR_URL: https://scontent-dus1-1.cdninstagram.com/v/t51.2885-19/452250584_460356603517477_1836607217631698383_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMxIn0&_nc_ht=scontent-dus1-1.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2QFOIcNSYhdU66W2NScdkni9NEYNYNqDSEQCeSHWb9hn-Uo7tG1yq4kR4roxAMf130U&_nc_ohc=yyugTShNI3EQ7kNvwFeD1N1&_nc_gid=J2Lv-1an2eWs3IH2tIYYPg&edm=APoiHPcBAAAA&ccb=7-5&oh=00_Afmzd11SdqeV8DNmZZtLYvZlnp-BEY4uAJw15xm-qNnJRg&oe=694DE332&_nc_sid=22de04
-              AVATAR_2X_URL: https://scontent-dus1-1.cdninstagram.com/v/t51.2885-19/452250584_460356603517477_1836607217631698383_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMxIn0&_nc_ht=scontent-dus1-1.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2QFOIcNSYhdU66W2NScdkni9NEYNYNqDSEQCeSHWb9hn-Uo7tG1yq4kR4roxAMf130U&_nc_ohc=yyugTShNI3EQ7kNvwFeD1N1&_nc_gid=J2Lv-1an2eWs3IH2tIYYPg&edm=APoiHPcBAAAA&ccb=7-5&oh=00_Afmzd11SdqeV8DNmZZtLYvZlnp-BEY4uAJw15xm-qNnJRg&oe=694DE332&_nc_sid=22de04
+              AVATAR_URL: https://code.albdev.cloud/lab/CDN/raw/branch/main/452250584_460356603517477_1836607217631698383_n.jpg
+              AVATAR_2X_URL: https://code.albdev.cloud/lab/CDN/raw/branch/main/452250584_460356603517477_1836607217631698383_n.jpg
               NAME: "@symphoniacostumes"
               THEME: Dark
               BIO: "Costume Artist | Wig Artis | Goldworks"
