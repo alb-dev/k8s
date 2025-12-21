@@ -17,22 +17,17 @@ spec:
       className: traefik
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-production
-        cert-manager.io/private-key-rotation-policy: Always
-        cert-manager.io/private-key-algorithm: ECDSA
-        cert-manager.io/private-key-size: 384
+#        cert-manager.io/private-key-rotation-policy: Always
+#        cert-manager.io/private-key-algorithm: ECDSA
+#        cert-manager.io/private-key-size: 384
         traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
         
-      tls:
-        - hosts:
-            - code.onji.space
-            - code.albdev.cloud
-          secretName: forgejo-tls
+#      tls:
+#        - hosts:
+#            - code.onji.space
+#            - code.albdev.cloud
+#          secretName: forgejo-tls
       hosts:
-        - host: code.onji.space
-          paths:
-            - path: /
-              pathType: Prefix
-              port: anubis
         - host: code.albdev.cloud
           paths:
             - path: /

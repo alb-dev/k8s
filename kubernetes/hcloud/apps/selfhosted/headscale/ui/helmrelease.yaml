@@ -53,9 +53,6 @@ spec:
         className: traefik
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
-          cert-manager.io/private-key-rotation-policy: Always
-          cert-manager.io/private-key-algorithm: ECDSA
-          cert-manager.io/private-key-size: "384"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
 #          #traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-auth@kubernetescrd"
         hosts:
@@ -65,10 +62,6 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - "headplane.onji.space"
-            secretName: headplane.onji.space-tls
     route:
       app:
         hostnames:

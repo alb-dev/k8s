@@ -62,9 +62,6 @@ spec:
         className: traefik
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
-          cert-manager.io/private-key-rotation-policy: Always
-          cert-manager.io/private-key-algorithm: "ECDSA"
-          cert-manager.io/private-key-size: "384"
           traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
         hosts:
           - host: "kromgo.albdev.cloud"
@@ -73,10 +70,6 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - "kromgo.albdev.cloud"
-            secretName: kromgo-tls
     persistence:
       config-file:
         type: configMap

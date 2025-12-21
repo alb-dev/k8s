@@ -4,9 +4,6 @@ metadata:
   name: grafana
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    cert-manager.io/private-key-rotation-policy: Always
-    cert-manager.io/private-key-algorithm: "ECDSA"
-    cert-manager.io/private-key-size: "384"
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
 spec:
@@ -22,7 +19,3 @@ spec:
                 name: grafana-service
                 port:
                   number: 3000
-  tls:
-    - hosts:
-        - grafana.albdev.cloud
-      secretName: grafana-tls
