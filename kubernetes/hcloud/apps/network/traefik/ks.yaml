@@ -5,6 +5,7 @@ metadata:
   name: traefik
 spec:
   interval: 30m
+  timeout: 5m
   path: ./kubernetes/hcloud/apps/network/traefik/app
   postBuild:
     substituteFrom:
@@ -24,7 +25,28 @@ metadata:
   name: certificates
 spec:
   interval: 30m
+  timeout: 5m
   path: ./kubernetes/hcloud/apps/network/traefik/certificates
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: network
+  wait: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: certificates
+spec:
+  interval: 30m
+  timeout: 5m
+  path: ./kubernetes/hcloud/apps/network/traefik/error-pages
   postBuild:
     substituteFrom:
       - name: cluster-secrets
