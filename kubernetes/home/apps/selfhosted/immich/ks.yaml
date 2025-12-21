@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: immich
 spec:
-  interval: 1m
+  interval: 30m
   path: ./kubernetes/home/apps/selfhosted/immich/app
   postBuild:
     substituteFrom:
