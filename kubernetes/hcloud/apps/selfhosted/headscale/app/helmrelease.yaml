@@ -12,12 +12,20 @@ spec:
   values:
     controllers:
       headscale:
+        type: statefulset
         replicas: 1
         strategy: RollingUpdate
 
         annotations:
           reloader.stakater.com/auto: "true"
-          
+
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+
         containers:
           app:
             image:
@@ -27,6 +35,12 @@ spec:
             envFrom:
                 - secretRef:
                     name: headscale-secret
+            securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop:
+                    - ALL
             probes:
               liveness:
                 enabled: true
