@@ -71,15 +71,3 @@ spec:
         rules:
           - backendRefs:
               - port: *port
-      internal:
-        annotations:
-          external-dns.alpha.kubernetes.io/internal: "true"
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-        hostnames:
-          - *host
-        rules:
-          - backendRefs:
-              - port: *port
