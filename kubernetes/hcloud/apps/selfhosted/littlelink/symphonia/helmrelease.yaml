@@ -47,11 +47,17 @@ spec:
               NAME: "Symphonia"
               THEME: Dark
               BIO: "Costume Artist | Wig Artist | Embroidery | Cosplay"
-              BUTTON_ORDER: INSTAGRAM,BLUESKY,TIKTOK,KO_FI,EMAIL
+              BUTTON_ORDER: INSTAGRAM,BLUESKY,TIKTOK,KOFI,EMAIL
+              CUSTOM_BUTTON_TEXT: Support me on Ko-fi
+              CUSTOM_BUTTON_URL: https://ko-fi.com/symphoniacostumes
+              CUSTOM_BUTTON_COLOR: "#000000"
+              CUSTOM_BUTTON_TEXT_COLOR: "#ffffff"
+              CUSTOM_BUTTON_ALT_TEXT: MY Ko-fi
+              CUSTOM_BUTTON_NAME: "KOFI"
+              CUSTOM_BUTTON_ICON: "fa-brands fa-ko-fi"
               INSTAGRAM: https://www.instagram.com/symphoniacostumes
               BLUESKY: https://bsky.app/profile/stephcalation.bsky.social
               TIKTOK: https://www.tiktok.com/@symphoniacostumes
-              KO_FI: https://ko-fi.com/symphoniacostumes
               EMAIL: symphonia@naoalb.org
               EMAIL_TEXT: Email me!
               FOOTER: Symphonia © 2025-Present
