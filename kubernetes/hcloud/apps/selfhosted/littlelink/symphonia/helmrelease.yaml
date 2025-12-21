@@ -1,0 +1,89 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: littlelink
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: littlelink
+  interval: 30m
+  values:
+    controllers:
+      littlelink:
+        replicas: 1
+        strategy: RollingUpdate
+
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        pod:
+          securityContext:
+            runAsUser: 65534
+            runAsGroup: 65534
+            fsGroup: 65534
+            fsGroupChangePolicy: "OnRootMismatch"
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/techno-tim/littlelink-server
+              tag: latest@sha256:e84ea9d93b60362cf9e292dba43adb604e375d9206d5fcf1de6bb766a20aabd1
+            env:
+              TZ: ${TIMEZONE}
+              META_TITLE: Symphonia Costumes
+              META_DESCRIPTION: Symphonia Costumes Link Page
+              META_KEYWORDS: Devops
+              META_AUTHOR: Symphonia Costumes
+              META_LANG: en
+              META_INDEX_STATUS: all
+              OG_SITE_NAME: Symphonia Costumes Links
+              OG_TITLE: Symphonia Costumes Links
+              OG_DESCRIPTION: A collection of all of my relevant links
+              OG_URL: https://symphonia.${SECRET_DOMAIN}
+              AVATAR_URL: https://scontent-dus1-1.cdninstagram.com/v/t51.2885-19/452250584_460356603517477_1836607217631698383_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMxIn0&_nc_ht=scontent-dus1-1.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2QFOIcNSYhdU66W2NScdkni9NEYNYNqDSEQCeSHWb9hn-Uo7tG1yq4kR4roxAMf130U&_nc_ohc=yyugTShNI3EQ7kNvwFeD1N1&_nc_gid=J2Lv-1an2eWs3IH2tIYYPg&edm=APoiHPcBAAAA&ccb=7-5&oh=00_Afmzd11SdqeV8DNmZZtLYvZlnp-BEY4uAJw15xm-qNnJRg&oe=694DE332&_nc_sid=22de04
+              AVATAR_2X_URL: https://scontent-dus1-1.cdninstagram.com/v/t51.2885-19/452250584_460356603517477_1836607217631698383_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMxIn0&_nc_ht=scontent-dus1-1.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2QFOIcNSYhdU66W2NScdkni9NEYNYNqDSEQCeSHWb9hn-Uo7tG1yq4kR4roxAMf130U&_nc_ohc=yyugTShNI3EQ7kNvwFeD1N1&_nc_gid=J2Lv-1an2eWs3IH2tIYYPg&edm=APoiHPcBAAAA&ccb=7-5&oh=00_Afmzd11SdqeV8DNmZZtLYvZlnp-BEY4uAJw15xm-qNnJRg&oe=694DE332&_nc_sid=22de04
+              NAME: "@symphoniacostumes"
+              THEME: Dark
+              BIO: "Costume Artist | Wig Artis | Goldworks"
+              BUTTON_ORDER: INSTAGRAM,BLUESKY,TIKTOK,KOFI,EMAIL
+              CUSTOM_BUTTON_TEXT: 'Costumes, Wigs'
+              #CUSTOM_BUTTON_URL: 'https://github.com/Jdavid77/home-cluster,https://live.${SECRET_DOMAIN}'
+              CUSTOM_BUTTON_COLOR: '#D97706,#F59E0B'
+              CUSTOM_BUTTON_TEXT_COLOR: '#ffffff,#ffffff'
+              CUSTOM_BUTTON_ALT_TEXT: 'Costumes, Wigsstyling'
+              CUSTOM_BUTTON_NAME: 'COSTUMES,WIGS'
+              CUSTOM_BUTTON_ICON: 'fas fa-computer,fas fa-computer'
+              INSTAGRAM: https://www.instagram.com/symphoniacostumes
+              BLUESKY: https://bsky.app/profile/stephcalation.bsky.social
+              TIKTOK: https://www.tiktok.com/@symphoniacostumes
+              EMAIL: symphonia@naoalb.org
+              EMAIL_TEXT: Email me!
+              FOOTER: Symphonia © 2025-Present
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 100Mi
+    service:
+      app:
+        controller: littlelink
+        ports:
+          http:
+            port: 3000
+
+    ingress:
+      app:
+        className: traefik
+        hosts:
+          - host: "symphonia.albdev.cloud"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
