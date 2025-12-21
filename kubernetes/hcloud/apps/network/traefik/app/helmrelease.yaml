@@ -94,7 +94,7 @@ spec:
           secretName: *default-certificate
     tlsOptions:
       default:
-        minVersion: VersionTLS13
+        minVersion: VersionTLS12
         maxVersion: VersionTLS13
         sniStrict: true
     pilot:
