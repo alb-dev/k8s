@@ -47,10 +47,12 @@ spec:
               THEME: Dark
               BIO: "Costume Artist | Wig Artist | Embroidery | Cosplay"
               BUTTON_ORDER: INSTAGRAM,BLUESKY,TIKTOK,KO-FI,EMAIL
+              CUSTOM_BUTTON_TEXT: Ko-FI
+              CUSTOM_BUTTON_URL: https://ko-fi.com/symphoniacostumes
+              CUSTOM_BUTTON_ICON: https://cdn.cottle.cloud/littlelink/button-ko-fi.svg
               INSTAGRAM: https://www.instagram.com/symphoniacostumes
               BLUESKY: https://bsky.app/profile/stephcalation.bsky.social
               TIKTOK: https://www.tiktok.com/@symphoniacostumes
-              KO-FI: https://ko-fi.com/symphoniacostumes
               EMAIL: symphonia@naoalb.org
               EMAIL_TEXT: Email me!
               FOOTER: Symphonia © 2025-Present
