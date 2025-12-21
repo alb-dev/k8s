@@ -56,14 +56,13 @@ spec:
     stsSeconds: 31536000
     stsIncludeSubdomains: true
     #referrerPolicy: "same-origin"
-    frameDeny: true
+    #frameDeny: true
     #customFrameOptionsValue: "SAMEORIGIN"
     contentTypeNosniff: true
     browserXssFilter: true
     customResponseHeaders:
       X-Frame-Options: "SAMEORIGIN, ALLOW-FROM https://symphonia.albdev.cloud"
       X-Robots-Tag: "noindex,nofollow"
-      X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
       X-Powered-By: ""
       server: ""
