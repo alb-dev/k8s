@@ -45,12 +45,12 @@ spec:
               AVATAR_2X_URL: https://code.albdev.cloud/lab/CDN/raw/branch/main/452250584_460356603517477_1836607217631698383_n.jpg
               NAME: "Symphonia"
               THEME: Dark
-              BIO: "Costume Artist | Wig Artis | Embroidery | Cosplay"
-              BUTTON_ORDER: INSTAGRAM,BLUESKY,TIKTOK,KOFI,EMAIL
+              BIO: "Costume Artist | Wig Artist | Embroidery | Cosplay"
+              BUTTON_ORDER: INSTAGRAM,BLUESKY,TIKTOK,Ko-Fi,EMAIL
               INSTAGRAM: https://www.instagram.com/symphoniacostumes
               BLUESKY: https://bsky.app/profile/stephcalation.bsky.social
               TIKTOK: https://www.tiktok.com/@symphoniacostumes
-              KOFI: https://ko-fi.com/symphoniacostumes
+              Ko-Fi: https://ko-fi.com/symphoniacostumes
               EMAIL: symphonia@naoalb.org
               EMAIL_TEXT: Email me!
               FOOTER: Symphonia © 2025-Present
