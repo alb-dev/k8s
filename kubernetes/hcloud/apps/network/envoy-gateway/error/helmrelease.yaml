@@ -1,9 +1,8 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v4.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app error-pages
+  name: error-pages
   namespace: kube-system
 spec:
   chartRef:
@@ -55,7 +54,7 @@ spec:
         controller: error-pages
         ports:
           http:
-            port: &port 8080
+            port: 8080
 
     route:
       app:
