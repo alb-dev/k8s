@@ -24,10 +24,6 @@ spec:
               DB_PASSWORD: "${SECRET_IMMICH_DB_PASSWORD}"
               REDIS_HOSTNAME: immich-valkey
               IMMICH_LOG_LEVEL: verbose
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: [ 'ALL' ] }
             resources:
               requests:
                 cpu: 100m
