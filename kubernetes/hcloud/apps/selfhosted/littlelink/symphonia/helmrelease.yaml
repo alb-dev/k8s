@@ -43,20 +43,14 @@ spec:
               OG_URL: https://symphonia.${SECRET_DOMAIN}
               AVATAR_URL: https://code.albdev.cloud/lab/CDN/raw/branch/main/452250584_460356603517477_1836607217631698383_n.jpg
               AVATAR_2X_URL: https://code.albdev.cloud/lab/CDN/raw/branch/main/452250584_460356603517477_1836607217631698383_n.jpg
-              NAME: "@symphoniacostumes"
+              NAME: "Symphonia"
               THEME: Dark
-              BIO: "Costume Artist | Wig Artis | Goldworks"
+              BIO: "Costume Artist | Wig Artis | Embroidery | Cosplay"
               BUTTON_ORDER: INSTAGRAM,BLUESKY,TIKTOK,KOFI,EMAIL
-              CUSTOM_BUTTON_TEXT: 'Costumes, Wigs'
-              #CUSTOM_BUTTON_URL: 'https://github.com/Jdavid77/home-cluster,https://live.${SECRET_DOMAIN}'
-              CUSTOM_BUTTON_COLOR: '#D97706,#F59E0B'
-              CUSTOM_BUTTON_TEXT_COLOR: '#ffffff,#ffffff'
-              CUSTOM_BUTTON_ALT_TEXT: 'Costumes, Wigsstyling'
-              CUSTOM_BUTTON_NAME: 'COSTUMES,WIGS'
-              CUSTOM_BUTTON_ICON: 'fas fa-computer,fas fa-computer'
               INSTAGRAM: https://www.instagram.com/symphoniacostumes
               BLUESKY: https://bsky.app/profile/stephcalation.bsky.social
               TIKTOK: https://www.tiktok.com/@symphoniacostumes
+              KOFI: https://ko-fi.com/symphoniacostumes/goal?g=0
               EMAIL: symphonia@naoalb.org
               EMAIL_TEXT: Email me!
               FOOTER: Symphonia © 2025-Present
