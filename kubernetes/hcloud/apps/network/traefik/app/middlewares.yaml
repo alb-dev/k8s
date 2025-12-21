@@ -61,7 +61,7 @@ spec:
     contentTypeNosniff: true
     browserXssFilter: true
     customResponseHeaders:
-      X-Frame-Options: "SAMEORIGIN"
+      X-Frame-Options: "SAMEORIGIN, ALLOW-FROM https://symphonia.albdev.cloud/"
       X-Robots-Tag: "noindex,nofollow"
       X-Permitted-Cross-Domain-Policies: "none"
       X-Forwarded-Proto: "https"
