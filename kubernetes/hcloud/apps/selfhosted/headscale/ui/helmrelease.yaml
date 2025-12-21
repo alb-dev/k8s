@@ -56,7 +56,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
 #          #traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-auth@kubernetescrd"
         hosts:
-          - host: "headplane.onji.space"
+          - host: "headplane.albdev.cloud"
             paths:
               - path: /
                 service:
