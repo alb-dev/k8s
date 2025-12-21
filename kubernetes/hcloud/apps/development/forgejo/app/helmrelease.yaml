@@ -20,7 +20,7 @@ spec:
 #        cert-manager.io/private-key-rotation-policy: Always
 #        cert-manager.io/private-key-algorithm: ECDSA
 #        cert-manager.io/private-key-size: 384
-        traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
+        traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-forgejo@kubernetescrd"
         
 #      tls:
 #        - hosts:

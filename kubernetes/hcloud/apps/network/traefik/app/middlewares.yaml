@@ -55,13 +55,37 @@ spec:
     forceSTSHeader: true
     stsSeconds: 31536000
     stsIncludeSubdomains: true
-    #referrerPolicy: "same-origin"
-    #frameDeny: true
-    #customFrameOptionsValue: "SAMEORIGIN"
+    referrerPolicy: "same-origin"
+    frameDeny: true
+    customFrameOptionsValue: "SAMEORIGIN"
     contentTypeNosniff: true
     browserXssFilter: true
     customResponseHeaders:
-      X-Frame-Options: "SAMEORIGIN, ALLOW-FROM https://symphonia.albdev.cloud"
+      X-Frame-Options: "SAMEORIGIN"
+      X-Robots-Tag: "noindex,nofollow"
+      X-Forwarded-Proto: "https"
+      X-Powered-By: ""
+      server: ""
+---
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-secure-headers-forgejo
+  namespace: network
+spec:
+  headers:
+    accessControlAllowMethods:
+      - GET
+      - OPTIONS
+      - PUT
+      - POST
+    accessControlMaxAge: 100
+    hostsProxyHeaders:
+      - "X-Forwarded-Host"
+      - "X-Forwarded-For"
+      - "X-Forwarded-Proto"
+    customResponseHeaders:
       X-Robots-Tag: "noindex,nofollow"
       X-Forwarded-Proto: "https"
       X-Powered-By: ""
@@ -85,30 +109,6 @@ spec:
       - "*"
     accessControlAllowCredentials: false
     addVaryHeader: true
---- 
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-    name: authentik
-    namespace: network
-spec:
-    forwardAuth:
-        # This address should point to the cluster endpoint provided by the kubernetes service, not the Ingress.
-        address: http://ak-outpost-traefik.security.svc.cluster.local:9000/outpost.goauthentik.io/auth/traefik
-        trustForwardHeader: true
-        authResponseHeaders:
-            - X-authentik-username
-            - X-authentik-groups
-            - X-authentik-entitlements
-            - X-authentik-email
-            - X-authentik-name
-            - X-authentik-uid
-            - X-authentik-jwt
-            - X-authentik-meta-jwks
-            - X-authentik-meta-outpost
-            - X-authentik-meta-provider
-            - X-authentik-meta-app
-            - X-authentik-meta-version
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -126,13 +126,12 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: traefik-middleware-chain-auth
+  name: traefik-middleware-chain-forgejo
   namespace: network
 spec:
   chain:
     middlewares:
       - name: network-traefik-middleware-rate-limit@kubernetescrd
-      - name: network-traefik-middleware-secure-headers@kubernetescrd
+      - name: network-traefik-middleware-secure-headers-forgejo@kubernetescrd
       - name: network-traefik-middleware-compress@kubernetescrd
       - name: network-traefik-middleware-redirect@kubernetescrd
-      - name: network-traefik-middleware-authentik@kubernetescrd
