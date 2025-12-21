@@ -5,6 +5,7 @@ metadata:
   name: it-tools
 spec:
   interval: 30m
+  timeout: 5m
   path: ./kubernetes/hcloud/apps/selfhosted/it-tools/app
   postBuild:
     substituteFrom:

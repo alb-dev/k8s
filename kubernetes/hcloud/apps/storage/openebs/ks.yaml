@@ -5,7 +5,8 @@ metadata:
   name: openebs
 spec:
   interval: 30m
-  path: .//kubernetes/hcloud/apps/storage/openebs/app
+  timeout: 5m
+  path: ./kubernetes/hcloud/apps/storage/openebs/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
