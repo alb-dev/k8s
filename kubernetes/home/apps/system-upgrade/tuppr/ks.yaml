@@ -11,7 +11,7 @@ spec:
       kind: HelmRelease
       name: tuppr
       namespace: system-upgrade
-  path: "./kubernetes/hcloud/apps/system-upgrade/tuppr/app"
+  path: "./kubernetes/home/apps/system-upgrade/tuppr/app"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -28,7 +28,7 @@ spec:
   timeout: 5m
   dependsOn:
     - name: tuppr
-  path: "./kubernetes/hcloud/apps/system-upgrade/tuppr/upgrades"
+  path: "./kubernetes/home/apps/system-upgrade/tuppr/upgrades"
   prune: true
   sourceRef:
     kind: GitRepository
