@@ -50,7 +50,8 @@ spec:
       checkNewVersion: false
       sendAnonymousUsage: false
     env:
-      TZ: ${TIMEZONE}
+      - name: TZ
+        value: Europe/Berlin
     ports:
       traefik:
         expose:
