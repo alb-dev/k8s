@@ -76,9 +76,16 @@ spec:
                 service:
                   identifier: app
                   port: http
+          - host: "headscale.albdev.cloud"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
         tls:
           - hosts:
               - "headscale.onji.space"
+              - "headscale.albdev.cloud"
             secretName: headscale-tls
 
     route:
