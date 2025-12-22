@@ -80,17 +80,13 @@ spec:
             namespace: network
             sectionName: https
       vpn:
-        hostnames: ["{{ .Release.Name }}.${VPN_DOMIAN}"]
+        hostnames:
+          - "{{ .Release.Name }}.${VPN_DOMIAN}"
+          - "{{ .Release.Name }}.${EXT_CLUSTER_DOMAIN}"
         parentRefs:
           - name: envoy-vpn
             namespace: network
             sectionName: https
-      ext:
-        hostnames: ["{{ .Release.Name }}.${EXT_CLUSTER_DOMAIN}"]
-        parentRefs:
-          - name: envoy-vpn
-            namespace: network
-            sectionName: https            
 
     persistence:
       config:
