@@ -8,5 +8,5 @@ spec:
     # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
     version: v1.12.0
   policy:
-    rebootMode: default
+    rebootMode: powercycle
     placement: soft
