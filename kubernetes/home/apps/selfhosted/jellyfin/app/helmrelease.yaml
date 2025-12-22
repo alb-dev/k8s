@@ -85,7 +85,13 @@ spec:
           - name: envoy-vpn
             namespace: network
             sectionName: https
-            
+      ext:
+        hostnames: ["{{ .Release.Name }}.${EXT_CLUSTER_DOMAIN}"]
+        parentRefs:
+          - name: envoy-vpn
+            namespace: network
+            sectionName: https            
+
     persistence:
       config:
         existingClaim: ${VOLSYNC_CLAIM}
