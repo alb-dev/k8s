@@ -105,9 +105,9 @@ metadata:
   name: envoy
 spec:
   compression:
+    - type: Zstd
     - type: Brotli
     - type: Gzip
-    - type: Zstd
   connection:
     bufferLimit: 8Mi
   targetSelectors:
@@ -167,61 +167,3 @@ spec:
           requestRedirect:
             scheme: https
             statusCode: 301
----
-apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: EnvoyPatchPolicy
-metadata:
-  name: envoy-vpn
-spec:
-  targetRef:
-    group: gateway.networking.k8s.io
-    kind: Gateway
-    name: envoy-vpn
-  type: JSONPatch
-  jsonPatches:
-    - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: network/envoy-vpn/https
-      operation: &operation
-        op: add
-        jsonPath: ..filters[*].typed_config.http_filters[?(@.name=="envoy.filters.http.compressor.zstd")].typed_config
-        value:
-          "@type": type.googleapis.com/envoy.extensions.filters.http.compressor.v3.Compressor
-          choose_first: true
-          compressor_library:
-            name: envoy.compression.zstd.compressor
-            typed_config:
-              "@type": type.googleapis.com/envoy.extensions.compression.zstd.compressor.v3.Zstd
-          response_direction_config:
-            remove_accept_encoding_header: true
-    - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: network/envoy-vpn/https-quic
-      operation: *operation
----
-apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: EnvoyPatchPolicy
-metadata:
-  name: envoy-internal
-spec:
-  targetRef:
-    group: gateway.networking.k8s.io
-    kind: Gateway
-    name: envoy-internal
-  type: JSONPatch
-  jsonPatches:
-    - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: network/envoy-internal/https
-      operation: &operation
-        op: add
-        jsonPath: ..filters[*].typed_config.http_filters[?(@.name=="envoy.filters.http.compressor.zstd")].typed_config
-        value:
-          "@type": type.googleapis.com/envoy.extensions.filters.http.compressor.v3.Compressor
-          choose_first: true
-          compressor_library:
-            name: envoy.compression.zstd.compressor
-            typed_config:
-              "@type": type.googleapis.com/envoy.extensions.compression.zstd.compressor.v3.Zstd
-          response_direction_config:
-            remove_accept_encoding_header: true
-    - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: network/envoy-internal/https-quic
-      operation: *operation
