@@ -8,5 +8,5 @@ spec:
   repository:
     repository: volsync-kopia-secret
   trigger:
-    schedule: "0 5 * * *"
+    schedule: "0 17 * * *"
   enabled: true
