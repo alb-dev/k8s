@@ -23,12 +23,6 @@ spec:
               repository: ghcr.io/paperless-ngx/paperless-ngx
               tag: 2.20.3
             env:
-              # Configure application
-              PAPERLESS_SECRET_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: paperless-secret
-                    key: PAPERLESS_SECRET_KEY
               PAPERLESS_URL: "https://{{ .Release.Name }}.${CLUSTER_DOMAIN}"
               PAPERLESS_PORT: "8000"
               PAPERLESS_TIME_ZONE: "${TIMEZONE}"
@@ -47,16 +41,9 @@ spec:
               # Configure user permissions
               # Configure admin user
               PAPERLESS_FILENAME_FORMAT: "{correspondent}/{created_year}/{correspondent}_{document_type}_{created}"
-              PAPERLESS_ADMIN_USER:
-                valueFrom:
-                  secretKeyRef:
-                    name: paperless-secret
-                    key: PAPERLESS_ADMIN_USER
-              PAPERLESS_ADMIN_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: paperless-secret
-                    key: PAPERLESS_ADMIN_PASSWORD
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness:
                 enabled: true
