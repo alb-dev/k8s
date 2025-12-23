@@ -13,8 +13,10 @@ spec:
       pihole:
         replicas: 1
         strategy: RollingUpdate
+
         annotations:
           reloader.stakater.com/auto: "true"
+
         containers:
           pihole:
             image:
@@ -28,7 +30,7 @@ spec:
               FTLCONF_dns_dnssec: true
             envFrom:
               - secretRef:
-                  name: "pihole-secret"
+                  name: "{{ .Release.Name }}-secret"
             securityContext:
               allowPrivilegeEscalation: false
             resources:
@@ -48,6 +50,7 @@ spec:
                 cpu: 100m
               limits:
                 memory: 512Mi
+
     service:
       app:
         forceRename: pihole
@@ -71,6 +74,7 @@ spec:
           https:
             port: 443
             protocol: HTTPS
+
     route:
       app:
         hostnames:
@@ -89,6 +93,7 @@ spec:
         #      sessionName: pihole
         #      type: Cookie
         #      absoluteTimeout: 35m
+        
     persistence:
       config:
         existingClaim: ${VOLSYNC_CLAIM}

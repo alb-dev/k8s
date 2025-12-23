@@ -14,10 +14,13 @@ spec:
         type: statefulset
         replicas: 1
         strategy: RollingUpdate
+
         serviceAccount:
           identifier: tailscale
+
         annotations:
           reloader.stakater.com/auto: "true"
+
         containers:
           app:
             image:
@@ -36,7 +39,7 @@ spec:
               TS_USERSPACE: true
             envFrom:
               - secretRef:
-                  name: tailscale-secret
+                  name: "{{ .Release.Name }}-secret"
             probes:
               liveness: &probes
                 enabled: true
@@ -59,20 +62,24 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
-    persistence:
-      tmp:
-        type: emptyDir
+
     service:
       app:
         controller: *app
         ports:
           http:
             port: *port
+
+    persistence:
+      tmp:
+        type: emptyDir
+
     serviceAccount:
       tailscale:
         forceRename: tailscale
