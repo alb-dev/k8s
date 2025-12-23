@@ -29,7 +29,7 @@ spec:
             env:
               TZ: Europe/Berlin
               CRON_MIN: "*"
-              DOMAIN: rss.onji.space
+              DOMAIN: rss.albdev.cloud
               LISTEN: &port 8080
             probes:
               liveness:
