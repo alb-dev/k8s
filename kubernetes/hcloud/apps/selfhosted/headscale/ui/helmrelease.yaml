@@ -57,18 +57,18 @@ spec:
           cert-manager.io/private-key-algorithm: ECDSA
           cert-manager.io/private-key-size: "384"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-#          #traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-auth@kubernetescrd"
         hosts:
-          - host: "headplane.onji.space"
+          - host: "headscale.onji.space"
             paths:
-              - path: /
+              - path: /admin
                 service:
                   identifier: app
                   port: http
         tls:
           - hosts:
-              - "headplane.onji.space"
-            secretName: headplane.onji.space-tls
+              - "headscale.onji.space"
+              - "headscale.albdev.cloud"
+            secretName: headscale-tls
     route:
       app:
         hostnames:
