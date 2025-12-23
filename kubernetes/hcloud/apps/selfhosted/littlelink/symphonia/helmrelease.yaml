@@ -41,9 +41,9 @@ spec:
               OG_TITLE: Symphonia Costumes Links
               OG_DESCRIPTION: A collection of all of my relevant links
               OG_URL: https://symphonia.${SECRET_DOMAIN}
-              FAVICON_URL: https://cdn.bsky.app/img/avatar/plain/did:plc:dykvin6n7ef5dpkb2yktaj6n/bafkreigru4vhwlycx4y3beecohfhaaodc2fm3i6ab3l67odsyz6afhyr6q@jpeg
-              AVATAR_URL: https://cdn.bsky.app/img/avatar/plain/did:plc:dykvin6n7ef5dpkb2yktaj6n/bafkreigru4vhwlycx4y3beecohfhaaodc2fm3i6ab3l67odsyz6afhyr6q@jpeg
-              AVATAR_2X_URL: https://cdn.bsky.app/img/avatar/plain/did:plc:dykvin6n7ef5dpkb2yktaj6n/bafkreigru4vhwlycx4y3beecohfhaaodc2fm3i6ab3l67odsyz6afhyr6q@jpeg
+              FAVICON_URL: https://files.albdev.cloud/apps/files_sharing/publicpreview/7Gitc7CtLsCXiHb?file=/&fileId=9189&x=3024&y=1964&a=true&etag=fe84cfcdcf07d577ffc501c43c4ba5d5
+              AVATAR_URL: https://files.albdev.cloud/apps/files_sharing/publicpreview/7Gitc7CtLsCXiHb?file=/&fileId=9189&x=3024&y=1964&a=true&etag=fe84cfcdcf07d577ffc501c43c4ba5d5
+              AVATAR_2X_URL: https://files.albdev.cloud/apps/files_sharing/publicpreview/7Gitc7CtLsCXiHb?file=/&fileId=9189&x=3024&y=1964&a=true&etag=fe84cfcdcf07d577ffc501c43c4ba5d5
               NAME: "Symphonia"
               THEME: Dark
               BIO: "Costume Artist | Wig Artist | Embroidery | Cosplay"
