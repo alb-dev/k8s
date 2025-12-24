@@ -67,11 +67,10 @@ spec:
       X-Powered-By: ""
       server: ""
 ---
----
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: traefik-middleware-secure-headers-forgejo
+  name: traefik-middleware-secure-headers-public
   namespace: network
 spec:
   headers:
@@ -85,8 +84,17 @@ spec:
       - "X-Forwarded-Host"
       - "X-Forwarded-For"
       - "X-Forwarded-Proto"
+    stsPreload: true
+    forceSTSHeader: true
+    stsSeconds: 31536000
+    stsIncludeSubdomains: true
+    referrerPolicy: "same-origin"
+    frameDeny: true
+    customFrameOptionsValue: "SAMEORIGIN"
+    contentTypeNosniff: true
+    browserXssFilter: true
     customResponseHeaders:
-      X-Robots-Tag: "noindex,nofollow"
+      X-Frame-Options: "SAMEORIGIN"
       X-Forwarded-Proto: "https"
       X-Powered-By: ""
       server: ""
@@ -126,12 +134,12 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: traefik-middleware-chain-forgejo
+  name: traefik-middleware-chain-public
   namespace: network
 spec:
   chain:
     middlewares:
       - name: network-traefik-middleware-rate-limit@kubernetescrd
-      - name: network-traefik-middleware-secure-headers-forgejo@kubernetescrd
+      - name: network-traefik-middleware-secure-headers-public@kubernetescrd
       - name: network-traefik-middleware-compress@kubernetescrd
       - name: network-traefik-middleware-redirect@kubernetescrd

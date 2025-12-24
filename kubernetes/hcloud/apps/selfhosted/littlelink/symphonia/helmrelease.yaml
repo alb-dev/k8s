@@ -82,6 +82,8 @@ spec:
     ingress:
       app:
         className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-public@kubernetescrd"
         hosts:
           - host: "symphonia.albdev.cloud"
             paths:
