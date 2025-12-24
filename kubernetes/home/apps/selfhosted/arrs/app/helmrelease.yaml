@@ -28,17 +28,8 @@ spec:
                 sabnzbd.selfhosted.svc.cluster,
                 sabnzbd.selfhosted.svc.cluster.local,
                 "sabnzbd.${CLUSTER_DOMAIN}",
-              SABNZBD__PORT: &port 80
+              SABNZBD__PORT: 80
               TZ: ${TIMEZONE}
-            probes:
-              liveness: &probe
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api?mode=version
-                    port: *port
-              readiness: *probe
             securityContext: &securityContext
               allowPrivilegeEscalation: false
               capabilities: { drop: ["ALL"] }
@@ -55,22 +46,9 @@ spec:
               RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
               RADARR__LOG__DBENABLED: "False"
               RADARR__LOG__LEVEL: info
-              RADARR__SERVER__PORT: &port 7878
+              RADARR__SERVER__PORT: 7878
               RADARR__UPDATE__BRANCH: develop
               TZ: ${TIMEZONE}
-            probes:
-              liveness: &probes-radarr
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /ping
-                    port: 7878
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes-radarr
             securityContext: *securityContext
             resources:
               requests:
@@ -92,19 +70,6 @@ spec:
               SONARR__SERVER__PORT: 8989
               SONARR__UPDATE__BRANCH: develop
               TZ: ${TIMEZONE}
-            probes:
-              liveness: &probes-sonarr
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /ping
-                    port: 8989
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes-sonarr
             securityContext: *securityContext
             resources:
               requests:
