@@ -138,7 +138,7 @@ spec:
 
     extraContainers:
       - name: anubis
-        image: ghcr.io/techarohq/anubis:v1.23.1
+        image: ghcr.io/techarohq/anubis:v1.24.0
         imagePullPolicy: Always
         env:
           - name: 'BIND'
