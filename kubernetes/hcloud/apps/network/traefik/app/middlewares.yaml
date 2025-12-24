@@ -98,7 +98,7 @@ spec:
       X-Forwarded-Proto: "https"
       X-Powered-By: ""
       server: ""
-      vary: ""
+      vary: "Accept-Encoding"
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
