@@ -63,7 +63,6 @@ spec:
     customResponseHeaders:
       X-Frame-Options: "SAMEORIGIN"
       X-Robots-Tag: "noindex,nofollow"
-      X-Forwarded-Proto: "https"
       X-Powered-By: ""
       server: ""
 ---
@@ -95,7 +94,6 @@ spec:
     browserXssFilter: true
     customResponseHeaders:
       X-Frame-Options: "SAMEORIGIN"
-      X-Forwarded-Proto: "https"
       X-Powered-By: ""
       server: ""
       vary: "Accept-Encoding"
