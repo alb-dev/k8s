@@ -28,7 +28,6 @@ spec:
             gluetun: "true"
           hostname: sabnzbd
 
-        containers:
         initContainers:
           gluetun:
             image:
@@ -84,6 +83,7 @@ spec:
               runAsNonRoot: false
               runAsUser: 0
 
+        containers:
           sabnzbd:
             image:
               repository: ghcr.io/home-operations/sabnzbd
