@@ -4,18 +4,18 @@ kind: HelmRelease
 metadata:
   name: arrs
 spec:
-  interval: 1m
+  interval: 30m
   chartRef:
     kind: OCIRepository
     name: arrs
   values:
     defaultPodOptions:
-    securityContext:
-      runAsNonRoot: true
-#      runAsUser: ${VOLSYNC_UID}
-#      runAsGroup: ${VOLSYNC_GID}
-#      fsGroup: ${VOLSYNC_GID}
-#      fsGroupChangePolicy: OnRootMismatch
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: ${VOLSYNC_UID}
+        runAsGroup: ${VOLSYNC_GID}
+        fsGroup: ${VOLSYNC_GID}
+        fsGroupChangePolicy: OnRootMismatch
 
     controllers:
       arrs:
