@@ -51,20 +51,20 @@ spec:
               limits:
                 memory: 512Mi
 
-        pod:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: ${VOLSYNC_UID}
-            runAsGroup: ${VOLSYNC_GID}
-            fsGroup: ${VOLSYNC_GID}
-            fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: ${VOLSYNC_UID}
+        runAsGroup: ${VOLSYNC_GID}
+        fsGroup: ${VOLSYNC_GID}
+        fsGroupChangePolicy: OnRootMismatch
 
     service:
       app:
         ports:
           http:
             port: 80
-
+            
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${CLUSTER_DOMAIN}"]
@@ -82,7 +82,6 @@ spec:
                   add:
                     - name: "X-Real-IP"
                       value: "%DOWNSTREAM_REMOTE_ADRESS_WITHOUT_PORT%"
-                      
     persistence:
       data:
         existingClaim: ${VOLSYNC_CLAIM}

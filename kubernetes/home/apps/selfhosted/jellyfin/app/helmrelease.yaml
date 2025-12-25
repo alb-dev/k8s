@@ -55,16 +55,16 @@ spec:
               limits:
                 memory: 20Gi
 
-        pod:
-          resourceClaims:
-            - name: gpu
-              resourceClaimTemplateName: jellyfin
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: ${VOLSYNC_UID}
-            runAsGroup: ${VOLSYNC_GID}
-            fsGroup: ${VOLSYNC_GID}
-            fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: jellyfin
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: ${VOLSYNC_UID}
+        runAsGroup: ${VOLSYNC_GID}
+        fsGroup: ${VOLSYNC_GID}
+        fsGroupChangePolicy: OnRootMismatch
 
     service:
       app:
