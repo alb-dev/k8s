@@ -140,11 +140,11 @@ spec:
                   failureThreshold: 3
               readiness: *probes-radarr
             securityContext: *securityContext
-            resources:
-              requests:
-                cpu: 100m
-              limits:
-                memory: 6Gi
+#            resources:
+#              requests:
+#                cpu: 100m
+#              limits:
+#                memory: 6Gi
 
           sonarr:
             image:
@@ -174,11 +174,11 @@ spec:
                   failureThreshold: 3
               readiness: *probes-sonarr
             securityContext: *securityContext
-            resources:
-              requests:
-                cpu: 100m
-              limits:
-                memory: 6Gi
+#            resources:
+#              requests:
+#                cpu: 100m
+#              limits:
+#                memory: 6Gi
 
     route:
       sabnzbd:
