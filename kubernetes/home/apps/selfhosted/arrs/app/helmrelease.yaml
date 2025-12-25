@@ -81,7 +81,7 @@ spec:
           gluetun:
             image:
               repository: ghcr.io/qdm12/gluetun
-              tag: latest
+              tag: v3.41
             env:
               # Other options
               TZ: ${TIMEZONE}
