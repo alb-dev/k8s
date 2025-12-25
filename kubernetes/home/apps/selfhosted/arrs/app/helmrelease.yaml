@@ -9,74 +9,26 @@ spec:
     kind: OCIRepository
     name: arrs
   values:
+    defaultPodOptions:
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: ${VOLSYNC_UID}
+      runAsGroup: ${VOLSYNC_GID}
+      fsGroup: ${VOLSYNC_GID}
+      fsGroupChangePolicy: OnRootMismatch
+
     controllers:
       arrs:
       
         annotations:
           reloader.stakater.com/auto: "true"
 
+        pod:
+          labels:
+            gluetun: "true"
+          hostname: sabnzbd
+
         containers:
-          sabnzbd:
-            image:
-              repository: ghcr.io/home-operations/sabnzbd
-              tag: 4.5.5@sha256:da57e01cdebc547852b6df85c8df8c0e4d87792742c7608c5590dc653b184e8c
-            env:
-              SABNZBD__HOST_WHITELIST_ENTRIES: >-
-                sabnzbd,
-                sabnzbd.selfhosted,
-                sabnzbd.selfhosted.svc,
-                sabnzbd.selfhosted.svc.cluster,
-                sabnzbd.selfhosted.svc.cluster.local,
-                "sabnzbd.${CLUSTER_DOMAIN}",
-              SABNZBD__PORT: 80
-              TZ: ${TIMEZONE}
-            securityContext: &securityContext
-              allowPrivilegeEscalation: false
-              capabilities: { drop: ["ALL"] }
-              readOnlyRootFilesystem: false
-
-          radarr:
-            image:
-              repository: ghcr.io/home-operations/radarr
-              tag: 6.1.0.10309@sha256:10f94c85f605d42e5e78de928f24758b5750a4e99eee8d0ef9ff150f7a2df033
-            env:
-              RADARR__APP__INSTANCENAME: Radarr
-              RADARR__APP__THEME: dark
-              RADARR__AUTH__METHOD: External
-              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
-              RADARR__LOG__DBENABLED: "False"
-              RADARR__LOG__LEVEL: info
-              RADARR__SERVER__PORT: 7878
-              RADARR__UPDATE__BRANCH: develop
-              TZ: ${TIMEZONE}
-            securityContext: *securityContext
-            resources:
-              requests:
-                cpu: 100m
-              limits:
-                memory: 4Gi
-
-          sonarr:
-            image:
-              repository: ghcr.io/home-operations/sonarr
-              tag: 4.0.16.2943@sha256:0a1b8f5cb5b072f7ad8c6ff64a25dc512115d1a114ecf19a58a3b4f870207ddd
-            env:
-              SONARR__APP__INSTANCENAME: Sonarr
-              SONARR__APP__THEME: dark
-              SONARR__AUTH__METHOD: External
-              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
-              SONARR__LOG__DBENABLED: "False"
-              SONARR__LOG__LEVEL: info
-              SONARR__SERVER__PORT: 8989
-              SONARR__UPDATE__BRANCH: develop
-              TZ: ${TIMEZONE}
-            securityContext: *securityContext
-            resources:
-              requests:
-                cpu: 100m
-              limits:
-                memory: 4Gi
-
         initContainers:
           gluetun:
             image:
@@ -105,6 +57,25 @@ spec:
             envFrom:
               - secretRef:
                   name: gluetun-secret
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /check/
+                    port: 9999
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /check/
+                    port: 9999
+                  initialDelaySeconds: 10
+                  timeoutSeconds: 10
             restartPolicy: Always
             securityContext:
               allowPrivilegeEscalation: false
@@ -112,17 +83,102 @@ spec:
               readOnlyRootFilesystem: false
               runAsNonRoot: false
               runAsUser: 0
-        pod:
-          labels:
-            gluetun: "true"
-          hostname: sabnzbd
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: ${VOLSYNC_UID}
-        runAsGroup: ${VOLSYNC_GID}
-        fsGroup: ${VOLSYNC_GID}
-        fsGroupChangePolicy: OnRootMismatch
+
+          sabnzbd:
+            image:
+              repository: ghcr.io/home-operations/sabnzbd
+              tag: 4.5.5@sha256:da57e01cdebc547852b6df85c8df8c0e4d87792742c7608c5590dc653b184e8c
+            env:
+              SABNZBD__HOST_WHITELIST_ENTRIES: >-
+                sabnzbd,
+                sabnzbd.selfhosted,
+                sabnzbd.selfhosted.svc,
+                sabnzbd.selfhosted.svc.cluster,
+                sabnzbd.selfhosted.svc.cluster.local,
+                "sabnzbd.${CLUSTER_DOMAIN}",
+              SABNZBD__PORT: &port 80
+              TZ: ${TIMEZONE}
+            probes:
+              liveness: &probe
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /api?mode=version
+                    port: *port
+              readiness: *probe
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: false
+              capabilities: { drop: ["ALL"] }
+
+          radarr:
+            image:
+              repository: ghcr.io/home-operations/radarr
+              tag: 6.1.0.10309@sha256:10f94c85f605d42e5e78de928f24758b5750a4e99eee8d0ef9ff150f7a2df033
+            env:
+              RADARR__APP__INSTANCENAME: Radarr
+              RADARR__APP__THEME: dark
+              RADARR__AUTH__METHOD: External
+              RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              RADARR__LOG__DBENABLED: "False"
+              RADARR__LOG__LEVEL: info
+              RADARR__SERVER__PORT: &port 7878
+              RADARR__UPDATE__BRANCH: develop
+              TZ: ${TIMEZONE}
+            probes:
+              liveness: &probes-radarr
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes-radarr
+            securityContext: *securityContext
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 4Gi
+
+          sonarr:
+            image:
+              repository: ghcr.io/home-operations/sonarr
+              tag: 4.0.16.2943@sha256:0a1b8f5cb5b072f7ad8c6ff64a25dc512115d1a114ecf19a58a3b4f870207ddd
+            env:
+              SONARR__APP__INSTANCENAME: Sonarr
+              SONARR__APP__THEME: dark
+              SONARR__AUTH__METHOD: External
+              SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+              SONARR__LOG__DBENABLED: "False"
+              SONARR__LOG__LEVEL: info
+              SONARR__SERVER__PORT: &port 8989
+              SONARR__UPDATE__BRANCH: develop
+              TZ: ${TIMEZONE}
+            probes:
+              liveness: &probes-sonarr
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes-sonarr
+            securityContext: *securityContext
+            resources:
+              requests:
+                cpu: 100m
+              limits:
+                memory: 4Gi
 
     route:
       sabnzbd:
