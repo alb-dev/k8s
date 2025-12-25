@@ -9,6 +9,14 @@ spec:
     kind: OCIRepository
     name: seerr
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: ${VOLSYNC_UID}
+        runAsGroup: ${VOLSYNC_GID}
+        fsGroup: ${VOLSYNC_GID}
+        fsGroupChangePolicy: OnRootMismatch
+        
     controllers:
       seerr:
         replicas: 1
@@ -51,14 +59,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 2Gi
-
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: ${VOLSYNC_UID}
-        runAsGroup: ${VOLSYNC_GID}
-        fsGroup: ${VOLSYNC_GID}
-        fsGroupChangePolicy: OnRootMismatch
 
     service:
       app:
