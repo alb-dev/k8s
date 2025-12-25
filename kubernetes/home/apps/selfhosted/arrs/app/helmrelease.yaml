@@ -12,10 +12,10 @@ spec:
     defaultPodOptions:
     securityContext:
       runAsNonRoot: true
-      runAsUser: ${VOLSYNC_UID}
-      runAsGroup: ${VOLSYNC_GID}
-      fsGroup: ${VOLSYNC_GID}
-      fsGroupChangePolicy: OnRootMismatch
+#      runAsUser: ${VOLSYNC_UID}
+#      runAsGroup: ${VOLSYNC_GID}
+#      fsGroup: ${VOLSYNC_GID}
+#      fsGroupChangePolicy: OnRootMismatch
 
     controllers:
       arrs:
