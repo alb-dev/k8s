@@ -50,7 +50,7 @@ spec:
                 memory: 256Mi
               limits:
                 memory: 512Mi
-        pod:
+        defaultPodOptions:
           securityContext:
             runAsNonRoot: true
             runAsUser: ${VOLSYNC_UID}

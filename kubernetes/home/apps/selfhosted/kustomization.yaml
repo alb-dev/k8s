@@ -13,3 +13,4 @@ resources:
   - ./arrs/ks.yaml
   - ./paperless/ks.yaml
   - ./immich/ks.yaml
+  - ./seerr/ks.yaml

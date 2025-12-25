@@ -2,25 +2,25 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: gatus
+  name: seerr
 spec:
   interval: 30m
-  path: ./kubernetes/home/apps/observability/gatus/app
+  timeout: 5m
+  path: ./kubernetes/home/apps/selfhosted/seerr/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
     substitute:
-      APP: gatus
+      APP: seerr
       VOLSYNC_UID: "1000"
       VOLSYNC_GID: "1000"
-      VOLSYNC_CLAIM:  gatus-pvc
+      VOLSYNC_CLAIM: seerr-data
       VOLSYNC_CAPACITY: 5Gi
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: observability
-  timeout: 5m
+  targetNamespace: selfhosted
   wait: false

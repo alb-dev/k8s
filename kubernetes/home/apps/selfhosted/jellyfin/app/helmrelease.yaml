@@ -55,7 +55,7 @@ spec:
               limits:
                 memory: 20Gi
 
-        pod:
+        defaultPodOptions:
           resourceClaims:
             - name: gpu
               resourceClaimTemplateName: jellyfin
