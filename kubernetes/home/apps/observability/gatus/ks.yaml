@@ -14,7 +14,6 @@ spec:
       APP: gatus
       VOLSYNC_UID: "1000"
       VOLSYNC_GID: "1000"
-      VOLSYNC_CLAIM:  gatus-pvc
       VOLSYNC_CAPACITY: 5Gi
   prune: true
   sourceRef:

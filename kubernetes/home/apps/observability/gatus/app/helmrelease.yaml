@@ -92,5 +92,4 @@ spec:
             subPath: config.yaml
             readOnly: true
       config:
-        type: persistentVolumeClaim
-        existingClaim: gatus-pvc
+        existingClaim: "{{ .Release.Name }}"

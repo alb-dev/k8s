@@ -15,7 +15,6 @@ spec:
       APP: seerr
       VOLSYNC_UID: "1000"
       VOLSYNC_GID: "1000"
-      VOLSYNC_CLAIM: seerr
       VOLSYNC_CAPACITY: 5Gi
   prune: true
   sourceRef:
