@@ -16,7 +16,7 @@ spec:
         runAsGroup: ${VOLSYNC_GID}
         fsGroup: ${VOLSYNC_GID}
         fsGroupChangePolicy: OnRootMismatch
-        
+
     controllers:
       seerr:
         replicas: 1
@@ -74,9 +74,7 @@ spec:
             namespace: network
             sectionName: https
       vpn:
-        hostnames:
-          - "{{ .Release.Name }}.${VPN_DOMIAN}"
-          - "{{ .Release.Name }}.${EXT_CLUSTER_DOMAIN}"
+        hostnames: ["{{ .Release.Name }}.${EXT_CLUSTER_DOMAIN}"]
         parentRefs:
           - name: envoy-vpn
             namespace: network
