@@ -9,6 +9,14 @@ spec:
     kind: OCIRepository
     name: arrs
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: ${VOLSYNC_UID}
+        runAsGroup: ${VOLSYNC_GID}
+        fsGroup: ${VOLSYNC_GID}
+        fsGroupChangePolicy: OnRootMismatch
+
     controllers:
       arrs:
       
