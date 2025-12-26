@@ -55,7 +55,7 @@ spec:
 
               # SMTP
               SMTP_HOST: smtp-relay.network.svc.cluster.local
-              SMTP_PORT: 25
+              SMTP_PORT: 2525
               SMTP_AUTH_STRATEGY: None
               SMTP_FROM_EMAIL: postmaster@${SECRET_DOMAIN}
             envFrom:
