@@ -36,10 +36,10 @@ spec:
               repository: ghcr.io/raydak-labs/configarr
               tag: 1.19.0
             env:
-              TZ: ${TZ}
+              TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
-                  name: configarr-secret
+                  name: configarr
             resources:
               requests:
                 cpu: 10m
