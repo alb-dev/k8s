@@ -1,0 +1,66 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: configarr
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: arrs
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: ${VOLSYNC_UID}
+        runAsGroup: ${VOLSYNC_GID}
+        fsGroup: ${VOLSYNC_GID}
+        fsGroupChangePolicy: OnRootMismatch
+
+    controllers:
+      configarr:
+        type: cronjob
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        cronjob:
+          schedule: "@daily"
+          timeZone: ${TIMEZONE}
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
+          
+        containers:
+          app:
+            image:
+              repository: ghcr.io/raydak-labs/configarr
+              tag: 1.19.0
+            env:
+              TZ: ${TZ}
+            envFrom:
+              - secretRef:
+                  name: configarr-secret
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 200Mi
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+
+    persistence:
+      config:
+        enabled: true
+        type: configMap
+        name: configarr-configmap
+        globalMounts:
+          - path: /app/config/config.yml
+            subPath: config.yml
+            readOnly: true
+      repos:
+        type: emptyDir
+        globalMounts:
+          - path: /app/repos
