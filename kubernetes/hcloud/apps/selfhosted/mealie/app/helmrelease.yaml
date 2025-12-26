@@ -46,7 +46,7 @@ spec:
               OIDC_REMEMBER_ME: "true"
               OIDC_GROUPS_CLAIM: groups
               OIDC_ADMIN_GROUP: admins
-              OIDC_USER_GROUP: "mealie_users"
+              OIDC_USER_GROUP: "friends"
               OIDC_USER_CLAIM: preferred_username
               OIDC_AUTO_REDIRECT: 'true'
               OIDC_CONFIGURATION_URL: https://id.albdev.cloud/.well-known/openid-configuration
