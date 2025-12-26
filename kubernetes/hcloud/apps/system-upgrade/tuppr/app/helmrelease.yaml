@@ -7,6 +7,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: tuppr
-  interval: 30m
+  interval: 1h
   values:
     replicaCount: 1

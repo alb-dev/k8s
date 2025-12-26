@@ -7,8 +7,17 @@ spec:
   chartRef:
     kind: OCIRepository
     name: littlelink
-  interval: 30m
+  interval: 1h
   values:
+    defaultPodOptions:
+      securityContext:
+          runAsNonRoot: true
+          runAsUser: 65534
+          runAsGroup: 65534
+          fsGroup: 65534
+          fsGroupChangePolicy: OnRootMismatch
+          seccompProfile: { type: RuntimeDefault }
+ 
     controllers:
       littlelink:
         replicas: 1
@@ -16,13 +25,6 @@ spec:
 
         annotations:
           reloader.stakater.com/auto: "true"
-
-        pod:
-          securityContext:
-            runAsUser: 65534
-            runAsGroup: 65534
-            fsGroup: 65534
-            fsGroupChangePolicy: "OnRootMismatch"
 
         containers:
           app:
@@ -40,7 +42,7 @@ spec:
               OG_SITE_NAME: Symphonia Costumes Links
               OG_TITLE: Symphonia Costumes Links
               OG_DESCRIPTION: A collection of all of my relevant links
-              OG_URL: https://symphonia.${SECRET_DOMAIN}
+              OG_URL: https://symphonia.albdev.cloud
               FAVICON_URL: https://files.albdev.cloud/apps/files_sharing/publicpreview/7Gitc7CtLsCXiHb?file=/&fileId=9189&x=3024&y=1964&a=true&etag=fe84cfcdcf07d577ffc501c43c4ba5d5
               AVATAR_URL: https://files.albdev.cloud/apps/files_sharing/publicpreview/7Gitc7CtLsCXiHb?file=/&fileId=9189&x=3024&y=1964&a=true&etag=fe84cfcdcf07d577ffc501c43c4ba5d5
               AVATAR_2X_URL: https://files.albdev.cloud/apps/files_sharing/publicpreview/7Gitc7CtLsCXiHb?file=/&fileId=9189&x=3024&y=1964&a=true&etag=fe84cfcdcf07d577ffc501c43c4ba5d5

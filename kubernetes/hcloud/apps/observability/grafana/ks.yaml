@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: grafana
 spec:
-  interval: 30m
+  interval: 1h
   timeout: 5m
   path: ./kubernetes/hcloud/apps/observability/grafana/app
   prune: true
@@ -20,7 +20,7 @@ kind: Kustomization
 metadata:
   name: grafana-instance
 spec:
-  interval: 30m
+  interval: 1h
   timeout: 5m
   dependsOn:
     - name: grafana

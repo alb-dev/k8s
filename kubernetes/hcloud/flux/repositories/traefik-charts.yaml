@@ -4,6 +4,6 @@ kind: HelmRepository
 metadata:
   name: traefik-charts
 spec:
-  interval: 30m
+  interval: 1h
   timeout: 3m
   url: https://helm.traefik.io/traefik

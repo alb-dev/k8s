@@ -5,7 +5,7 @@ metadata:
   name: &app flux-operator
   namespace: &namespace flux-system
 spec:
-  interval: 30m
+  interval: 1h
   timeout: 5m
   commonMetadata:
     labels:

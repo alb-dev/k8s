@@ -1,0 +1,124 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mealie
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: mealie
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
+
+    controllers:
+      mealie:
+        replicas: 1
+        strategy: RollingUpdate
+
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/mealie-recipes/mealie
+              tag: v3.8.0
+            env:
+              BASE_URL: https://rezepte.albdev.cloud
+              DAILY_SCHEDULE_TIME: 05:00
+              ALLOW_SIGNUP: "false"
+              LOG_LEVEL: debug
+              ALLOW_PASSWORD_LOGIN: false
+
+              # OIDC
+              OIDC_AUTH_ENABLED: "true"
+              OIDC_SIGNUP_ENABLED: "true"
+              OIDC_PROVIDER_NAME: Pocket ID
+              OIDC_CLIENT_ID: mealie
+              OIDC_REMEMBER_ME: "true"
+              OIDC_GROUPS_CLAIM: groups
+              OIDC_ADMIN_GROUP: admins
+              OIDC_USER_GROUP: "mealie_users"
+              OIDC_USER_CLAIM: preferred_username
+              OIDC_AUTO_REDIRECT: 'true'
+              OIDC_CONFIGURATION_URL: https://id.albdev.cloud/.well-known/openid-configuration
+
+              #OPENAI_MODEL: gpt-5.2
+
+              # SMTP
+              SMTP_HOST: smtp-relay.network.svc.cluster.local
+              SMTP_PORT: 25
+              SMTP_AUTH_STRATEGY: None
+              SMTP_FROM_EMAIL: postmaster@${SECRET_DOMAIN}
+            envFrom:
+              - secretRef:
+                  name: mealie
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+                memory: 100Mi
+              limits:
+                memory: 2Gi
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    port: &port 9000
+                    path: /api/app/about
+                  periodSeconds: 10
+                  failureThreshold: 12
+                  initialDelaySeconds: 10
+                  timeoutSeconds: 1
+              readiness: *probes
+
+    service:
+      app:
+        controller: mealie
+        ports:
+          http:
+            port: *port
+
+    ingress:
+      app:
+        className: traefik
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-public@kubernetescrd"
+        hosts:
+          - host: "rezepte.albdev.cloud"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      data:
+        existingClaim: mealie
+        globalMounts:
+          - path: /app/data
+            subPath: data
+          - path: /nltk_data
+            subPath: nltk
+      # Needed for recipe parser
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+            subPath: tmp
+          - path: /nonexistent
+            subPath: nonexistent

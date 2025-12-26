@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: dragonfly
 spec:
-  interval: 30m
+  interval: 1h
   timeout: 5m
   path: ./kubernetes/hcloud/apps/databases/dragonfly/app
   postBuild:
@@ -26,7 +26,7 @@ metadata:
 spec:
   dependsOn:
     - name: dragonfly
-  interval: 30m
+  interval: 1h
   timeout: 5m
   path: ./kubernetes/hcloud/apps/databases/dragonfly/cluster
   postBuild:

@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: traefik
 spec:
-  interval: 30m
+  interval: 1h
   timeout: 5m
   path: ./kubernetes/hcloud/apps/network/traefik/app
   postBuild:
@@ -24,7 +24,7 @@ kind: Kustomization
 metadata:
   name: certificates
 spec:
-  interval: 30m
+  interval: 1h
   timeout: 5m
   path: ./kubernetes/hcloud/apps/network/traefik/error-pages
   postBuild:

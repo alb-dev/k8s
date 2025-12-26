@@ -7,7 +7,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: traefik
-  interval: 30m
+  interval: 1h
   values:
     deployment:
       kind: Deployment

@@ -7,7 +7,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: headplane
-  interval: 30m
+  interval: 1h
   values:
     controllers:
       headscale-ui:
@@ -16,7 +16,7 @@ spec:
 
         annotations:
           reloader.stakater.com/auto: "true"
-          
+
         containers:
           app:
             image:

@@ -5,7 +5,7 @@ metadata:
   name: cert-manager
   namespace: &namespace cert-manager
 spec:
-  interval: 30m
+  interval: 1h
   timeout: 5m
   path: "./kubernetes/hcloud/apps/cert-manager/cert-manager/app"
   prune: true
@@ -22,7 +22,7 @@ metadata:
   name: cert-manager-webhook-netcup
   namespace: &namespace cert-manager
 spec:
-  interval: 30m
+  interval: 1h
   timeout: 5m
   postBuild:
     substituteFrom:
