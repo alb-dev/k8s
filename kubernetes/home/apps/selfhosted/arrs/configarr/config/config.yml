@@ -8,7 +8,7 @@ lidarrEnabled: false
 
 sonarr:
   sonarr:
-    base_url: http://arrs-sonarr.selfhosted.svc.cluster.local:80
+    base_url: http://arrs-sonarr.selfhosted.svc.cluster.local:8989
     api_key: !env SONARR_API_KEY
 
     delete_unmanaged_custom_formats:
@@ -99,7 +99,7 @@ sonarr:
 
 radarr:
   radarr:
-    base_url: http://arrs-radarr.selfhosted.svc.cluster.local:80
+    base_url: http://arrs-radarr.selfhosted.svc.cluster.local:7878
     api_key: !env RADARR_API_KEY
 
     delete_unmanaged_custom_formats:
