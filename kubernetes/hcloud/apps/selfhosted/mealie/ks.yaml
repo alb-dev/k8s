@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 1h
   timeout: 5m
-  path: ./kubernetes/hcloud/apps/selfhosted/mealie/symphonia
+  path: ./kubernetes/hcloud/apps/selfhosted/mealie/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
