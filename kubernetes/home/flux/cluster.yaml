@@ -8,7 +8,7 @@ spec:
   decryption:
     provider: sops
   deletionPolicy: WaitForTermination
-  interval: 1m
+  interval: 30m
   path: ./kubernetes/home/apps
   prune: true
   sourceRef:

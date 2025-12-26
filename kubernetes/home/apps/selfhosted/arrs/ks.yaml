@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: arrs
 spec:
-  interval: 1m
+  interval: 30m
   path: ./kubernetes/home/apps/selfhosted/arrs/app
   postBuild:
     substituteFrom:
