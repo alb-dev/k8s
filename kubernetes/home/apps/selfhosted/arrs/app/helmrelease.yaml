@@ -18,8 +18,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
 
     controllers:
-      arrs:
-      
+      arrs:   
         annotations:
           reloader.stakater.com/auto: "true"
 
