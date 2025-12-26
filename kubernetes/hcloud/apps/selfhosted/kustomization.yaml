@@ -15,4 +15,4 @@ resources:
   - ./headscale/ks.yaml
   - ./freshrss/ks.yaml
   - ./ntfy/ks.yaml
-  - ./mealie./ks.yaml
+  - ./mealie/ks.yaml
