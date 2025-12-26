@@ -43,7 +43,6 @@ spec:
               OIDC_AUTH_ENABLED: "true"
               OIDC_SIGNUP_ENABLED: "true"
               OIDC_PROVIDER_NAME: Pocket ID
-              OIDC_CLIENT_ID: mealie
               OIDC_REMEMBER_ME: "true"
               OIDC_GROUPS_CLAIM: groups
               OIDC_ADMIN_GROUP: admins
