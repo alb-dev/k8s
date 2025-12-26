@@ -12,7 +12,7 @@ sonarr:
     api_key: !env SONARR_API_KEY
 
     delete_unmanaged_custom_formats:
-      enabled: true
+      enabled: false
 
     include:
       - template: sonarr-quality-definition-series
