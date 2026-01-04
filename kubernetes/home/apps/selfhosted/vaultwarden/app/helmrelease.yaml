@@ -76,12 +76,6 @@ spec:
           - backendRefs:
               - identifier: app
                 port: 80
-            filters:
-              - type: RequestHeaderModifier
-                requestHeaderModifier:
-                  add:
-                    - name: "X-Real-IP"
-                      value: "%DOWNSTREAM_REMOTE_ADRESS_WITHOUT_PORT%"
     persistence:
       data:
         existingClaim: ${VOLSYNC_CLAIM}
