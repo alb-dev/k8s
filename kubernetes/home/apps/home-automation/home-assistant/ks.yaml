@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: home-assistant
 spec:
-  interval: 1h
+  interval: 1m
   timeout: 5m
   commonMetadata:
     labels:
