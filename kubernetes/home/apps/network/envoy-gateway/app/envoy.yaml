@@ -146,6 +146,11 @@ spec:
     alpnProtocols:
       - h2
       - http/1.1
+  headers:
+    earlyRequestHeaders:
+      set:
+      - name: X-Real-IP
+        value: '%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%'
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
