@@ -5,5 +5,4 @@ namespace: flux-system
 
 resources:
   - ./backube.yaml
-  - ./cloudnative-pg.yaml
   - ./cert-manager-webhook-netcup.yaml
