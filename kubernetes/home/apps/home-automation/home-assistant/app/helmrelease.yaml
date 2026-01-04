@@ -78,7 +78,7 @@ spec:
 
     route:
       app:
-        hostnames: ["hass.${CLUSTER_DOMAIN}"]
+        hostnames: ["{{ .Release.Name }}.${CLUSTER_DOMAIN}"]
         parentRefs:
           - name: envoy-internal
             namespace: network
@@ -87,7 +87,7 @@ spec:
               - identifier: app
                 port: 8123
       code:
-        hostnames: ["hass-code.${CLUSTER_DOMAIN}"]
+        hostnames: ["{{ .Release.Name }}-code.${CLUSTER_DOMAIN}"]
         parentRefs:
           - name: envoy-internal
             namespace: network
