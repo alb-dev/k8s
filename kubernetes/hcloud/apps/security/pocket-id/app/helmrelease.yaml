@@ -36,7 +36,7 @@ spec:
               DB_PROVIDER: sqlite
               EMAILS_VERIFIED: true
               EMAIL_LOGIN_NOTIFICATION_ENABLED: true
-              KEYS_STORAGE: database
+              #KEYS_STORAGE: database
               LOG_JSON: true
               SMTP_FROM: postmaster@${SECRET_DOMAIN}
               SMTP_HOST: smtp-relay.network.svc.cluster.local
