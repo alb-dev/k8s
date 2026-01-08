@@ -65,7 +65,7 @@ spec:
     route:
       app:
         hostnames: 
-          - "kromgo.${CLUSTER_DOMAIN}"
+          - "kromgo.albdev.cloud"
         parentRefs:
           - name: envoy-external
             namespace: network
