@@ -12,6 +12,8 @@ spec:
   dnsNames:
     - albdev.cloud
     - "*.albdev.cloud"
+    - onji.space
+    - "*.onji.space"
   privateKey:
     algorithm: ECDSA
     size: 256
