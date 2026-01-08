@@ -12,7 +12,7 @@ spec:
     controllers:
       kromgo:
         strategy: RollingUpdate
-        
+
         annotations:
           reloader.stakater.com/auto: "true"
 
@@ -64,7 +64,8 @@ spec:
 
     route:
       app:
-        hostnames: ["kromgo.${CLUSTER_DOMAIN}"]
+        hostnames: 
+          - "kromgo.${CLUSTER_DOMAIN}"
         parentRefs:
           - name: envoy-external
             namespace: network
