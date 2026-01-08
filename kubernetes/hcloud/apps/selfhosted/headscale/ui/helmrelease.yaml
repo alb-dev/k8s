@@ -88,7 +88,7 @@ spec:
                   type: PathPrefix
                   value: /admin
             backendRefs:
-              - identifier: headplane
+              - identifier: app
 
     persistence:
       config:
