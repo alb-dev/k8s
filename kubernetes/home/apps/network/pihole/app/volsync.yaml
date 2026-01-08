@@ -10,7 +10,10 @@ spec:
   kopia:
     capacity: ${VOLSYNC_CAPACITY}
     compression: zstd
+    cleanupCachePVC: true
+    cleanupTempPVC: true
     copyMethod: Snapshot
+    enableFileDeletion: true
     moverSecurityContext:
       runAsUser: ${VOLSYNC_UID}
       runAsGroup: ${VOLSYNC_GID}
