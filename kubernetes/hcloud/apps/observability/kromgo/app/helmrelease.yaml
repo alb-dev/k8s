@@ -12,8 +12,10 @@ spec:
     controllers:
       kromgo:
         strategy: RollingUpdate
+        
         annotations:
           reloader.stakater.com/auto: "true"
+
         containers:
           app:
             image:
@@ -45,11 +47,13 @@ spec:
                 cpu: 10m
               limits:
                 memory: 64Mi
+
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
+
     service:
       app:
         ports:
@@ -57,6 +61,7 @@ spec:
             port: *port
           health:
             port: *healthPort
+
     route:
       app:
         hostnames: ["kromgo.${CLUSTER_DOMAIN}"]
@@ -64,6 +69,7 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+
     persistence:
       config-file:
         type: configMap
