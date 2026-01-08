@@ -92,18 +92,13 @@ spec:
           http:
             port: *port
 
-    ingress:
+    route:
       app:
-        className: traefik
-        annotations:
-          traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-public@kubernetescrd"
-        hosts:
-          - host: "rezepte.albdev.cloud"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["rezepte.${CLUSTER_DOMAIN}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
 
     persistence:
       data:

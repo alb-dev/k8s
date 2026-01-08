@@ -81,15 +81,10 @@ spec:
           http:
             port: 3000
 
-    ingress:
+    route:
       app:
-        className: traefik
-        annotations:
-          traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-public@kubernetescrd"
-        hosts:
-          - host: "symphonia.albdev.cloud"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["symphonia.${CLUSTER_DOMAIN}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
