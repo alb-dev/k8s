@@ -91,14 +91,15 @@ spec:
     route:
       app:
         hostnames:
-          - '{{ .Release.Name }}.${CLUSTER_DOMAIN}'
+          - headscale.onji.space
+          - headscale.albdev.cloud
         parentRefs:
           - name: envoy-external
             namespace: network
             sectionName: https
         rules:
           - backendRefs:
-              - identifier: app
+              - identifier: headscale
           - matches:
               - path:
                   type: PathPrefix

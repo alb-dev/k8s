@@ -76,14 +76,19 @@ spec:
     route:
       app:
         hostnames:
-          - '{{ .Release.Name }}.${CLUSTER_DOMAIN}'
+          - headscale.albdev.cloud
+          - headscale.onji.space
         parentRefs:
           - name: envoy-external
             namespace: network
             sectionName: https
         rules:
-          - backendRefs:
-              - port: 3000
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /admin
+            backendRefs:
+              - identifier: headplane
 
     persistence:
       config:
