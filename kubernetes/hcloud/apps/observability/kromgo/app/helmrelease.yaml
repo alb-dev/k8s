@@ -57,19 +57,13 @@ spec:
             port: *port
           health:
             port: *healthPort
-    ingress:
+    route:
       app:
-        className: traefik
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
-          traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: "kromgo.albdev.cloud"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["kromgo.${CLUSTER_DOMAIN}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
     persistence:
       config-file:
         type: configMap
