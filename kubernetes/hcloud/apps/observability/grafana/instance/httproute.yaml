@@ -5,7 +5,7 @@ metadata:
   name: grafana
 spec:
   hostnames:
-    - "grafana.${CLUSTER_DOMAIN}"
+    - grafana.albdev.cloud
   parentRefs:
     - name: envoy-external
       namespace: network
