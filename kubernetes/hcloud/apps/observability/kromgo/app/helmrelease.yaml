@@ -70,7 +70,10 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
-
+        rules:
+          - backendRefs:
+              - port: *port
+                name: kromgo
     persistence:
       config-file:
         type: configMap
