@@ -73,20 +73,13 @@ spec:
         ports:
           http:
             port: 1411
-    ingress:
+    route:
       app:
-        className: traefik
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: "id.albdev.cloud"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["id.${CLUSTER_DOMAIN}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
 
     persistence:
       data:
