@@ -54,7 +54,7 @@ spec:
         expose:
           default: false
       web:
-        port: 81
+        port: 80
         redirections:
           entryPoint:
             to: websecure
@@ -62,7 +62,7 @@ spec:
             permanent: true
 
       websecure:
-        port: 444
+        port: 443
         tls:
           enabled: true
           options: "default"
