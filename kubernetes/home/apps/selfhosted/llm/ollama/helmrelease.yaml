@@ -9,80 +9,40 @@ spec:
     kind: OCIRepository
     name: ollama
   values:
-    defaultPodOptions:
-      resourceClaims:
-        - name: gpu
-          resourceClaimTemplateName: ollama
-
     controllers:
       ollama:
         replicas: 1
-        #strategy: RollingUpdate
-
-        annotations:
-          reloader.stakater.com/auto: "true"
-
         containers:
           app:
             image:
-              repository: intelanalytics/ipex-llm-inference-cpp-xpu
-              # repository: ghcr.io/joryirving/ollama-intel-gpu
-              tag: 2.3.0-SNAPSHOT
-              # tag: ipex-llm-v.0.0.1-2
-            command:
-              - /bin/sh
-              - -c
-              - mkdir -p /llm/ollama && cd /llm/ollama && init-ollama && exec ./ollama serve
+              repository: ollama/ollama
+              tag: 0.13.5@sha256:2c9595c555fd70a28363489ac03bd5bf9e7c5bdf2890373c3a830ffd7252ce6d
             env:
-              OLLAMA_MODELS: &modelPath /models
-              # ONEAPI_DEVICE_SELECTOR: level_zero:0
-              # IPEX_LLM_NUM_CTX: 16384
-              no_proxy: localhost,127.0.0.1
               OLLAMA_HOST: 0.0.0.0
-              DEVICE: Arc
-              OLLAMA_INTEL_GPU: true
-              OLLAMA_NUM_GPU: 999
-              ZES_ENABLE_SYSMAN: 1
-            probes:
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /
-                    port: 11434
-                  initialDelaySeconds: 30
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              liveness: &probe
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /
-                    port: 11434
-                  initialDelaySeconds: 60
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              startup: *probe
-            resources:
-              claims:
-                - name: gpu
-              requests:
-                cpu: "2"
-                memory: "8Gi"
-              limits:
-                memory: "16Gi"
+              OLLAMA_FLASH_ATTENTION: "true"
+              OLLAMA_KV_CACHE_TYPE: q8_0
             securityContext:
-              privileged: false
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
               capabilities:
-                add:
-                  - SYS_ADMIN
-
+                drop:
+                  - "ALL"
+            resources:
+              requests:
+                cpu: 200m
+                memory: 3Gi
+              limits:
+                memory: 12Gi
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 2000
+        fsGroupChangePolicy: "OnRootMismatch"
+        runAsGroup: 2000
+        runAsNonRoot: true
+        runAsUser: 2000
     service:
-      app:
+      ollama:
+        controller: ollama
         ports:
           http:
             port: 11434
