@@ -13,6 +13,7 @@ spec:
       resourceClaims:
         - name: gpu
           resourceClaimTemplateName: jellyfin
+          
       securityContext:
         runAsNonRoot: true
         runAsUser: ${VOLSYNC_UID}

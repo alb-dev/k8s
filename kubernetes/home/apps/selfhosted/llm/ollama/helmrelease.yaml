@@ -9,6 +9,11 @@ spec:
     kind: OCIRepository
     name: ollama
   values:
+    defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: ollama
+
     controllers:
       ollama:
         replicas: 1
