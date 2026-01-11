@@ -66,9 +66,10 @@ spec:
               claims:
                 - name: gpu
               requests:
-                cpu: 200m
+                cpu: "2"
+                memory: "8Gi"
               limits:
-                memory: 36Gi
+                memory: "16Gi"
             securityContext:
               privileged: false
               capabilities:
