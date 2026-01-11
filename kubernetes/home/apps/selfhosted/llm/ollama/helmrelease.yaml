@@ -58,10 +58,7 @@ spec:
       ollama:
         existingClaim: "{{ .Release.Name }}"
         globalMounts:
-          - path: /models
-            subPath: models
-          - path: /root/.ollama
-            subPath: config
+          - path: /.ollama
 
       dri:
         type: hostPath
