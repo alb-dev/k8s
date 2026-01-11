@@ -10,8 +10,7 @@ spec:
   kopia:
     capacity: 30Gi
     compression: zstd
-    cleanupCachePVC: true
-    cleanupTempPVC: true
+
     copyMethod: Snapshot
     enableFileDeletion: true
     moverSecurityContext:
