@@ -12,7 +12,7 @@ spec:
     defaultPodOptions:
       resourceClaims:
         - name: gpu
-          resourceClaimTemplateName: ollama
+          resourceClaimTemplateName: jellyfin
 
     controllers:
       ollama:
