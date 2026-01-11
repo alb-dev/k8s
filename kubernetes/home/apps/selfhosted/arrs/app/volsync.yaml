@@ -12,7 +12,7 @@ spec:
     compression: zstd
 
     copyMethod: Snapshot
-    enableFileDeletion: true
+
     moverSecurityContext:
       runAsUser: ${VOLSYNC_UID}
       runAsGroup: ${VOLSYNC_GID}
