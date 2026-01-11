@@ -24,7 +24,7 @@ spec:
     controllers:
       jellyfin:
         replicas: 1
-        #strategy: RollingUpdate
+        strategy: RollingUpdate
 
         annotations:
           reloader.stakater.com/auto: "true"
