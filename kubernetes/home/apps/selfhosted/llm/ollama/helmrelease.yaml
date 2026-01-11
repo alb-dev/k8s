@@ -75,11 +75,6 @@ spec:
                 add:
                   - SYS_ADMIN
 
-    defaultPodOptions:
-      resourceClaims:
-        - name: gpu
-          resourceClaimTemplateName: jellyfin
-
     service:
       app:
         ports:
