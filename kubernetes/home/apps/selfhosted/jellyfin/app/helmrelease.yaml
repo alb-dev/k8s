@@ -10,9 +10,9 @@ spec:
     name: jellyfin
   values:
     defaultPodOptions:
-     resourceClaims:
-       - name: gpu
-         resourceClaimTemplateName: jellyfin
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: jellyfin
 
       securityContext:
         runAsNonRoot: true
