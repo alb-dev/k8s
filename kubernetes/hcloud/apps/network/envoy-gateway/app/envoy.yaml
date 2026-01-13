@@ -129,7 +129,7 @@ spec:
         value: '%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%'
     lateResponseHeaders:
       remove:
-       - "server"
+#       - "server"
        - "x-powered-by"
        - "x-xss-protection"
       set:
