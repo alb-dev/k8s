@@ -71,10 +71,7 @@ spec:
         rules:
           - backendRefs:
               - identifier: app
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /api
+              
     persistence:
       data:
         existingClaim: headscale-local
