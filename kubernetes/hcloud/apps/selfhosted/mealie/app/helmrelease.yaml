@@ -99,13 +99,6 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
-        rules: 
-            - filters:
-              - type: ResponseHeaderModifier
-                responseHeaderModifier:
-                  add:
-                  - name: X-Robots-tag
-                    value: "noindex, nofollow"
     persistence:
       data:
         existingClaim: mealie

@@ -104,12 +104,6 @@ spec:
               - path:
                   type: PathPrefix
                   value: /api
-            filters:
-              - type: ResponseHeaderModifier
-                responseHeaderModifier:
-                  add:
-                  - name: X-Robots-tag
-                    value: "noindex, nofollow"
     persistence:
       data:
         existingClaim: headscale-local

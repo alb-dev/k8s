@@ -89,12 +89,6 @@ spec:
                   value: /admin
             backendRefs:
               - identifier: app
-            filters:
-              - type: ResponseHeaderModifier
-                responseHeaderModifier:
-                  add:
-                  - name: X-Robots-tag
-                    value: "noindex, nofollow"
     persistence:
       config:
         enabled: true
