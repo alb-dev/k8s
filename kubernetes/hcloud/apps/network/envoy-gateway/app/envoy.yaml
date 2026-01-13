@@ -93,6 +93,13 @@ spec:
   timeout:
     http:
       requestTimeout: 0s
+  ratelimit:
+    type: local
+    local:
+      rules:
+        - limit:
+            requests: 500
+            unit: minute
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
@@ -129,7 +136,6 @@ spec:
         value: '%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%'
     lateResponseHeaders:
       remove:
-#       - "server"
        - "x-powered-by"
        - "x-xss-protection"
       set:

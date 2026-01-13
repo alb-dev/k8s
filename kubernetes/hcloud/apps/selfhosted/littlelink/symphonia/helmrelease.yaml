@@ -88,3 +88,9 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+        rules: 
+          filters:
+            - type: ResponseHeaderModifier
+              responseHeaderModifier:
+                remove:
+                  - "x-robots-tag"
