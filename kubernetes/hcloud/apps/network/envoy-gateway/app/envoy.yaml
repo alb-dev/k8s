@@ -141,6 +141,8 @@ spec:
           value: nosniff
         - name: X-Frame-Options
           value: SAMEORIGIN
+        - name: server
+          value: "albcloud"
         - name: X-Robots-tag
           value: "noindex, nofollow"
 ---
