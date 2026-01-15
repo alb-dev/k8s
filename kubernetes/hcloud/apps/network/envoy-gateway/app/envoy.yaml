@@ -149,8 +149,8 @@ spec:
           value: SAMEORIGIN
         - name: server
           value: "albcloud"
-        - name: X-Robots-tag
-          value: "noindex, nofollow"
+        #- name: X-Robots-tag
+        #  value: "noindex, nofollow"
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
