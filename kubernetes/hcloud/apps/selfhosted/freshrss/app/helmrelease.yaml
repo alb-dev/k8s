@@ -57,7 +57,9 @@ spec:
             namespace: network
             sectionName: https
         rules:
-          - filters:
+          - backendRefs:
+              - identifier: app
+            filters:
             - type: RequestHeaderModifier
               requestHeaderModifier:
                 set:
