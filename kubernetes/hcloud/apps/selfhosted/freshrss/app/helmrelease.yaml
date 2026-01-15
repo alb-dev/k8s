@@ -57,12 +57,12 @@ spec:
             namespace: network
             sectionName: https
         rules:
-          filters:
-          - type: RequestHeaderModifier
-            requestHeaderModifier:
-              set:
-                - name: X-Robots-tag
-                  value: "noindex, nofollow"
+          - filters:
+            - type: RequestHeaderModifier
+              requestHeaderModifier:
+                set:
+                  - name: X-Robots-tag
+                    value: "noindex, nofollow"
     persistence:
       data:
         enabled: true
