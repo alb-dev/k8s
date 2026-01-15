@@ -54,7 +54,7 @@ spec:
           - "mel.albdev.cloud"
         parentRefs:
           - name: envoy-external
-            namespace: kube-system
+            namespace: envoy-gateway-system
             sectionName: https
         rules:
           - backendRefs:
@@ -65,7 +65,7 @@ spec:
           - "admin-mel.albdev.cloud"
         parentRefs:
           - name: envoy-external
-            namespace: kube-system
+            namespace: envoy-gateway-system
             sectionName: https
         rules:
           - backendRefs:
