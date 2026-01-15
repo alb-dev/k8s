@@ -23,8 +23,6 @@ spec:
               TZ: ${TIMEZONE}
               MARIADB_DATABASE: ghost
               MARIADB_USER: ghost
-              MARIADB_PASSWORD: paperless
-              MARIADB_ROOT_PASSWORD: paperless
             envFrom:
               - secretRef:
                   name: mariadb-secret
