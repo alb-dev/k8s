@@ -54,7 +54,7 @@ spec:
           - "mel.albdev.cloud"
         parentRefs:
           - name: envoy-external
-            namespace: envoy-gateway-system
+            namespace: network
             sectionName: https
 
       admin:
@@ -62,7 +62,7 @@ spec:
           - "admin-mel.albdev.cloud"
         parentRefs:
           - name: envoy-external
-            namespace: envoy-gateway-system
+            namespace: network
             sectionName: https
 
     persistence:
