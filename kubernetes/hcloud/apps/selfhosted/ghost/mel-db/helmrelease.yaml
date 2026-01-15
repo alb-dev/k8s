@@ -17,7 +17,7 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/library/mariadb
+              repository: mirro.gcr.io/mariadb
               tag: 12.2.1
             env:
               TZ: ${TIMEZONE}
