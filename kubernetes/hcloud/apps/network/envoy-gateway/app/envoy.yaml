@@ -93,13 +93,13 @@ spec:
   timeout:
     http:
       requestTimeout: 0s
-  ratelimit:
-    type: local
-    local:
-      rules:
-        - limit:
-            requests: 500
-            unit: minute
+  #ratelimit:
+  #  type: local
+  #  local:
+  #    rules:
+  #      - limit:
+  #          requests: 500
+  #          unit: minute
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
