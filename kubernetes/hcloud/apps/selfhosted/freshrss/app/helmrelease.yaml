@@ -56,12 +56,13 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
-        filters:
-        - type: RequestHeaderModifier
-          requestHeaderModifier:
-            set:
-              - name: X-Robots-tag
-                value: "noindex, nofollow"
+        rules:
+          filters:
+          - type: RequestHeaderModifier
+            requestHeaderModifier:
+              set:
+                - name: X-Robots-tag
+                  value: "noindex, nofollow"
     persistence:
       data:
         enabled: true
