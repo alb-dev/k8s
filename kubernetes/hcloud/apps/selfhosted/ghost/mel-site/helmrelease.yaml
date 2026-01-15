@@ -53,7 +53,7 @@ spec:
         hostnames:
           - "mel.albdev.cloud"
         parentRefs:
-          - name: external
+          - name: envoy-external
             namespace: kube-system
             sectionName: https
         rules:
@@ -64,7 +64,7 @@ spec:
         hostnames:
           - "admin-mel.albdev.cloud"
         parentRefs:
-          - name: external
+          - name: envoy-external
             namespace: kube-system
             sectionName: https
         rules:
