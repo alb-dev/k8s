@@ -24,7 +24,7 @@ kind: Kustomization
 metadata:
   name: mel-db
 spec:
-  interval: 1m
+  interval: 1h
   timeout: 5m
   path: ./kubernetes/hcloud/apps/selfhosted/ghost/mel-db
   postBuild:
