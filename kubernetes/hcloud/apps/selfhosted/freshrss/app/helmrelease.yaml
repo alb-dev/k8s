@@ -62,7 +62,7 @@ spec:
             filters:
             - type: RequestHeaderModifier
               requestHeaderModifier:
-                set:
+                add:
                   - name: X-Robots-tag
                     value: "noindex, nofollow"
     persistence:
