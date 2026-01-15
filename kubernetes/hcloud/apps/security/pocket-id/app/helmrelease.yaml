@@ -14,8 +14,10 @@ spec:
       pocket-id:
         replicas: 1
         strategy: RollingUpdate
+
         annotations:
           reloader.stakater.com/auto: "true"
+
         pod:
           securityContext:
             runAsNonRoot: true
@@ -23,6 +25,7 @@ spec:
             runAsGroup: 1000
             fsGroup: 1000
             fsGroupChangePolicy: "OnRootMismatch"
+
         containers:
           app:
             image:
@@ -68,11 +71,13 @@ spec:
                 cpu: 10m
               limits:
                 memory: 400M
+
     service:
       app:
         ports:
           http:
             port: 1411
+            
     route:
       app:
         hostnames: ["id.${CLUSTER_DOMAIN}"]
