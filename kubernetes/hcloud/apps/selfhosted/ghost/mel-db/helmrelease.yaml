@@ -54,5 +54,7 @@ spec:
             primary: true
 
     persistence:
-      config:
+      data:
+        globalMounts:
+          - path: /var/lib/mysql
         existingClaim: mel-db
