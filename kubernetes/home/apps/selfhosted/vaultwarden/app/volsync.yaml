@@ -11,8 +11,6 @@ spec:
   kopia:
     capacity: ${VOLSYNC_CAPACITY}
     compression: zstd
-    cacheCapacity: ${VOLSYNC_CAPACITY}
-    cacheStorageClassName: local-hostpath
     copyMethod: Snapshot
 
     moverSecurityContext:
