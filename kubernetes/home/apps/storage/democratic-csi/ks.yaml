@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: democratic-csi
 spec:
-  interval: 1h
+  interval: 1m
   path: ./kubernetes/home/apps/storage/democratic-csi/app
   postBuild:
     substituteFrom:
