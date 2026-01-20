@@ -13,3 +13,5 @@ spec:
       replicaCount: 1
       serviceMonitor:
         create: true
+      args:
+        enableDistributedSnapshotting: true
