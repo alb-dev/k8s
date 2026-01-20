@@ -50,7 +50,7 @@ spec:
         volumeBindingMode: WaitForFirstConsumer
         allowVolumeExpansion: true
     volumeSnapshotClasses:
-      - name: csi-local-hostpath-new
+      - name: csi-local-hostpath
         annotations:
           snapshot.storage.kubernetes.io/is-default-class: "true"
         deletionPolicy: Delete
