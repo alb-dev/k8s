@@ -12,4 +12,3 @@ resources:
   - ./smtp-relay/ks.yaml
   - ./tailscale/ks.yaml
   - ./envoy-gateway/ks.yaml
-  - ./traefik/ks.yaml
