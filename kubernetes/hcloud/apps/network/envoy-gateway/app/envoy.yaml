@@ -121,6 +121,10 @@ spec:
     http:
       requestReceivedTimeout: 0s
   http3: {}
+  # Required for Collabora WebSocket paths with encoded URLs
+  path:
+    escapedSlashesAction: KeepUnchanged
+    disableMergeSlashes: true
   tls:
     minVersion: "1.2"
     alpnProtocols:
@@ -132,8 +136,14 @@ spec:
   headers:
     earlyRequestHeaders:
       set:
-      - name: X-Real-IP
-        value: '%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%'
+        - name: X-Real-IP
+          value: '%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%'
+        - name: X-Forwarded-Proto
+          value: https
+        - name: X-Forwarded-Host
+          value: "%REQ(:authority)%"
+        - name: X-Forwarded-Uri
+          value: "%REQ(:path)%"
     lateResponseHeaders:
       remove:
        - "x-powered-by"
