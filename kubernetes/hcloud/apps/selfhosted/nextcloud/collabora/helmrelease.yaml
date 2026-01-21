@@ -31,7 +31,7 @@ spec:
             env:
               extra_params: --o:ssl.termination=true --o:ssl.enable=false --o:security.capabilities=false --o:logging.level=error
               aliasgroup1: https://files.albdev.cloud:443
-              domain: files.albdev.cloud
+              domain: files\\.albdev\\.cloud
     defaultPodOptions:
       topologySpreadConstraints:
         - maxSkew: 1
