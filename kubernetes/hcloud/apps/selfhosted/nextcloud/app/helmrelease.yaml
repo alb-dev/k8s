@@ -90,35 +90,7 @@ spec:
           php occ db:add-missing-columns
           php occ db:add-missing-primary-keys
     collabora:
-      enabled: true
-
-      collabora:
-        aliasgroups:
-          - host: "https://files.albdev.cloud:443"
-        extra_params: --o:ssl.enable=false --o:ssl.termination=true
-
-      server_name: collabora.albdev.cloud
-
-      existingSecret:
-        enabled: true
-        # name of existing Kubernetes Secret with collboara admin credentials
-        secretName: nextcloud-collabora
-        usernameKey: "username"
-        passwordKey: "password"
-
-      ingress:
-        enabled: true
-        className: traefik
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
-        hosts:
-          - host: collabora.albdev.cloud
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
-
+      enabled: false
     cronjob:
       enabled: true
       cronjob:
