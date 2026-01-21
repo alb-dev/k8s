@@ -42,7 +42,7 @@ spec:
               app.kubernetes.io/name: nextcloud-collabora
     rawResources:
       autoscaling:
-        enabled: true
+        enabled: false
         apiVersion: autoscaling/v2
         kind: HorizontalPodAutoscaler
         spec:
