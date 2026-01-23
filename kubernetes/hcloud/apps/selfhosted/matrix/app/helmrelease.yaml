@@ -88,7 +88,7 @@ spec:
                   human_name: Pocket-ID
                   issuer: https://id.albdev.cloud
                   client_id: 823e89c4-5064-4347-b68d-b5d52d8f6778
-                  client_secret: ${CLIENT_SECRET}
+                  client_secret: ${MATRIX_CLIENT_SECRET}
                   userinfo_endpoint: https://id.albdev.cloud/api/oidc/userinfo
                   authorization_endpoint: https://id.albdev.cloud/authorize
                   token_endpoint: https://id.albdev.cloud/api/oidc/token
