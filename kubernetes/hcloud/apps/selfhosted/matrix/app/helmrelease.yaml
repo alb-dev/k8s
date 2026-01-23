@@ -134,7 +134,7 @@ spec:
       additional:
         extra-config.json: |
           {
-            "brand": "Mafyuh Matrix",
+            "brand": "Albdev Matrix",
             "default_theme": "dark",
             "show_labs_settings": false,
             "force_verification": false,
