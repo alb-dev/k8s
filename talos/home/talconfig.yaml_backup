@@ -1,17 +1,14 @@
 clusterName: &clusterName "${clusterName}"
 
-# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: 1.12.2
+talosVersion: "${talosVersion}"
+kubernetesVersion: "${kubernetesVersion}"
 
-# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetesVersion: 1.35.0
+endpoint: https://${privateClusterIP}:6443 
 
-endpoint: https://${privateClusterIP}:6443
-
-additionalMachineCertSans: &sans
+additionalApiServerCertSans: &sans
+  - ${privateClusterIP}
   - 127.0.0.1 # KubePrism
-  - ${privateClusterIP} # home network
-additionalApiServerCertSans: *sans
+additionalMachineCertSans: *sans
 
 nodes:
   # control plane nodes
@@ -27,19 +24,18 @@ nodes:
             gateway: 192.168.178.1
         dhcp: false
     nameservers:
-      - ${dnsIPv4}
+      - 192.168.178.1
     installDisk: /dev/nvme0n1
     talosImageURL: factory.talos.dev/metal-installer-secureboot/cc720ffb8efc8f12637b8660a86448a88b3f89f516995fb9c67bf80564e723b1
     machineSpec:
       mode: metal
-      arch: ${serverArch}
+      arch: amd64
     nodeAnnotations:
       installerImage: '{{ .MachineConfig.MachineInstall.InstallImage }}'
 
 controlPlane:
   schematic:
     customization:
-      # WARNING: extra kernel arguments are not supported when booting using SDBoot
       extraKernelArgs:
         - -init_on_alloc # Less security, faster puter
         - -init_on_free # Less security, faster puter
@@ -60,11 +56,9 @@ controlPlane:
           - siderolabs/intel-ucode
           - siderolabs/mei
           - siderolabs/thunderbolt
-
   nodeLabels:
-    topology.kubernetes.io/region: ${region}
-    topology.kubernetes.io/zone: ${zone}
-    node.kubernetes.io/gpu: "true"
+    topology.kubernetes.io/region: *clusterName
+    topology.kubernetes.io/zone: az-1
 
   patches:
     - |-
@@ -94,7 +88,7 @@ controlPlane:
                 - rw
           nodeIP:
             validSubnets:
-              - ${privateClusterIP}/24
+              - - 192.168.178.0/24
     - |-
       apiVersion: v1alpha1
       kind: ResolverConfig
@@ -159,10 +153,6 @@ controlPlane:
         apiServer:
           admissionControl:
             $$patch: delete
-
-    #- |-
-    #  - op: remove
-    #    path: /cluster/apiServer/admissionControl
 
     - |-
       cluster:

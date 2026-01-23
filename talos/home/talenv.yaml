@@ -4,5 +4,8 @@ talosVersion: v1.12.2
 kubernetesVersion: v1.35.0
 
 clusterName: homelab
-
+serverArch: amd64
 privateClusterIP: 192.168.178.2
+zone: eg3
+region: eu-west
+dnsIPv4: 9.9.9.9

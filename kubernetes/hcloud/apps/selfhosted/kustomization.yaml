@@ -17,3 +17,4 @@ resources:
   - ./freshrss/ks.yaml
   - ./ntfy/ks.yaml
   - ./mealie/ks.yaml
+  - ./matrix/ks.yaml
