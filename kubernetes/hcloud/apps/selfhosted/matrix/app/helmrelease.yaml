@@ -185,9 +185,6 @@ spec:
             "org.matrix.msc3575.proxy": {
               "url": "https://matrix.albdev.cloud"
             },
-            "io.element.e2ee": {
-              "force_disable": false
-            },
             "io.element.call": {
               "rtc_backend": "https://rtc.albdev.cloud"
             }
