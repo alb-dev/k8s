@@ -83,7 +83,7 @@ metadata:
   name: matrix-admin
   namespace: matrix
 spec:
-  hostnames: ["admin.albdev.cloud"]
+  hostnames: ["admin-matrix.albdev.cloud"]
   parentRefs:
     - name: envoy-external
       namespace: network
@@ -106,7 +106,7 @@ metadata:
   name: matrix-element
   namespace: matrix
 spec:
-  hostnames: ["element.albdev.cloud"]
+  hostnames: ["chat.albdev.cloud"]
   parentRefs:
     - name: envoy-external
       namespace: network

@@ -121,7 +121,7 @@ spec:
     elementAdmin:
       enabled: true
       ingress:
-        host: admin.albdev.cloud
+        host: admin-matrix.albdev.cloud
         className: disabled
         tlsEnabled: false
 
