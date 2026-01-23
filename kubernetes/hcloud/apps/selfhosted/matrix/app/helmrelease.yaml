@@ -186,7 +186,7 @@ spec:
               "url": "https://matrix.albdev.cloud"
             },
             "io.element.e2ee": {
-              "force_disable": true
+              "force_disable": false
             },
             "io.element.call": {
               "rtc_backend": "https://rtc.albdev.cloud"
