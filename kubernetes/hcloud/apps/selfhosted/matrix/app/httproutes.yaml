@@ -9,7 +9,7 @@ spec:
   hostnames: ["matrix.albdev.cloud"]
   parentRefs:
     - name: envoy-external
-      namespace: kube-system
+      namespace: network
       sectionName: https
   rules:
     - matches:
@@ -32,7 +32,7 @@ spec:
   hostnames: ["mas.albdev.cloud"]
   parentRefs:
     - name: envoy-external
-      namespace: kube-system
+      namespace: network
       sectionName: https
   rules:
     - matches:
@@ -55,7 +55,7 @@ spec:
   hostnames: ["rtc.albdev.cloud"]
   parentRefs:
     - name: envoy-external
-      namespace: kube-system
+      namespace: network
       sectionName: https
   rules:
     - matches:
@@ -86,7 +86,7 @@ spec:
   hostnames: ["admin.albdev.cloud"]
   parentRefs:
     - name: envoy-external
-      namespace: kube-system
+      namespace: network
       sectionName: https
   rules:
     - matches:
@@ -109,7 +109,7 @@ spec:
   hostnames: ["element.albdev.cloud"]
   parentRefs:
     - name: envoy-external
-      namespace: kube-system
+      namespace: network
       sectionName: https
   rules:
     - matches:
@@ -132,7 +132,7 @@ spec:
   hostnames: ["matrix.albdev.cloud"]
   parentRefs:
     - name: envoy-external
-      namespace: kube-system
+      namespace: network
       sectionName: https
   rules:
     - matches:
