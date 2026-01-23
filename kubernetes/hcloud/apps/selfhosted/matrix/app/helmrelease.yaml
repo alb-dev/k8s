@@ -21,8 +21,7 @@ spec:
         tlsEnabled: false
       media:
         storage:
-          size: 5Gi
-          storageClassName: openebs-hostpath
+          existingClaim: matrix-media
         maxUploadSize: 100M
       additional:
         1-base-config:
@@ -196,6 +195,5 @@ spec:
 
     postgres:
       enabled: true
-      storageClassName: openebs-hostpath
       storage:
-        size: 5Gi
+        existingClaim: matrix-postgres
