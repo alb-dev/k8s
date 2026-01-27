@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: kube-prometheus-stack
 spec:
-  interval: 1h
-  path: ./kubernetes/home/apps/observability/kube-prometheus-stack/app
+  interval: 1h  path: ./kubernetes/home/apps/observability/kube-prometheus-stack/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets

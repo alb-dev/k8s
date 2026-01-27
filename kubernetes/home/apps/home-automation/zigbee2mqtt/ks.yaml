@@ -5,7 +5,6 @@ metadata:
   name: zigbee2mqtt
 spec:
   interval: 1h
-  timeout: 5m
   commonMetadata:
     labels:
       app.kubernetes.io/name: zigbee2mqtt

@@ -5,7 +5,6 @@ metadata:
   name: headscale
 spec:
   interval: 1h
-  timeout: 5m
   path: ./kubernetes/hcloud/apps/selfhosted/headscale/app
   postBuild:
     substituteFrom:
@@ -25,7 +24,6 @@ metadata:
   name: headplane
 spec:
   interval: 1h
-  timeout: 5m
   path: ./kubernetes/hcloud/apps/selfhosted/headscale/ui
   postBuild:
     substituteFrom:

@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: metrics-server
 spec:
-  interval: 1h
-  path: ./kubernetes/hcloud/apps/kube-system/metrics-server/app
+  interval: 1h  path: ./kubernetes/hcloud/apps/kube-system/metrics-server/app
   prune: true
   sourceRef:
     kind: GitRepository

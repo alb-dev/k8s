@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: smtp-relay
 spec:
-  interval: 1h
-  path: ./kubernetes/hcloud/apps/network/smtp-relay/app
+  interval: 1h  path: ./kubernetes/hcloud/apps/network/smtp-relay/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets

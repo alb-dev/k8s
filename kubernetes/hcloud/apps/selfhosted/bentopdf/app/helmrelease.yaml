@@ -8,7 +8,6 @@ spec:
     kind: OCIRepository
     name: bentopdf
   interval: 1h
-
   values:
     controllers:
       bentopdf:

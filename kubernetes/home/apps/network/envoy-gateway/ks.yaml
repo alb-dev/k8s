@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: envoy-gateway
 spec:
-  interval: 1h
-  path: ./kubernetes/home/apps/network/envoy-gateway/app
+  interval: 1h  path: ./kubernetes/home/apps/network/envoy-gateway/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
@@ -23,8 +22,7 @@ kind: Kustomization
 metadata:
   name: nas-service
 spec:
-  interval: 1h
-  path: ./kubernetes/home/apps/network/envoy-gateway/nas-service
+  interval: 1h  path: ./kubernetes/home/apps/network/envoy-gateway/nas-service
   postBuild:
     substituteFrom:
       - name: cluster-secrets

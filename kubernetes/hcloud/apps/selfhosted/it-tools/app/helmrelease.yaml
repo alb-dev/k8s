@@ -8,7 +8,6 @@ spec:
     kind: OCIRepository
     name: it-tools
   interval: 1h
-
   values:
     controllers:
       it-tools:

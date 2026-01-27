@@ -5,7 +5,6 @@ metadata:
   name: mel-site
 spec:
   interval: 1h
-  timeout: 5m
   path: ./kubernetes/hcloud/apps/selfhosted/ghost/mel-site
   postBuild:
     substituteFrom:
@@ -25,7 +24,6 @@ metadata:
   name: mel-db
 spec:
   interval: 1h
-  timeout: 5m
   path: ./kubernetes/hcloud/apps/selfhosted/ghost/mel-db
   postBuild:
     substituteFrom:

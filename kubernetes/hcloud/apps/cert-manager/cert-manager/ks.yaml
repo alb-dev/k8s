@@ -6,7 +6,6 @@ metadata:
   namespace: &namespace cert-manager
 spec:
   interval: 1h
-  timeout: 5m
   path: "./kubernetes/hcloud/apps/cert-manager/cert-manager/app"
   prune: true
   sourceRef:
@@ -23,7 +22,6 @@ metadata:
   namespace: &namespace cert-manager
 spec:
   interval: 1h
-  timeout: 5m
   postBuild:
     substituteFrom:
       - name: cluster-secrets

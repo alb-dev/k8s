@@ -5,7 +5,6 @@ metadata:
   name: littlelink
 spec:
   interval: 1h
-  timeout: 5m
   path: ./kubernetes/hcloud/apps/selfhosted/littlelink/symphonia
   postBuild:
     substituteFrom:

@@ -9,14 +9,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  interval: 1h
-  path: "./kubernetes/home/apps/cert-manager/cert-manager/app"
+  interval: 1h  path: "./kubernetes/home/apps/cert-manager/cert-manager/app"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  timeout: 5m
+
   wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -35,12 +34,11 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cert-manager
-  interval: 1h
-  path: "./kubernetes/home/apps/cert-manager/cert-manager/netcup"
+  interval: 1h  path: "./kubernetes/home/apps/cert-manager/cert-manager/netcup"
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  timeout: 5m
+
   wait: true

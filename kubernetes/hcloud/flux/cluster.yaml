@@ -8,8 +8,7 @@ spec:
   decryption:
     provider: sops
   deletionPolicy: WaitForTermination
-  interval: 1m
-  path: ./kubernetes/hcloud/apps
+  interval: 1h  path: ./kubernetes/hcloud/apps
   prune: true
   sourceRef:
     kind: GitRepository

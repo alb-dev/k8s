@@ -5,7 +5,6 @@ metadata:
   name: dragonfly
 spec:
   interval: 1h
-  timeout: 5m
   path: ./kubernetes/hcloud/apps/databases/dragonfly/app
   postBuild:
     substituteFrom:
@@ -27,7 +26,6 @@ spec:
   dependsOn:
     - name: dragonfly
   interval: 1h
-  timeout: 5m
   path: ./kubernetes/hcloud/apps/databases/dragonfly/cluster
   postBuild:
     substituteFrom:

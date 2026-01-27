@@ -4,8 +4,7 @@ kind: HelmRelease
 metadata:
   name: gatus
 spec:
-  interval: 1h
-  chartRef:
+  interval: 1h  chartRef:
     kind: OCIRepository
     name: gatus
   values:

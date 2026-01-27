@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: matrix
 spec:
-  interval: 1m
-  timeout: 5m
+  interval: 1h
   path: ./kubernetes/hcloud/apps/selfhosted/matrix/app
   postBuild:
     substituteFrom:

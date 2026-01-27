@@ -7,8 +7,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: cilium
-  interval: 1h
-  values:
+  interval: 1h  values:
     autoDirectNodeRoutes: true
     bandwidthManager:
       enabled: true

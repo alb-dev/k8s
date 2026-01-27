@@ -5,7 +5,6 @@ metadata:
   name: kromgo
 spec:
   interval: 1h
-  timeout: 5m
   path: ./kubernetes/hcloud/apps/observability/kromgo/app
   prune: true
   sourceRef:

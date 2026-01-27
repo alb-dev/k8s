@@ -4,8 +4,7 @@ kind: HelmRelease
 metadata:
   name: error-pages
 spec:
-  interval: 1h
-  chart:
+  interval: 1h  chart:
     spec:
       chart: app-template
       version: 4.5.0

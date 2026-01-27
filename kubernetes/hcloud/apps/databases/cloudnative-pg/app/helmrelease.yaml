@@ -5,8 +5,7 @@ metadata:
   name: cloudnative-pg
   namespace: databases
 spec:
-  interval: 1h
-  chart:
+  interval: 1h  chart:
     spec:
       chart: cloudnative-pg
       version: 0.27.0
@@ -14,8 +13,7 @@ spec:
         kind: HelmRepository
         name: cloudnative-pg
         namespace: flux-system
-      interval: 1h
-  values:
+      interval: 1h  values:
     crds:
       create: true
     monitoring:

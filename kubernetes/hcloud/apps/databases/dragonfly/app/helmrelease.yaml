@@ -9,7 +9,6 @@ spec:
     name: dragonfly-operator
   install:
     crds: CreateReplace
-  interval: 1h
-  values:
+  interval: 1h  values:
     serviceMonitor:
       enabled: false

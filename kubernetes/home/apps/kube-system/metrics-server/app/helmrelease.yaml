@@ -7,8 +7,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: metrics-server
-  interval: 1h
-  values:
+  interval: 1h  values:
     args:
       - --kubelet-insecure-tls
       - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname

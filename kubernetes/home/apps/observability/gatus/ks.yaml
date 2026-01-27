@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: gatus
 spec:
-  interval: 1h
-  path: ./kubernetes/home/apps/observability/gatus/app
+  interval: 1h  path: ./kubernetes/home/apps/observability/gatus/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
@@ -21,5 +20,5 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: observability
-  timeout: 5m
+
   wait: false
