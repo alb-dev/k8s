@@ -12,7 +12,8 @@ spec:
         kind: HelmRepository
         name: nextcloud
         namespace: flux-system
-  interval: 1h  values:
+  interval: 1h
+  values:
     deploymentAnnotations:
       secret.reloader.stakater.com/reload: nextcloud-secret
     image:

@@ -5,6 +5,7 @@ metadata:
   name: bentopdf
 spec:
   interval: 1h
+
   path: ./kubernetes/hcloud/apps/selfhosted/bentopdf/app
   postBuild:
     substituteFrom:

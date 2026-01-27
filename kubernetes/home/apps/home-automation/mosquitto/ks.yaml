@@ -5,6 +5,7 @@ metadata:
   name: mosquitto
 spec:
   interval: 1h
+
   commonMetadata:
     labels:
       app.kubernetes.io/name: mosquitto

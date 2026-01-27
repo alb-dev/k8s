@@ -6,6 +6,7 @@ metadata:
   namespace: &namespace flux-system
 spec:
   interval: 1h
+
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

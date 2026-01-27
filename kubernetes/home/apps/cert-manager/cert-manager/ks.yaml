@@ -9,7 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  interval: 1h  path: "./kubernetes/home/apps/cert-manager/cert-manager/app"
+  interval: 1h
+  path: "./kubernetes/home/apps/cert-manager/cert-manager/app"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -34,7 +35,8 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cert-manager
-  interval: 1h  path: "./kubernetes/home/apps/cert-manager/cert-manager/netcup"
+  interval: 1h
+  path: "./kubernetes/home/apps/cert-manager/cert-manager/netcup"
   prune: true
   sourceRef:
     kind: GitRepository

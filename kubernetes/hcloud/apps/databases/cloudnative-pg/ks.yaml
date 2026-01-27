@@ -4,7 +4,8 @@ kind: Kustomization
 metadata:
   name: cloudnative-pg
 spec:
-  interval: 1h  path: ./kubernetes/hcloud/apps/databases/cloudnative-pg/app
+  interval: 1h
+  path: ./kubernetes/hcloud/apps/databases/cloudnative-pg/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
@@ -24,7 +25,8 @@ metadata:
 spec:
   dependsOn:
     - name: cloudnative-pg
-  interval: 1h  path: ./kubernetes/hcloud/apps/databases/cloudnative-pg/cluster
+  interval: 1h
+  path: ./kubernetes/hcloud/apps/databases/cloudnative-pg/cluster
   postBuild:
     substituteFrom:
       - name: cluster-secrets

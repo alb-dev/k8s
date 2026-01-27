@@ -5,6 +5,7 @@ metadata:
   name: pocket-id
 spec:
   interval: 1h
+
   chartRef:
     kind: OCIRepository
     name: pocket-id

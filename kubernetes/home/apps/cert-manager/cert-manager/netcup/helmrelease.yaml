@@ -12,7 +12,8 @@ spec:
         kind: HelmRepository
         name: cert-manager-webhook-netcup
         namespace: flux-system
-  interval: 1h  values:
+  interval: 1h
+  values:
     groupName: com.netcup.webhook
     certManager:
       namespace: cert-manager

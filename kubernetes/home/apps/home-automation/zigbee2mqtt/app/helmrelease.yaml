@@ -6,7 +6,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: zigbee2mqtt
-  interval: 1h  values:
+  interval: 1h
+  values:
     controllers:
       zigbee2mqtt:
         replicas: 1

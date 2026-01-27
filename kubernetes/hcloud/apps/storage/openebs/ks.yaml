@@ -5,6 +5,7 @@ metadata:
   name: openebs
 spec:
   interval: 1h
+
   path: ./kubernetes/hcloud/apps/storage/openebs/app
   postBuild:
     substituteFrom:

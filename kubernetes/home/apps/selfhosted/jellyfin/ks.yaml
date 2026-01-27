@@ -5,6 +5,7 @@ metadata:
   name: jellyfin
 spec:
   interval: 1h
+
   dependsOn:
     - name: intel-gpu-resource-driver
       namespace: kube-system

@@ -8,6 +8,7 @@ spec:
     kind: OCIRepository
     name: headscale
   interval: 1h
+
   values:
     controllers:
       headscale:

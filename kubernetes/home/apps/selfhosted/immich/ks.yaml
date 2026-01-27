@@ -5,6 +5,7 @@ metadata:
   name: immich
 spec:
   interval: 1h
+
   path: ./kubernetes/home/apps/selfhosted/immich/app
   postBuild:
     substituteFrom:

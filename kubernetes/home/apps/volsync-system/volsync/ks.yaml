@@ -5,6 +5,7 @@ metadata:
   name: volsync
 spec:
   interval: 1h
+
   path: ./kubernetes/home/apps/volsync-system/volsync/app
   postBuild:
     substituteFrom:
@@ -26,6 +27,7 @@ metadata:
   name: volsync-maintenance
 spec:
   interval: 1h
+
   path: ./kubernetes/home/apps/volsync-system/volsync/maintenance
   postBuild:
     substituteFrom:

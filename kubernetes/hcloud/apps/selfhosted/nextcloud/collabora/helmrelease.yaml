@@ -4,7 +4,8 @@ kind: HelmRelease
 metadata:
   name: nextcloud-collabora
 spec:
-  interval: 1h  chartRef:
+  interval: 1h
+  chartRef:
     kind: OCIRepository
     name: collabora
   values:

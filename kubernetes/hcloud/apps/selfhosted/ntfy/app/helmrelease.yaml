@@ -8,6 +8,7 @@ spec:
     kind: OCIRepository
     name: ntfy
   interval: 1h
+
   values:
     controllers:
       ntfy:

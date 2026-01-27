@@ -4,7 +4,8 @@ kind: Kustomization
 metadata:
   name: arrs
 spec:
-  interval: 1h  path: ./kubernetes/home/apps/selfhosted/arrs/app
+  interval: 1h
+  path: ./kubernetes/home/apps/selfhosted/arrs/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
@@ -27,7 +28,8 @@ kind: Kustomization
 metadata:
   name: configarr
 spec:
-  interval: 1h  path: ./kubernetes/home/apps/selfhosted/arrs/configarr
+  interval: 1h
+  path: ./kubernetes/home/apps/selfhosted/arrs/configarr
   postBuild:
     substituteFrom:
       - name: cluster-secrets

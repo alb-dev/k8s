@@ -7,7 +7,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: openebs
-  interval: 1h  values:
+  interval: 1h
+  values:
     preUpgradeHook:
       enabled: false
     localpv-provisioner:

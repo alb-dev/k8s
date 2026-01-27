@@ -7,7 +7,8 @@ spec:
   chartRef:
     kind: OCIRepository
     name: intel-gpu-resource-driver
-  interval: 1h  values:
+  interval: 1h
+  values:
     cdi:
       staticPath: /var/cdi/static
       dynamicPath: /var/cdi/dynamic

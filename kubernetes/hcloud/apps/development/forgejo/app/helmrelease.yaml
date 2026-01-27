@@ -4,7 +4,8 @@ kind: HelmRelease
 metadata:
   name: forgejo
 spec:
-  interval: 1h  chartRef:
+  interval: 1h
+  chartRef:
     kind: OCIRepository
     name: forgejo
   values:

@@ -5,6 +5,7 @@ metadata:
   name: grafana
 spec:
   interval: 1h
+
   path: ./kubernetes/hcloud/apps/observability/grafana/app
   prune: true
   sourceRef:
@@ -20,6 +21,7 @@ metadata:
   name: grafana-instance
 spec:
   interval: 1h
+
   dependsOn:
     - name: grafana
     - name: openebs

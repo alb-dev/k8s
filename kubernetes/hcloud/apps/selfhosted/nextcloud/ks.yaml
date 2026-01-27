@@ -4,7 +4,8 @@ kind: Kustomization
 metadata:
   name: nextcloud
 spec:
-  interval: 1h  path: ./kubernetes/hcloud/apps/selfhosted/nextcloud/app
+  interval: 1h
+  path: ./kubernetes/hcloud/apps/selfhosted/nextcloud/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
@@ -22,7 +23,8 @@ kind: Kustomization
 metadata:
   name: nextcloud-collabora
 spec:
-  interval: 1h  path: ./kubernetes/hcloud/apps/selfhosted/nextcloud/collabora
+  interval: 1h
+  path: ./kubernetes/hcloud/apps/selfhosted/nextcloud/collabora
   postBuild:
     substituteFrom:
       - name: cluster-secrets

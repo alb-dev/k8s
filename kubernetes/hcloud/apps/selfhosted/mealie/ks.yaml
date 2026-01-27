@@ -5,6 +5,7 @@ metadata:
   name: mealie
 spec:
   interval: 1h
+
   path: ./kubernetes/hcloud/apps/selfhosted/mealie/app
   postBuild:
     substituteFrom:

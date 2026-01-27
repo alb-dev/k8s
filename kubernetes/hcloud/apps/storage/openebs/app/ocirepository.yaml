@@ -5,7 +5,8 @@ kind: OCIRepository
 metadata:
   name: openebs
 spec:
-  interval: 1h  layerSelector:
+  interval: 1h
+  layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:

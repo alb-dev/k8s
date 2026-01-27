@@ -4,7 +4,8 @@ kind: HelmRelease
 metadata:
   name: flux-instance
 spec:
-  interval: 1h  chartRef:
+  interval: 1h
+  chartRef:
     kind: OCIRepository
     name: flux-instance
   install:
@@ -33,7 +34,8 @@ spec:
         url: https://code.albdev.cloud/lab/k8s.git
         ref: refs/heads/main
         path: kubernetes/home/flux
-        interval: 1h      commonMetadata:
+        interval: 1h
+      commonMetadata:
         labels:
           app.kubernetes.io/name: flux
       kustomize:

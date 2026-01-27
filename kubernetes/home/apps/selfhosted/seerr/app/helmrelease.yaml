@@ -4,7 +4,8 @@ kind: HelmRelease
 metadata:
   name: seerr
 spec:
-  interval: 1h  chartRef:
+  interval: 1h
+  chartRef:
     kind: OCIRepository
     name: seerr
   values:
