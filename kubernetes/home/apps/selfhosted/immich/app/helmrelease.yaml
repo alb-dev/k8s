@@ -15,7 +15,7 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v2.5.2
+              tag: v2.5.5
             env:
               TZ: ${TIMEZONE}
               DB_HOSTNAME: immich-postgresql
@@ -48,7 +48,7 @@ spec:
           app:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v2.5.2@sha256:531d2bccbe20d0412496e36455715a18d692911eca5e2ee37d32e1e4f50e14bb
+              tag: v2.5.5@sha256:2e17e15855907ece0d5b3a7bf625b12f6d987a5854fa71d888641acae28b0323
             env:
               TZ: ${TIMEZONE}
               DB_HOSTNAME: immich-postgresql
@@ -80,7 +80,7 @@ spec:
           app:
             image:
               repository: ghcr.io/valkey-io/valkey
-              tag: 9.0.1
+              tag: 9.0.2
             probes:
               liveness:
                 enabled: true
