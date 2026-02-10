@@ -25,7 +25,8 @@ kind: Kustomization
 metadata:
   name: volsync-maintenance
 spec:
-  interval: 15mpath: ./kubernetes/home/apps/volsync-system/volsync/maintenance
+  interval: 15m
+  path: ./kubernetes/home/apps/volsync-system/volsync/maintenance
   postBuild:
     substituteFrom:
       - name: cluster-secrets
