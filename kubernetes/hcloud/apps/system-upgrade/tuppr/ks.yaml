@@ -23,7 +23,7 @@ kind: Kustomization
 metadata:
   name: tuppr-upgrades
 spec:
-  interval: 15m
+  interval: 5m
   dependsOn:
     - name: tuppr
   path: "./kubernetes/hcloud/apps/system-upgrade/tuppr/upgrades"
