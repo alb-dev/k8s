@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: kopia
 spec:
-  interval: 1h
-
+  interval: 15m
   path: ./kubernetes/home/apps/volsync-system/kopia/app
   postBuild:
     substituteFrom:

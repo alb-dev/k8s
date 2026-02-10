@@ -7,7 +7,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: error-pages
-  interval: 1h
+  interval: 15m
   values:
     controllers:
       error-pages:

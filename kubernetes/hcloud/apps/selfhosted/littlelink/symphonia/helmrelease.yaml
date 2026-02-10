@@ -7,7 +7,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: littlelink
-  interval: 1h
+  interval: 15m
   values:
     defaultPodOptions:
       securityContext:

@@ -5,8 +5,7 @@ metadata:
   name: &app flux-instance
   namespace: &namespace flux-system
 spec:
-  interval: 1h
-
+  interval: 15m
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

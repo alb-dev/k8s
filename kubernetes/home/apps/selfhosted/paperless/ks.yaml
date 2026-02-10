@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: paperless
 spec:
-  interval: 1h
-
+  interval: 15m
   path: ./kubernetes/home/apps/selfhosted/paperless/app
   postBuild:
     substituteFrom:

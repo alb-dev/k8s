@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: home-assistant
 spec:
-  interval: 1h
-
+  interval: 15m
   commonMetadata:
     labels:
       app.kubernetes.io/name: home-assistant

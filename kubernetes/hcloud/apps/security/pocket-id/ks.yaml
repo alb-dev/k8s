@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: pocket-id
 spec:
-  interval: 1h
-
+  interval: 15m
   path: ./kubernetes/hcloud/apps/security/pocket-id/app
   postBuild:
     substituteFrom:

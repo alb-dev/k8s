@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: envoy-gateway
 spec:
-  interval: 1h
-
+  interval: 15m
   path: ./kubernetes/hcloud/apps/network/envoy-gateway/app
   postBuild:
     substituteFrom:

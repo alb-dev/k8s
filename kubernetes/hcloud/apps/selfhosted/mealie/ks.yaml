@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: mealie
 spec:
-  interval: 1h
-
+  interval: 15m
   path: ./kubernetes/hcloud/apps/selfhosted/mealie/app
   postBuild:
     substituteFrom:

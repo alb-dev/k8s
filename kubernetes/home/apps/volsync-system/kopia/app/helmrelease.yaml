@@ -8,7 +8,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: kopia
-  interval: 1h
+  interval: 15m
   values:
     controllers:
       kopia:

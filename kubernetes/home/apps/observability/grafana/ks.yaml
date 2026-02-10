@@ -8,7 +8,7 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-  interval: 1h
+  interval: 15m
   path: ./kubernetes/home/apps/observability/grafana/app
   prune: true
   sourceRef:
@@ -31,7 +31,7 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-  interval: 1h
+  interval: 15m
   path: ./kubernetes/home/apps/observability/grafana/instance
   prune: true
   sourceRef:

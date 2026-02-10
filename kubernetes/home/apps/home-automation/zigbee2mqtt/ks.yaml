@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: zigbee2mqtt
 spec:
-  interval: 1h
-
+  interval: 15m
   commonMetadata:
     labels:
       app.kubernetes.io/name: zigbee2mqtt

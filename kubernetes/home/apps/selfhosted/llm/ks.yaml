@@ -4,9 +4,7 @@ kind: Kustomization
 metadata:
   name: llm-ollama
 spec:
-  interval: 1h
-
-  dependsOn:
+  interval: 15mdependsOn:
     - name: intel-gpu-resource-driver
       namespace: kube-system
   path: ./kubernetes/home/apps/selfhosted/llm/ollama

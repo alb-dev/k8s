@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: tuppr
 spec:
-  interval: 1h
-
+  interval: 15m
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
@@ -24,8 +23,7 @@ kind: Kustomization
 metadata:
   name: tuppr-upgrades
 spec:
-  interval: 1h
-
+  interval: 15m
   dependsOn:
     - name: tuppr
   path: "./kubernetes/hcloud/apps/system-upgrade/tuppr/upgrades"

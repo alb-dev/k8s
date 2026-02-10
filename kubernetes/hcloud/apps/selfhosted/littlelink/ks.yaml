@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: littlelink
 spec:
-  interval: 1h
+  interval: 15m
   path: ./kubernetes/hcloud/apps/selfhosted/littlelink/symphonia
   postBuild:
     substituteFrom:

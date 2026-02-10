@@ -4,8 +4,7 @@ kind: Kustomization
 metadata:
   name: bentopdf
 spec:
-  interval: 1h
-
+  interval: 15m
   path: ./kubernetes/hcloud/apps/selfhosted/bentopdf/app
   postBuild:
     substituteFrom:
