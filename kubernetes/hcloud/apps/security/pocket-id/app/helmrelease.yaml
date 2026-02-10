@@ -4,7 +4,8 @@ kind: HelmRelease
 metadata:
   name: pocket-id
 spec:
-  interval: 15mchartRef:
+  interval: 15m
+  chartRef:
     kind: OCIRepository
     name: pocket-id
   values:
