@@ -4,7 +4,8 @@ kind: Kustomization
 metadata:
   name: headscale
 spec:
-  interval: 15mpath: ./kubernetes/hcloud/apps/selfhosted/headscale/app
+  interval: 15m
+  path: ./kubernetes/hcloud/apps/selfhosted/headscale/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
@@ -22,7 +23,8 @@ kind: Kustomization
 metadata:
   name: headplane
 spec:
-  interval: 15mpath: ./kubernetes/hcloud/apps/selfhosted/headscale/ui
+  interval: 15m
+  path: ./kubernetes/hcloud/apps/selfhosted/headscale/ui
   postBuild:
     substituteFrom:
       - name: cluster-secrets
