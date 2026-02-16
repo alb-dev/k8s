@@ -17,7 +17,7 @@ spec:
         containers:
           app:
             image:
-              repository: mirror.gcr.io/ghost
+              repository: ghost
               tag: 6.18.2
             env:
               TZ: ${TIMEZONE}
