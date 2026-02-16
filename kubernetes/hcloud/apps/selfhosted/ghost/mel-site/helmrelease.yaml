@@ -18,7 +18,7 @@ spec:
           app:
             image:
               repository: mirror.gcr.io/ghost
-              tag: 6.12.0
+              tag: 6.18.2
             env:
               TZ: ${TIMEZONE}
               database__client: mysql
