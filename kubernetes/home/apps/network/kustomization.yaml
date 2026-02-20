@@ -12,3 +12,4 @@ resources:
   - ./smtp-relay/ks.yaml
   - ./tailscale/ks.yaml
   - ./pihole/ks.yaml
+  - ./netbird/ks.yaml

@@ -1,0 +1,53 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: netbird
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: netbird
+  interval: 15m
+  values:
+    controllers:
+      router:
+        strategy: RollingUpdate
+
+        replicas: 1
+
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          app:
+            image:
+              repository: netbirdio/netbird
+              tag: 0.65.3
+            env:
+              # NB_ENABLE_ROSENPASS: true
+              NB_HOSTNAME: k8s-router-homelab # name that will appear in the management UI
+              NB_LOG_LEVEL: info
+              NB_MANAGEMENT_URL: https://netbird.${SECRET_PUBLIC_DOMAIN}
+              NB_SETUP_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: SETUP_KEY
+            securityContext:
+              capabilities:
+                add:
+                  - "NET_ADMIN"
+                  - "SYS_RESOURCE"
+                  - "SYS_ADMIN"
+
+                # drop:
+                #   - "ALL"
+
+            #   allowPrivilegeEscalation: false
+            #   readOnlyRootFilesystem: false
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                memory: 256Mi
