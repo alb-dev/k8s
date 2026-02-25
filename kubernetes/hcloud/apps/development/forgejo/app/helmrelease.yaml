@@ -28,7 +28,7 @@ spec:
       enabled: true
       hostnames: [ "code.${CLUSTER_DOMAIN}" ]
       parentRefs:
-        - name: external
+        - name: envoy-external
           namespace: network
           sectionName: https
     service:
@@ -44,13 +44,6 @@ spec:
       create: false
       claimName: forgejo-code-local
       storageClass: openebs-hostpath
-
-
-    extraVolumes:
-      - name: anubis-bot-policy
-        configMap:
-          name: anubis-bot-policy
-          defaultMode: 0555
 
     gitea:
       admin:
@@ -126,40 +119,3 @@ spec:
         periodSeconds: 30
         successThreshold: 1
         failureThreshold: 10
-
-    extraContainers:
-      - name: anubis
-        image: ghcr.io/techarohq/anubis:v1.25.0
-        imagePullPolicy: Always
-        env:
-          - name: 'BIND'
-            value: ':8080'
-          - name: 'DIFFICULTY'
-            value: '4'
-    #      - name: ED25519_PRIVATE_KEY_HEX
-    #        valueFrom:
-    #          secretKeyRef:
-    #            name: anubis-key-forgejo
-    #            key: ED25519_PRIVATE_KEY_HEX
-          - name: 'TARGET'
-            value: 'http://localhost:3000'
-          - name: 'POLICY_FNAME'
-            value: '/etc/anubisBotPolicy.json'
-        volumeMounts:
-          - name: anubis-bot-policy
-            mountPath: /etc/anubisBotPolicy.json
-            subPath: anubisBotPolicy.json
-            readOnly: true
-        ports:
-          - name: anubis
-            containerPort: 8080
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - ALL
-          seccompProfile:
-            type: RuntimeDefault
