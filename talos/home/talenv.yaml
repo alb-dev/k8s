@@ -8,4 +8,4 @@ serverArch: amd64
 privateClusterIP: 192.168.178.2
 zone: eg3
 region: eu-west
-dnsIPv4: 9.9.9.9
+dnsIPv4: 192.168.178.3
