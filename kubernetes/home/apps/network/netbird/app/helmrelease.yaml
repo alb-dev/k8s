@@ -41,7 +41,13 @@ spec:
                   - "NET_ADMIN"
                   - "SYS_RESOURCE"
                   - "SYS_ADMIN"
-
+            lifecycle:
+              postStart:
+                exec:
+                  command:
+                    - sh
+                    - -c
+                    - iptables -t nat -A POSTROUTING -s 100.119.0.0/16 -j MASQUERADE
                 # drop:
                 #   - "ALL"
 
