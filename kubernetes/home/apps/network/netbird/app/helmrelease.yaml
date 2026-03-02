@@ -17,7 +17,9 @@ spec:
 
         annotations:
           reloader.stakater.com/auto: "true"
-
+        pod:
+          hostNetwork: true        # ← NEU
+          dnsPolicy: ClusterFirstWithHostNet  # ← NEU (wichtig bei hostNetwork!)
         containers:
           app:
             image:
