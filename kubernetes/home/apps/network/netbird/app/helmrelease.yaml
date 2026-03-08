@@ -9,6 +9,23 @@ spec:
     name: netbird
   interval: 15m
   values:
+    global:
+      # Name overrides
+      nameOverride: "netbird"
+      fullNameOverride: "netbird"
+
+      # Host networking for WireGuard
+      hostNetwork: true
+
+      # Security context for WireGuard operations
+      securityContext:
+        privileged: true
+        capabilities:
+          add:
+            - NET_ADMIN
+            - NET_RAW
+            - SYS_MODULE
+
     controllers:
       router:
         strategy: RollingUpdate
