@@ -4,66 +4,24 @@ kind: HelmRelease
 metadata:
   name: netbird
 spec:
-  chartRef:
-    kind: OCIRepository
-    name: netbird
+  chart:
+    spec:
+      chart: kubernetes-operator
+      version: "0.2.2"
+      sourceRef:
+        kind: HelmRepository
+        name: netbird
+        namespace: network
   interval: 5m
   values:
-    global:
-      # Name overrides
-      nameOverride: "netbird"
-      fullNameOverride: "netbird"
-
-      # Host networking for WireGuard
-      hostNetwork: true
-
-      # Security context for WireGuard operations
-      securityContext:
-        privileged: true
-        capabilities:
-          add:
-            - NET_ADMIN
-            - NET_RAW
-            - SYS_MODULE
-
-    controllers:
+    netbirdAPI:
+      keyFromSecret:
+        name: netbird-api-token
+        key: NB_API_KEY
+    ingress:
+      enabled: true
       router:
-        strategy: RollingUpdate
-
-        replicas: 1
-
-        annotations:
-          reloader.stakater.com/auto: "true"
-          
-        containers:
-          app:
-            image:
-              repository: netbirdio/netbird
-              tag: 0.66.2
-            env:
-              # NB_ENABLE_ROSENPASS: true
-              NB_HOSTNAME: k8s-router-homelab # name that will appear in the management UI
-              NB_LOG_LEVEL: info
-              NB_MANAGEMENT_URL: https://netbird.${NEW_PUBLIC_DOMAIN}
-              NB_SETUP_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: SETUP_KEY
-            securityContext:
-              capabilities:
-                add:
-                  - "NET_ADMIN"
-                  - "SYS_RESOURCE"
-                  - "SYS_ADMIN"
-                # drop:
-                #   - "ALL"
-
-            #   allowPrivilegeEscalation: false
-            #   readOnlyRootFilesystem: false
-            resources:
-              requests:
-                cpu: 100m
-                memory: 256Mi
-              limits:
-                memory: 256Mi
+        enabled: true
+      allowAutomaticPolicyCreation: true
+    cluster:
+      name: homelab-0

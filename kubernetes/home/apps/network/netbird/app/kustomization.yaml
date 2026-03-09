@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: network
 
 resources:
-  - ./ocirepository.yaml
+  - ./chart.yaml
   - ./helmrelease.yaml
   - ./secrets.sops.yaml
