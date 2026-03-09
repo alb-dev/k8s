@@ -14,7 +14,7 @@ spec:
         namespace: network
   interval: 5m
   values:
-    managementURL: https://netbird.albdev.cloud:443
+    managementURL: "https://netbird.albdev.cloud:443"
     netbirdAPI:
       keyFromSecret:
         name: netbird-api-token
