@@ -9,7 +9,6 @@ components:
 resources:
   - ./namespace.yaml
   - ./bentopdf/ks.yaml
-  - ./ghost/ks.yaml
   - ./nextcloud/ks.yaml
   - ./it-tools/ks.yaml
   - ./littlelink/ks.yaml
