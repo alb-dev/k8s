@@ -7,7 +7,6 @@ generatorOptions:
   disableNameSuffixHash: true
 
 resources:
-  - ./resources/bot-config.yaml
   - ./ocirepository.yaml
   - ./helmrelease.yaml
   - ./httproute.yaml
