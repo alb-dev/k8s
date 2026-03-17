@@ -51,28 +51,7 @@ spec:
         ports:
           http:
             port: 3000
-            
-    ingress:
-      app:
-        className: traefik
-        annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
-          cert-manager.io/private-key-rotation-policy: Always
-          cert-manager.io/private-key-algorithm: ECDSA
-          cert-manager.io/private-key-size: "384"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        hosts:
-          - host: "headscale.onji.space"
-            paths:
-              - path: /admin
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - "headscale.onji.space"
-              - "headscale.albdev.cloud"
-            secretName: headscale-tls
+
     route:
       app:
         hostnames:
@@ -89,6 +68,7 @@ spec:
                   value: /admin
             backendRefs:
               - identifier: app
+              
     persistence:
       config:
         enabled: true
