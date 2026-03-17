@@ -23,11 +23,20 @@ spec:
     phpClientHttpsFix:
       enabled: true
     ingress:
+      enabled: false
+
+    httpRoute:
       enabled: true
-      className: traefik
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-production
-        traefik.ingress.kubernetes.io/router.middlewares: "network-traefik-middleware-chain-no-auth@kubernetescrd"
+      hostnames: ["files.${CLUSTER_DOMAIN}"]
+      parentRefs:
+        - name: envoy-external
+          namespace: network
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: "/"
+
     nextcloud:
       host: files.albdev.cloud
       extraEnv:

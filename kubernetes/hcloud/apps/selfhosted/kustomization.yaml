@@ -14,6 +14,5 @@ resources:
   - ./littlelink/ks.yaml
   - ./headscale/ks.yaml
   - ./freshrss/ks.yaml
-  - ./ntfy/ks.yaml
   - ./mealie/ks.yaml
   - ./matrix/ks.yaml
