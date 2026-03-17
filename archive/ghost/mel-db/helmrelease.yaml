@@ -1,0 +1,60 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mel-db
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: mel-db
+  interval: 15m
+  values:
+    controllers:
+      mariadb:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          app:
+            image:
+              repository: mirror.gcr.io/mariadb
+              tag: 12.1.2
+            env:
+              TZ: ${TIMEZONE}
+              MARIADB_DATABASE: ghost
+              MARIADB_USER: ghost
+            envFrom:
+              - secretRef:
+                  name: mariadb-secret
+            resources:
+              requests:
+                cpu: 50m
+                memory: 256Mi
+              limits:
+                memory: 512Mi
+            #securityContext:
+            #  allowPrivilegeEscalation: false
+            #  readOnlyRootFilesystem: true
+            #  capabilities: {drop: ["ALL"]}
+
+#    defaultPodOptions:
+#      securityContext:
+#        runAsNonRoot: true
+#        runAsUser: 1000
+#        runAsGroup: 1000
+#        fsGroup: 1000
+#        fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      app:
+        controller: mariadb
+        ports:
+          mysql:
+            port: 3306
+            primary: true
+
+    persistence:
+      data:
+        globalMounts:
+          - path: /var/lib/mysql
+        existingClaim: mel-db

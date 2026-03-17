@@ -1,0 +1,38 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: mel-site
+spec:
+  interval: 15m
+  path: ./kubernetes/hcloud/apps/selfhosted/ghost/mel-site
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: selfhosted
+  wait: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: mel-db
+spec:
+  interval: 15m
+  path: ./kubernetes/hcloud/apps/selfhosted/ghost/mel-db
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: selfhosted
+  wait: false

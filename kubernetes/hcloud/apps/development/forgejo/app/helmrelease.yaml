@@ -12,9 +12,6 @@ spec:
     strategy:
       type: 'Recreate'
       
-    ingress:
-      enabled: false
-              
     httpRoute:
       enabled: true
       hostnames: [ "code.${CLUSTER_DOMAIN}" ]
