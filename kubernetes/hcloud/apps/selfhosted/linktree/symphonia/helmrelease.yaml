@@ -7,7 +7,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: symphonia
-  interval: 15m
+  interval: 1m
   values:
     defaultPodOptions:
       securityContext:
@@ -20,7 +20,7 @@ spec:
  
     controllers:
       symphonia:
-        replicas: 1
+        replicas: 2
         strategy: RollingUpdate
 
         annotations:
