@@ -56,3 +56,9 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+            
+    persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
