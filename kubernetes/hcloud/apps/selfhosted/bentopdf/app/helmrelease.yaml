@@ -9,6 +9,14 @@ spec:
     name: bentopdf
   interval: 15m
   values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101
+        runAsGroup: 101
+        fsGroup: 101
+        fsGroupChangePolicy: OnRootMismatch
+        
     controllers:
       bentopdf:
         replicas: 1
@@ -16,13 +24,6 @@ spec:
 
         annotations:
           reloader.stakater.com/auto: "true"
-
-        pod:
-          securityContext:
-            runAsUser: 65534
-            runAsGroup: 65534
-            fsGroup: 65534
-            fsGroupChangePolicy: "OnRootMismatch"
 
         containers:
           app:
