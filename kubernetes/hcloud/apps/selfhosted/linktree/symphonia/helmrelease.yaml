@@ -11,12 +11,11 @@ spec:
   values:
     defaultPodOptions:
       securityContext:
-          runAsNonRoot: true
-          runAsUser: 65534
-          runAsGroup: 65534
-          fsGroup: 65534
-          fsGroupChangePolicy: OnRootMismatch
-          seccompProfile: { type: RuntimeDefault }
+        runAsNonRoot: true
+        runAsUser: 101
+        runAsGroup: 101
+        fsGroup: 101
+        fsGroupChangePolicy: OnRootMismatch
  
     controllers:
       symphonia:
