@@ -11,7 +11,7 @@ resources:
   - ./bentopdf/ks.yaml
   - ./nextcloud/ks.yaml
   - ./it-tools/ks.yaml
-  - ./littlelink/ks.yaml
+  - ./linktree/ks.yaml
   - ./headscale/ks.yaml
   - ./freshrss/ks.yaml
   - ./mealie/ks.yaml
