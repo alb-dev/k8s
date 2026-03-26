@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: code.albdev.cloud/lab/symphonia
-              tag: 0.7.0
+              tag: 0.7.1
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
