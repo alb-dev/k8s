@@ -41,7 +41,7 @@ spec:
       host: files.albdev.cloud
       extraEnv:
         - name: REDIS_HOST
-          value: dragonfly.databases.svc.cluster.local
+          value: nextcloud-redis
         - name: REDIS_DATABASE
           value: "2"
       existingSecret:
