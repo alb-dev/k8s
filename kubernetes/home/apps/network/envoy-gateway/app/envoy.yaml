@@ -27,7 +27,7 @@ spec:
     metrics:
       prometheus:
         compression:
-          type: Gzip
+          type: Zstd
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
@@ -104,18 +104,25 @@ kind: BackendTrafficPolicy
 metadata:
   name: envoy
 spec:
-  compression:
+  compressor:
     - type: Zstd
+      zstd: {}
     - type: Brotli
+      brotli: {}
     - type: Gzip
-  connection:
-    bufferLimit: 8Mi
+      gzip: {}
+  retry:
+    numRetries: 2
+    retryOn:
+      triggers:
+        - reset
   targetSelectors:
     - group: gateway.networking.k8s.io
       kind: Gateway
   tcpKeepalive: {}
   timeout:
     http:
+      connectionIdleTimeout: 15s
       requestTimeout: 0s
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
@@ -130,27 +137,39 @@ spec:
     bufferLimit: 8Mi
     maxAcceptPerSocketEvent: 0
   http2:
-    initialStreamWindowSize: 2Mi
-    initialConnectionWindowSize: 32Mi
     onInvalidMessage: TerminateStream
   http3: {}
-  targetSelectors:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
   tcpKeepalive: {}
   timeout:
     http:
-      requestReceivedTimeout: 0s
+      idleTimeout: 60s
   tls:
     minVersion: "1.2"
     alpnProtocols:
       - h2
       - http/1.1
+  # Required for Collabora WebSocket paths with encoded URLs
+  path:
+    escapedSlashesAction: KeepUnchanged
+    disableMergeSlashes: true
+  targetSelectors:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
   headers:
     earlyRequestHeaders:
       set:
-      - name: X-Real-IP
-        value: '%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%'
+        - name: X-Real-IP
+          value: '%DOWNSTREAM_REMOTE_ADDRESS_WITHOUT_PORT%'
+        - name: X-Forwarded-Proto
+          value: https
+        - name: X-Forwarded-Host
+          value: "%REQ(:authority)%"
+        - name: X-Forwarded-Uri
+          value: "%REQ(:path)%"
+    lateResponseHeaders:
+      remove:
+       - "x-powered-by"
+       - "x-xss-protection"
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
