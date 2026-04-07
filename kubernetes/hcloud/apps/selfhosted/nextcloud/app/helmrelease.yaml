@@ -4,14 +4,9 @@ kind: HelmRelease
 metadata:
   name: nextcloud
 spec:
-  chart:
-    spec:
-      chart: nextcloud
-      version: 9.0.4
-      sourceRef:
-        kind: HelmRepository
-        name: nextcloud
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: nextcloud
   interval: 15m
   values:
     deploymentAnnotations:
@@ -20,11 +15,6 @@ spec:
       repository: nextcloud
       tag: 33.0.2-fpm-alpine
       flavor: fpm-alpine
-    phpClientHttpsFix:
-      enabled: true
-    ingress:
-      enabled: false
-
     httpRoute:
       enabled: true
       hostnames: ["files.${CLUSTER_DOMAIN}"]
@@ -36,7 +26,6 @@ spec:
             - path:
                 type: PathPrefix
                 value: "/"
-
     nextcloud:
       host: files.albdev.cloud
       extraEnv:
@@ -107,33 +96,6 @@ spec:
     persistence:
       enabled: true
       existingClaim: nextcloud-local
-    resources:
-      requests:
-        cpu: 500m
-        memory: 512Mi
-      limits:
-        memory: 2Gi
-    startupProbe:
-      enabled: true
-      initialDelaySeconds: 5
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 360
-      successThreshold: 1
-    livenessProbe:
-      enabled: true
-      initialDelaySeconds: 5
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-      successThreshold: 1
-    readinessProbe:
-      enabled: true
-      initialDelaySeconds: 5
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-      successThreshold: 1
     nginx:
       enabled: true
       image:
@@ -141,12 +103,6 @@ spec:
         tag: "1.29.7"
       config:
         default: true
-      resources:
-        requests:
-          cpu: 50m
-          memory: 20Mi
-        limits:
-          memory: 100Mi
     internalDatabase:
       enabled: false
     externalDatabase:
