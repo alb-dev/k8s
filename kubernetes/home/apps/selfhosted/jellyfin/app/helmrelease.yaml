@@ -9,18 +9,6 @@ spec:
     kind: OCIRepository
     name: jellyfin
   values:
-    defaultPodOptions:
-      resourceClaims:
-        - name: gpu
-          resourceClaimTemplateName: jellyfin
-
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: ${VOLSYNC_UID}
-        runAsGroup: ${VOLSYNC_GID}
-        fsGroup: ${VOLSYNC_GID}
-        fsGroupChangePolicy: OnRootMismatch
-
     controllers:
       jellyfin:
         replicas: 1
@@ -29,6 +17,17 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
 
+        pod:
+          resourceClaims:
+            - name: gpu
+              resourceClaimTemplateName: jellyfin-gpu
+
+          securityContext:
+            runAsUser: ${VOLSYNC_UID}
+            runAsGroup: ${VOLSYNC_GID}
+            fsGroup: ${VOLSYNC_GID}
+            fsGroupChangePolicy: OnRootMismatch
+
         containers:
           app:
             image:
@@ -36,8 +35,15 @@ spec:
               tag: 10.11.8@sha256:93227545077893cc9516f28b3adb733b67bc4691f41b6167428a2a0e3220b81c
             env:
               TZ: ${TIMEZONE}
+              DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
                 custom: true
                 spec:
@@ -48,24 +54,26 @@ spec:
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
-              readiness: *probes
-              startup:
+              readiness:
                 enabled: true
+                custom: true
                 spec:
-                  failureThreshold: 30
+                  httpGet:
+                    path: /health
+                    port: *port
+                  initialDelaySeconds: 0
                   periodSeconds: 10
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              startup:
+                enabled: false
             resources:
               claims:
                 - name: gpu
               requests:
                 cpu: 100m
-                memory: 2Gi
               limits:
-                memory: 16Gi
+                memory: 8Gi
 
     service:
       app:
@@ -114,7 +122,7 @@ spec:
             app:
               - path: /cache
                 subPath: cache
-              - path: /config/log
-                subPath: log
               - path: /tmp
                 subPath: tmp
+              - path: /transcode
+                subPath: transcode
