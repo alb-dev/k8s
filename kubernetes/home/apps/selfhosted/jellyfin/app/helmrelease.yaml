@@ -79,10 +79,6 @@ spec:
 
     service:
       app:
-        annotations:
-          netbird.io/expose: "true"
-          netbird.io/policy: "default"                        # optional
-          netbird.io/policy-source-groups: "All"              # optional
         ports:
           http:
             port: *port
