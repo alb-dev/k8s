@@ -9,6 +9,18 @@ spec:
     kind: OCIRepository
     name: jellyfin
   values:
+    defaultPodOptions:
+      resourceClaims:
+        - name: gpu
+          resourceClaimTemplateName: jellyfin
+
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: ${VOLSYNC_UID}
+        runAsGroup: ${VOLSYNC_GID}
+        fsGroup: ${VOLSYNC_GID}
+        fsGroupChangePolicy: OnRootMismatch
+
     controllers:
       jellyfin:
         replicas: 1
@@ -17,16 +29,6 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
 
-        pod:
-          resourceClaims:
-            - name: gpu
-              resourceClaimTemplateName: jellyfin
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: ${VOLSYNC_UID}
-            runAsGroup: ${VOLSYNC_GID}
-            fsGroup: ${VOLSYNC_GID}
-            fsGroupChangePolicy: OnRootMismatch
 
         containers:
           app:
@@ -38,7 +40,7 @@ spec:
               DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities:
                 drop:
                   - ALL
