@@ -30,12 +30,6 @@ spec:
             - name: gpu
               resourceClaimTemplateName: jellyfin-gpu
 
-          securityContext:
-            runAsUser: ${VOLSYNC_UID}
-            runAsGroup: ${VOLSYNC_GID}
-            fsGroup: ${VOLSYNC_GID}
-            fsGroupChangePolicy: OnRootMismatch
-
         containers:
           app:
             image:
