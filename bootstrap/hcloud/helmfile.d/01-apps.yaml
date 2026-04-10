@@ -19,7 +19,7 @@ releases:
   - name: forgejo
     namespace: development
     chart: oci://code.forgejo.org/forgejo-helm/forgejo
-    version: 16.2.1
+    version: 16.2.2
     values:
       - ./templates/values.yaml.gotmpl
     hooks:
