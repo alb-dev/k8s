@@ -14,6 +14,10 @@ spec:
     - "*.albdev.cloud"
     - onji.space
     - "*.onji.space"
+  subject:
+    countries: ["DE"]
+    organizations: ["albcloud-homeops"]
+    provinces: ["NRW"]
   privateKey:
     algorithm: ECDSA
     size: 256

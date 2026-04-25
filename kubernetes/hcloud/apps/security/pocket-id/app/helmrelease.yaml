@@ -11,6 +11,7 @@ spec:
   values:
     controllers:
       pocket-id:
+        type: statefulset
         replicas: 1
         strategy: RollingUpdate
 
