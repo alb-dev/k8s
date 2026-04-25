@@ -1,10 +1,10 @@
 clusterName: &clusterName "${clusterName}"
 
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: 1.12.6
+talosVersion: 1.12.7
 
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetesVersion: 1.35.3
+kubernetesVersion: 1.36.0
 
 endpoint: https://${privateClusterIP}:6443
 
