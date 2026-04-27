@@ -5,5 +5,4 @@ resources:
   - ./helmrelease.yaml
   - ./pvc.yaml
   - ./volsync.yaml
-  - ./ocirepository.yaml
   - ./secrets.sops.yaml
