@@ -1,4 +1,17 @@
 ---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: nextcloud
+spec:
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 9.0.5
+  url: oci://ghcr.io/nextcloud/helm/nextcloud
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -9,8 +22,9 @@ spec:
     name: nextcloud
   interval: 15m
   values:
-    deploymentAnnotations:
-      secret.reloader.stakater.com/reload: nextcloud-secret
+    cronjob:
+      enabled: true
+      type: cronjob
     image:
       tag: 33.0.3
       flavor: fpm-alpine
@@ -90,17 +104,9 @@ spec:
           php occ db:add-missing-indices
           php occ db:add-missing-columns
           php occ db:add-missing-primary-keys
-    collabora:
-      enabled: false
-    cronjob:
-      enabled: true
-      cronjob:
-        schedule: "0 */4 * * *"
     persistence:
       enabled: true
       existingClaim: nextcloud-local
-    internalDatabase:
-      enabled: false
     externalDatabase:
       enabled: true
       type: postgresql
@@ -112,10 +118,18 @@ spec:
         hostKey: pg-host
         passwordKey: pg-password
         usernameKey: pg-username
-    redis:
-      enabled: false
-    metrics:
-      enabled: false
-      https: true
-      serviceMonitor:
-        enabled: false
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: nextcloud
+            patch: |-
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: nextcloud
+              spec:
+                template:
+                  spec:
+                    hostUsers: false
