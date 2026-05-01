@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: forgejo
 
 resources:
-  - ./ocirepository.yaml
   - ./helmrelease.yaml
