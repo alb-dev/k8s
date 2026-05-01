@@ -22,9 +22,9 @@ spec:
     name: nextcloud
   interval: 15m
   values:
-    cronjob:
-      enabled: true
-      type: cronjob
+    #cronjob:
+    #  enabled: true
+    #  type: cronjob
 
     externalRedis:
       enabled: true
