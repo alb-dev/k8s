@@ -15,6 +15,10 @@ spec:
       repository: mirror.gcr.io
       tag: 33.0.3-fpm-alpine
       flavor: fpm-alpine
+    nginx:
+      enabled: true
+      image:
+        repository: mirror.gcr.io/library/nginx
     httpRoute:
       enabled: true
       hostnames: ["files.${CLUSTER_DOMAIN}"]
@@ -96,13 +100,6 @@ spec:
     persistence:
       enabled: true
       existingClaim: nextcloud-local
-    nginx:
-      enabled: true
-      image:
-        repository: public.ecr.aws/nginx/nginx
-        tag: "1.30.0"
-      config:
-        default: true
     internalDatabase:
       enabled: false
     externalDatabase:
