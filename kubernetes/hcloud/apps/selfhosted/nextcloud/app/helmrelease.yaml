@@ -20,7 +20,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: nextcloud
-  interval: 1m
+  interval: 15m
   values:
     cronjob:
       enabled: true
