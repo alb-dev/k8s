@@ -44,7 +44,7 @@ spec:
       create: false
       claimName: forgejo-code-local
       storageClass: openebs-hostpath
-      
+
     gitea:
       admin:
         existingSecret: gitea-admin-secret
@@ -88,6 +88,15 @@ spec:
           DEFAULT_ALLOW_CREATE_ORGANIZATION: false
           MAX_CREATION_LIMIT: 100
           DISABLE_REGISTRATION: true
+        service.explore:
+          DISABLE_CODE_PAGE: false
+          DISABLE_ORGANIZATIONS_PAGE: true
+          DISABLE_USERS_PAGE: true
+          REQUIRE_SIGNIN_VIEW: false
+        session:
+          PROVIDER: redis
+          PROVIDER_CONFIG: redis://forgejo-dragonfly:6379?pool_size=100&idle_timeout=180s
+          SESSION_LIFE_TIME: "1209600"
         admin:
           SEND_NOTIFICATION_EMAIL_ON_NEW_USER: true
         mailer:
@@ -96,8 +105,5 @@ spec:
           PATH: /data/gitea.db
           DB_TYPE: sqlite3
           SQLITE_JOURNAL_MODE: wal
-        session:
-          PROVIDER: redis
-          PROVIDER_CONFIG: redis://forgejo-redis:6379
         webhook:
           ALLOWED_HOST_LIST: "*"
