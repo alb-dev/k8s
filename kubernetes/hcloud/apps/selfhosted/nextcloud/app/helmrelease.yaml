@@ -28,11 +28,11 @@ spec:
 
     externalRedis:
       enabled: true
-      host: nextcloud-valkey
+      host: nextcloud-dragonfly
       port: 6379
 
     image:
-      repository: nextcloud
+      repository: mirror.gcr.io/nextcloud
       tag: 33.0.3-fpm-alpine
       flavor: fpm-alpine
 

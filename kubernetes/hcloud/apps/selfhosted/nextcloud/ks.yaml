@@ -10,10 +10,11 @@ spec:
   interval: 1m
   path: ./kubernetes/hcloud/apps/selfhosted/nextcloud/app
   components:
-    - ../../../../components/valkey
+    - ../../../../components/dragonfly
   postBuild:
     substitute:
       APP: nextcloud
+      DRAGONFLY_REPLICAS: 1
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

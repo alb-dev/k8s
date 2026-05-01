@@ -4,8 +4,5 @@ kind: Kustomization
 namespace: flux-system
 
 resources:
-  - ./traefik-charts.yaml
   - ./cloudnative-pg.yaml
-  - ./authentik-charts.yaml
-  - ./nextcloud.yaml
   - ./cert-manager-webhook-netcup.yaml
