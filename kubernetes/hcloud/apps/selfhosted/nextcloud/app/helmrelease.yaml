@@ -32,7 +32,8 @@ spec:
       port: 6379
 
     image:
-      repository: mirror.gcr.io/nextcloud
+      registry: docker.io
+      repository: nextcloud
       tag: 33.0.3-fpm-alpine
       flavor: fpm-alpine
 
