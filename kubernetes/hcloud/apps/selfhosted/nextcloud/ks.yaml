@@ -4,9 +4,16 @@ kind: Kustomization
 metadata:
   name: nextcloud
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: nextcloud
   interval: 15m
   path: ./kubernetes/hcloud/apps/selfhosted/nextcloud/app
+  components:
+    - ../../../../components/valkey
   postBuild:
+    substitute:
+      APP: nextcloud
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
@@ -44,25 +51,6 @@ metadata:
 spec:
   interval: 15m
   path: ./kubernetes/hcloud/apps/selfhosted/nextcloud/redis
-  postBuild:
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
-  targetNamespace: selfhosted
-  wait: false
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: nextcloud-drawio
-spec:
-  interval: 15m
-  path: ./kubernetes/hcloud/apps/selfhosted/nextcloud/drawio
   postBuild:
     substituteFrom:
       - name: cluster-secrets
