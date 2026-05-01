@@ -25,13 +25,21 @@ spec:
     cronjob:
       enabled: true
       type: cronjob
+
+    externalRedis:
+      enabled: true
+      host: nextcloud-valkey
+      port: 6379
+
     image:
       tag: 33.0.3
       flavor: fpm-alpine
+
     nginx:
       enabled: true
       image:
         repository: mirror.gcr.io/library/nginx
+
     httpRoute:
       enabled: true
       hostnames: ["files.${CLUSTER_DOMAIN}"]
@@ -43,13 +51,9 @@ spec:
             - path:
                 type: PathPrefix
                 value: "/"
+
     nextcloud:
       host: files.albdev.cloud
-      extraEnv:
-        - name: REDIS_HOST
-          value: nextcloud-redis
-        - name: REDIS_DATABASE
-          value: "2"
       existingSecret:
         enabled: true
         secretName: &secret nextcloud-secret
@@ -104,9 +108,11 @@ spec:
           php occ db:add-missing-indices
           php occ db:add-missing-columns
           php occ db:add-missing-primary-keys
+
     persistence:
       enabled: true
       existingClaim: nextcloud-local
+
     externalDatabase:
       enabled: true
       type: postgresql
@@ -118,6 +124,7 @@ spec:
         hostKey: pg-host
         passwordKey: pg-password
         usernameKey: pg-username
+
   postRenderers:
     - kustomize:
         patches:
