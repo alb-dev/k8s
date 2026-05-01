@@ -7,5 +7,4 @@ generatorOptions:
   disableNameSuffixHash: true
 
 resources:
-  - ./ocirepository.yaml
   - ./helmrelease.yaml

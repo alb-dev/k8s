@@ -1,4 +1,17 @@
 ---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: forgejo
+spec:
+  interval: 15m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 17.0.1
+  url: oci://code.forgejo.org/forgejo-helm/forgejo
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -19,16 +32,19 @@ spec:
         - name: envoy-external
           namespace: network
           sectionName: https
+
     image:
       rootless: true
       registry: code.forgejo.org
       repository: forgejo/forgejo
       tag: 15.0.1-rootless
+
     persistence:
       enabled: true
       create: false
       claimName: forgejo-code-local
       storageClass: openebs-hostpath
+      
     gitea:
       admin:
         existingSecret: gitea-admin-secret
@@ -39,7 +55,7 @@ spec:
         cache:
           ENABLED: true
           ADAPTER: redis
-          HOST: redis://forgejo-redis:6379
+          HOST: redis://forgejo-dragonfly:6379?pool_size=100&idle_timeout=180s
         cron.archive_cleanup:
           ENABLED: true
           RUN_AT_START: true
@@ -48,6 +64,9 @@ spec:
         indexer:
           ISSUE_INDEXER_TYPE: bleve
           REPO_INDEXER_ENABLED: true
+        queue:
+          TYPE: redis
+          CONN_STR: redis://forgejo-dragonfly:6379?pool_size=100&idle_timeout=180s
         lfs:
           PATH: /data/git/lfs
         server:
