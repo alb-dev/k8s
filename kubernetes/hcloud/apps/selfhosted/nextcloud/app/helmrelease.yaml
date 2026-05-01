@@ -32,7 +32,7 @@ spec:
       port: 6379
 
     image:
-      tag: 33.0.3
+      tag: 33.0.3-fpm-alpine
       flavor: fpm-alpine
 
     nginx:
