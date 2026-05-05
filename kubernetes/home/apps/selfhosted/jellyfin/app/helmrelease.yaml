@@ -17,7 +17,7 @@ kind: HelmRelease
 metadata:
   name: jellyfin
 spec:
-  interval: 1m
+  interval: 15m
   chartRef:
     kind: OCIRepository
     name: jellyfin
