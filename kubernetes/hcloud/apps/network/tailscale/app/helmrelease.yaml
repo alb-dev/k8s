@@ -72,7 +72,3 @@ spec:
         ports:
           http:
             port: *port
-    serviceAccount:
-      tailscale:
-        forceRename: tailscale
-        enabled: true
