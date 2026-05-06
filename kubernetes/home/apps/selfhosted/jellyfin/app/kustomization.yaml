@@ -7,3 +7,4 @@ resources:
   - ./resourceclaimtemplate.yaml
   - ./media-nfs.yaml
   - ./volsync.yaml
+  - ./ocirepository.yaml
