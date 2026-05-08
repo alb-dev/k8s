@@ -17,7 +17,7 @@ spec:
   parallelism: 5
   provider:
     name: forgejo
-    endpoint: https://code.${CLUSTER_DOMAIN}/api/v1
+    endpoint: https://code.${NEW_PUBLIC_DOMAIN}/api/v1
   resources:
     requests:
       cpu: 100m
