@@ -30,6 +30,17 @@
   },
   "packageRules": [
     {
+      "description": "Never pin digests on any Flux-managed resource",
+      "matchManagers": ["flux"],
+      "pinDigests": false
+    },
+    {
+      "description": "Do not propose digest updates for Flux-managed resources",
+      "matchManagers": ["flux"],
+      "matchUpdateTypes": ["digest"],
+      "enabled": false
+    },
+    {
       "description": "add cluster name to commit message",
       "matchFileNames": ["kubernetes/hcloud/**"],
       "addLabels": ["kubernetes/hcloud"]
