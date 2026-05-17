@@ -9,23 +9,17 @@
   "reviewers": ["@naoalb"],
   "flux": {
     "managerFilePatterns": [
-      "/kubernetes/.+\\.ya?ml$/",
-      "/bootstrap/.+\\.ya?ml$/",
-      "/talos/.+\\.ya?ml$/"
+      "/kubernetes/.+\\.ya?ml$/"
     ]
   },
   "helm-values": {
     "managerFilePatterns": [
-      "/kubernetes/.+\\.ya?ml$/",
-      "/bootstrap/.+\\.ya?ml$/",
-      "/talos/.+\\.ya?ml$/"
+      "/kubernetes/.+\\.ya?ml$/"
     ]
   },
   "kubernetes": {
     "managerFilePatterns": [
-      "/kubernetes/.+\\.ya?ml$/",
-      "/bootstrap/.+\\.ya?ml$/",
-      "/talos/.+\\.ya?ml$/"
+      "/kubernetes/.+\\.ya?ml$/"
     ]
   },
   "packageRules": [

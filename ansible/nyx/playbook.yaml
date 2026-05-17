@@ -4,7 +4,6 @@
   become: true
   gather_facts: true
   vars:
-    ansible_user: naoalb
     ansible_python_interpreter: auto_silent
     host_ssh_port: 22
 
