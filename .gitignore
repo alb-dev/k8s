@@ -19,6 +19,7 @@ kubeconfig
 *.secrets.yaml
 *.agekey
 *.pub
+*.ini
 *.key
 *.pem
 # Other

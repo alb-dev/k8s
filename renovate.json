@@ -41,34 +41,14 @@
       "enabled": false
     },
     {
-      "description": "add cluster name to commit message",
-      "matchFileNames": ["kubernetes/hcloud/**"],
-      "addLabels": ["kubernetes/hcloud"]
-    },
-    {
-      "description": "add cluster name to commit message",
-      "matchFileNames": ["talos/hcloud/**"],
-      "addLabels": ["talos/hcloud"]
-    },
-    {
-      "description": "add cluster name to commit message",
-      "matchFileNames": ["bootstrap/hcloud/**"],
-      "addLabels": ["bootstrap/hcloud"]
-    },
-    {
-      "description": "add cluster name to commit message",
-      "matchFileNames": ["bootstrap/home/**"],
-      "addLabels": ["bootstrap/home"]
-    },
-    {
-      "description": "add cluster name to commit message",
-      "matchFileNames": ["talos/home/**"],
-      "addLabels": ["talos/home"]
-    },
-    {
-      "description": "add cluster name to commit message",
-      "matchFileNames": ["kubernetes/home/**"],
-      "addLabels": ["kubernetes/home"]
+      "description": "Auto-merge high-cadence packages weekly",
+      "matchDatasources": ["docker"],
+      "automerge": true,
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": [
+        "ghcr.io/renovatebot/renovate"
+      ],
+      "schedule": ["before 6am on Monday"]
     }
   ]
 }
