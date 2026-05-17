@@ -10,7 +10,7 @@ spec:
   dependsOn:
     - name: democratic-csi
       namespace: storage
-  interval: 1h
+  interval: 5m
   path: ./kubernetes/home/apps/observability/victoria-logs/app
   prune: true
   sourceRef:
@@ -20,7 +20,6 @@ spec:
   targetNamespace: observability
   timeout: 5m
   wait: false
-
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
