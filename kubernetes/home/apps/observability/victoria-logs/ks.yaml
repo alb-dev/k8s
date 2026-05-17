@@ -10,7 +10,7 @@ spec:
   dependsOn:
     - name: democratic-csi
       namespace: storage
-  interval: 1h
+  interval: 5m
   path: ./kubernetes/home/apps/observability/victoria-logs/app
   prune: true
   sourceRef:
