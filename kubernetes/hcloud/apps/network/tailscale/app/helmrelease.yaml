@@ -44,6 +44,7 @@ spec:
                 --login-server=https://headscale.albdev.cloud
               TS_STATE_DIR: /tmp
               TS_USERSPACE: true
+              TS_KUBE_SECRET: tailscale-state
               SA_NAME: tailscale
               POD_NAME:
                 valueFrom:
