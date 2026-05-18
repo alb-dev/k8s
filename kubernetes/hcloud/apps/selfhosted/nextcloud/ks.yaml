@@ -7,7 +7,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: nextcloud
-  interval: 15m
+  interval: 1h
   path: ./kubernetes/hcloud/apps/selfhosted/nextcloud/app
   components:
     - ../../../../components/dragonfly
@@ -24,6 +24,7 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: selfhosted
+  timeout: 5m
   wait: false
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -34,7 +35,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: nextcloud-collabora
-  interval: 15m
+  interval: 1h
   path: ./kubernetes/hcloud/apps/selfhosted/nextcloud/collabora
   postBuild:
     substituteFrom:
@@ -46,4 +47,5 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: selfhosted
+  timeout: 5m
   wait: false

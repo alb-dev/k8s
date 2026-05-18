@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: seerr
 spec:
-  interval: 15m
+  interval: 1h
   path: ./kubernetes/home/apps/selfhosted/seerr/app
   postBuild:
     substituteFrom:

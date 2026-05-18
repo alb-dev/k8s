@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: bentopdf
 spec:
-  interval: 15m
+  interval: 1h
   path: ./kubernetes/hcloud/apps/selfhosted/bentopdf/app
   postBuild:
     substituteFrom:
@@ -16,4 +16,5 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: selfhosted
+  timeout: 5m
   wait: false

@@ -8,7 +8,7 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-  interval: 15m
+  interval: 1h
   path: ./kubernetes/home/apps/observability/grafana/app
   prune: true
   sourceRef:
@@ -16,6 +16,7 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: observability
+  timeout: 5m
   wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -31,7 +32,7 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-  interval: 15m
+  interval: 1h
   path: ./kubernetes/home/apps/observability/grafana/instance
   prune: true
   sourceRef:
@@ -39,4 +40,5 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: observability
+  timeout: 5m
   wait: false
