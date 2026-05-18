@@ -39,6 +39,8 @@ spec:
       ssh:
         logLevel: INFO
       config:
+        admin:
+          SEND_NOTIFICATION_EMAIL_ON_NEW_USER: true
         cache:
           ENABLED: true
           ADAPTER: redis
@@ -61,6 +63,9 @@ spec:
           DOMAIN: code.albdev.cloud
           SSH_DOMAIN: code.albdev.cloud
           LFS_START_SERVER: true
+          OFFLINE_MODE: true
+          LANDING_PAGE: login
+          MINIMUM_KEY_SIZE_CHECK: true
         repository:
           DEFAULT_REPO_UNITS: repo.code,repo.releases,repo.issues,repo.pulls,repo.actions
           DISABLED_REPO_UNITS: repo.ext_wiki,repo.ext_issues
@@ -93,8 +98,6 @@ spec:
           PROVIDER: redis
           PROVIDER_CONFIG: redis://forgejo-dragonfly:6379?pool_size=100&idle_timeout=180s
           SESSION_LIFE_TIME: "1209600"
-        admin:
-          SEND_NOTIFICATION_EMAIL_ON_NEW_USER: true
         mailer:
           ENABLED: false
         database:
@@ -103,7 +106,16 @@ spec:
           SQLITE_JOURNAL_MODE: wal
         webhook:
           ALLOWED_HOST_LIST: "*"
-
+      livenessProbe:
+        tcpSocket: ~
+        httpGet:
+          path: /api/healthz
+          port: http
+        initialDelaySeconds: 30 # default is 200
+        periodSeconds: 30
+        successThreshold: 1
+        failureThreshold: 10
+        
     extraContainerVolumeMounts:
       - name: signing-key
         mountPath: /data/signing
