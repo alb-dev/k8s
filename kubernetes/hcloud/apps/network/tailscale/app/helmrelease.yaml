@@ -96,6 +96,12 @@ spec:
     persistence:
       tmp:
         type: emptyDir
+      run:
+        type: emptyDir
+      var-run-tailscale:
+        type: emptyDir
+        globalMounts:
+          - path: /var/run/tailscale
 
     serviceAccount:
       tailscale : {}
