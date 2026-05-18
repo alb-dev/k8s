@@ -41,7 +41,7 @@ spec:
               TS_ENABLE_METRICS: true
               TS_EXTRA_ARGS: >-
                 --advertise-exit-node
-                --login-server=https://headscale.onji.space
+                --login-server=https://headscale.albdev.cloud
                 --advertise-routes=192.168.178.0/24
               TS_STATE_DIR: /tmp
               TS_USERSPACE: true
