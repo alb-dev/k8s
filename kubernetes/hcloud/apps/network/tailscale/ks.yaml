@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: tailsacle
 spec:
-  interval: 1h
+  interval: 1m
   path: ./kubernetes/hcloud/apps/network/tailscale/app
   postBuild:
     substituteFrom:
@@ -16,5 +16,5 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: network
-  timeout: 5m
+  timeout: 1m
   wait: false
