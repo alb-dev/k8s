@@ -6,5 +6,4 @@ namespace: network
 resources:
   - ./ocirepository.yaml
   - ./helmrelease.yaml
-  - ./rbac.yaml
   - ./secrets.sops.yaml
