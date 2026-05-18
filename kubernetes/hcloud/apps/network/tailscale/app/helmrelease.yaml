@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app tailscale
+  name: tailscale
 spec:
   chartRef:
     kind: OCIRepository
@@ -12,12 +12,17 @@ spec:
     controllers:
       tailscale:
         type: statefulset
+
         replicas: 1
+
         strategy: RollingUpdate
+
         serviceAccount:
-          identifier: tailscale
+          name: tailscale
+
         annotations:
           reloader.stakater.com/auto: "true"
+
         containers:
           app:
             image:
@@ -30,7 +35,7 @@ spec:
               TS_ENABLE_METRICS: true
               TS_EXTRA_ARGS: >-
                 --advertise-exit-node
-                --login-server=https://headscale.onji.space
+                --login-server=https://headscale.albdev.cloud
               TS_STATE_DIR: /tmp
               TS_USERSPACE: true
             envFrom:
@@ -43,7 +48,7 @@ spec:
                 spec:
                   httpGet:
                     path: /healthz
-                    port: &port 9002
+                    port: 9002
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -58,21 +63,59 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
+
+    service:
+      app:
+        controller: tailscale
+        ports:
+          http:
+            port: 9002
+
     persistence:
       tmp:
         type: emptyDir
-    service:
-      app:
-        controller: *app
-        ports:
-          http:
-            port: *port
+
     serviceAccount:
-      tailscale:
-        forceRename: tailscale
-        enabled: true
+      tailscale : {}
+
+    rbac:
+      bindings:
+        tailscale:
+          type: RoleBinding
+          roleRef:
+            kind: Role
+            name: tailscale
+          subjects:
+            - identifier: tailscale
+      roles:
+        tailscale:
+          type: Role
+          rules:
+            - apiGroups:
+                - ""
+              resources:
+                - secrets
+              resourceNames:
+                - tailscale
+                - tailscale-secret
+                - tailscale-auth
+                - tailscale-state
+              verbs:
+                - create
+                - get
+                - update
+                - patch
+            - apiGroups:
+                - ""
+              resources:
+                - events
+              verbs:
+                - get
+                - create
+                - patch
