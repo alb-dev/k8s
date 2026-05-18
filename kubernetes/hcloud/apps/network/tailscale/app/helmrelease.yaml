@@ -22,6 +22,12 @@ spec:
 
         annotations:
           reloader.stakater.com/auto: "true"
+        
+        pod:
+          automountServiceAccountToken: true
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
 
         containers:
           app:
@@ -38,6 +44,15 @@ spec:
                 --login-server=https://headscale.albdev.cloud
               TS_STATE_DIR: /tmp
               TS_USERSPACE: true
+              SA_NAME: tailscale
+              POD_NAME:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.name
+              POD_UID:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.uid
             envFrom:
               - secretRef:
                   name: tailscale-secret
