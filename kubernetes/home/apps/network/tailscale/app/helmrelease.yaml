@@ -124,13 +124,18 @@ spec:
                 - ""
               resources:
                 - secrets
+              verbs:
+                - create
+            - apiGroups:
+                - ""
+              resources:
+                - secrets
               resourceNames:
                 - tailscale
                 - tailscale-secret
                 - tailscale-auth
                 - tailscale-state
               verbs:
-                - create
                 - get
                 - update
                 - patch
