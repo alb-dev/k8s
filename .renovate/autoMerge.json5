@@ -1,0 +1,33 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
+    // Auto merge container digests
+    {
+      matchDatasources: ["docker"],
+      automerge: true,
+      matchUpdateTypes: ["digest"],
+      matchPackagePrefixes: [
+        "ghcr.io/home-operations",
+        "ghcr.io/onedr0p",
+      ],
+    },
+    // Auto merge minors and patches
+    {
+      matchDatasources: ["docker"],
+      automerge: true,
+      matchUpdateTypes: ["minor", "patch"],
+      matchPackageNames: [
+        "/kube-prometheus-stack/",
+        "ghcr.io/mogenius/helm-charts/renovate-operator",
+      ],
+    },
+    // Auto-merge high-cadence packages weekly
+    {
+      matchDatasources: ["docker"],
+      automerge: true,
+      matchUpdateTypes: ["minor", "patch"],
+      matchPackageNames: ["ghcr.io/renovatebot/renovate"],
+      schedule: ["before 6am on Monday"],
+    },
+  ],
+}

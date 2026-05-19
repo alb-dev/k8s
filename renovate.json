@@ -2,8 +2,11 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "local>lab/renovate-config",
-    "local>lab/k8s//.renovate/autoMerge.json",
-    "local>lab/k8s//.renovate/talosFactory.json"
+    "local>lab/k8s//.renovate/autoMerge.json5",
+    "local>lab/k8s//.renovate/grafanaDashboards.json5",
+    "local>lab/k8s//.renovate/registryAliases.json5",
+    "local>lab/k8s//.renovate/talosFactory.json5",
+    "local>lab/k8s//.renovate/versioning.json5"
   ],
   "baseBranchPatterns": ["main"],
   "assignAutomerge": true,
@@ -24,26 +27,6 @@
       "/kubernetes/.+\\.ya?ml$/"
     ]
   },
-  "customDatasources": {
-    "talos-factory": {
-      "defaultRegistryUrlTemplate": "https://factory.talos.dev/versions",
-      "format": "json",
-      "transformTemplates": ["{\"releases\": [$.{\"version\": $}]}"]
-    }
-  },
-  "customManagers": [
-    {
-      "description": "Process Talos Factory installer images",
-      "customType": "regex",
-      "managerFilePatterns": ["/talos\\/.*\\.yaml(?:\\.j2)?$/"],
-      "matchStrings": [
-        "factory\\.talos\\.dev\\/[^/]+\\/[^:]+:(?<currentValue>v\\S+)"
-      ],
-      "datasourceTemplate": "custom.talos-factory",
-      "versioningTemplate": "semver",
-      "depNameTemplate": "siderolabs/talos"
-    }
-  ],
   "packageRules": [
     {
       "description": "Never pin digests on any Flux-managed resource",
@@ -55,16 +38,6 @@
       "matchManagers": ["flux"],
       "matchUpdateTypes": ["digest"],
       "enabled": false
-    },
-    {
-      "description": "Auto-merge high-cadence packages weekly",
-      "matchDatasources": ["docker"],
-      "automerge": true,
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": [
-        "ghcr.io/renovatebot/renovate"
-      ],
-      "schedule": ["before 6am on Monday"]
     }
   ]
 }
