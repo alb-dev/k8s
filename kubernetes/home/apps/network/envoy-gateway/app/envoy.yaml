@@ -232,24 +232,18 @@ spec:
       filterName: coraza-waf
       config:
         directives:
-        - Include @coraza.conf-recommended
-        - SecRuleEngine DetectionOnly
-        - SecResponseBodyAccess Off
-        - SecRequestBodyLimit 134217728
-        - SecRequestBodyLimitAction ProcessPartial
-        - Include @crs-setup.conf
-
-        # Body-Access für DAV-Pfade ausschalten — VOR den CRS-Rules!
-        - |
-          SecRule REQUEST_URI "@rx ^/(remote|public)\.php/(dav|webdav)/" \
-            "id:1000,phase:1,pass,nolog,ctl:requestBodyAccess=Off"
-
-        # Methoden für DAV erlauben
-        - |
-          SecAction "id:900200,phase:1,nolog,pass,t:none,
-            setvar:'tx.allowed_methods=GET HEAD POST PUT DELETE OPTIONS PATCH PROPFIND PROPPATCH MKCOL COPY MOVE LOCK UNLOCK REPORT'"
-
-        - Include @owasp_crs/*.conf
-
-        # Globale Excludes
-        - SecRuleRemoveById 920230 920300 920420 921110
+          - Include @coraza.conf-recommended
+          - SecRuleEngine DetectionOnly
+          - SecResponseBodyAccess Off
+          - SecRequestBodyLimit 134217728
+          - SecRequestBodyInMemoryLimit 131072
+          - SecRequestBodyLimitAction ProcessPartial
+          - SecDebugLogLevel 2
+          - Include @crs-setup.conf
+          - SecRule REQUEST_URI "@rx ^/(remote|public)\.php/(dav|webdav)/" "id:1000,phase:1,pass,nolog,ctl:requestBodyAccess=Off"
+          - SecAction "id:900200,phase:1,nolog,pass,t:none,setvar:'tx.allowed_methods=GET HEAD POST PUT DELETE OPTIONS PATCH PROPFIND PROPPATCH MKCOL COPY MOVE LOCK UNLOCK REPORT'"
+          - Include @owasp_crs/*.conf
+          - SecRuleRemoveById 920230
+          - SecRuleRemoveById 920300
+          - SecRuleRemoveById 920420
+          - SecRuleRemoveById 921110
