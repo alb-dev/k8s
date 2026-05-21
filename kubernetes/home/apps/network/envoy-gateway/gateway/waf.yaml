@@ -1,0 +1,34 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: waf-extension
+  namespace: network
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-vpn
+  dynamicModule:
+    - name: composer
+      filterName: coraza-waf
+      config:
+        directives:
+          - Include @coraza.conf-recommended
+          - SecRuleEngine On
+          - SecResponseBodyAccess Off
+          - SecRequestBodyLimit 134217728
+          - SecRequestBodyInMemoryLimit 131072
+          - SecRequestBodyLimitAction ProcessPartial
+          - SecDebugLogLevel 2
+          - Include @crs-setup.conf
+          - SecRule REQUEST_URI "@rx ^/(remote|public)\.php/(dav|webdav)/" "id:1000,phase:1,pass,nolog,ctl:requestBodyAccess=Off"
+          - SecAction "id:900200,phase:1,nolog,pass,t:none,setvar:'tx.allowed_methods=GET HEAD POST PUT DELETE OPTIONS PATCH PROPFIND PROPPATCH MKCOL COPY MOVE LOCK UNLOCK REPORT'"
+          - Include @owasp_crs/*.conf
+          - SecRuleRemoveById 920230
+          - SecRuleRemoveById 920300
+          - SecRuleRemoveById 920420
+          - SecRuleRemoveById 921110

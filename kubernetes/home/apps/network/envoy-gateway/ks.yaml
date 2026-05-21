@@ -4,6 +4,9 @@ kind: Kustomization
 metadata:
   name: envoy-gateway
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: envoy-gateway
   interval: 1h
   path: ./kubernetes/home/apps/network/envoy-gateway/app
   postBuild:
@@ -22,8 +25,32 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: envoy-gateway-gateway
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: envoy-gateway
+  dependsOn:
+    - name: envoy-gateway
+      namespace: network
+  interval: 1h
+  path: ./kubernetes/home/apps/network/envoy-gateway/gateway
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: network
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: nas-service
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: envoy-gateway
   interval: 1h
   path: ./kubernetes/home/apps/network/envoy-gateway/nas-service
   postBuild:
