@@ -8,6 +8,7 @@ components:
   - ../../components/sops
 
 resources:
+  - ./externa-dns/ks.yaml
   - ./namespace.yaml
   - ./smtp-relay/ks.yaml
   - ./tailscale/ks.yaml
