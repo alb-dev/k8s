@@ -20,6 +20,17 @@ spec:
           repository: ghcr.io/mrueg/external-dns-netcup-webhook
           tag: 0.4.0
           pullPolicy: IfNotPresent
+        securityContext:
+              runAsNonRoot: true
+              runAsUser: 65534 
+              runAsGroup: 65534
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+              seccompProfile:
+                type: RuntimeDefault
         env:
           - name: NETCUP_CUSTOMER_ID
             valueFrom:
