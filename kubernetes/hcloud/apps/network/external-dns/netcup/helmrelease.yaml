@@ -47,11 +47,14 @@ spec:
               secretKeyRef:
                 name: externaldns-netcup-secret
                 key: NETCUP_API_PASSWORD
+        extraArgs:
+          - --netcup-customer-id=$(NETCUP_CUSTOMER_ID)
+          - --domain-filter=albdev.cloud
+          - --log-level=info
     extraArgs:
           - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
           - --crd-source-kind=DNSEndpoint
-          - --gateway-name=envoy-external
-          - --domain-filter=albdev.cloud
+          - --gateway-name=envoy-external 
     podAnnotations:
           secret.reloader.stakater.com/reload: externaldns-netcup-secret
     resources:
