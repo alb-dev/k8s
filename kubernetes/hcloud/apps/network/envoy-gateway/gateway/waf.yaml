@@ -1,0 +1,38 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: waf-extension
+  namespace: network
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-external
+  dynamicModule:
+    - name: composer
+      filterName: coraza-waf
+      config:
+        directives:
+          - Include @coraza.conf-recommended
+          - SecRuleEngine On
+          - SecResponseBodyAccess Off
+          - SecRequestBodyLimit 134217728
+          - SecRequestBodyLimitAction ProcessPartial
+          - Include @crs-setup.conf
+
+          # Nextcloud DAV (wie vorher)
+          - SecRule REQUEST_URI "@beginsWith /remote.php/dav/" "id:1000,phase:1,pass,nolog,ctl:requestBodyAccess=Off"
+          - SecRule REQUEST_URI "@beginsWith /remote.php/webdav/" "id:1001,phase:1,pass,nolog,ctl:requestBodyAccess=Off"
+          - SecRule REQUEST_URI "@beginsWith /public.php/dav/" "id:1002,phase:1,pass,nolog,ctl:requestBodyAccess=Off"
+          - SecRule REQUEST_URI "@beginsWith /index.php/apps/files/" "id:1003,phase:1,pass,nolog,ctl:requestBodyAccess=Off"
+
+          # Git Smart HTTP — Push und Fetch/Clone
+          - SecRule REQUEST_URI "@endsWith /git-receive-pack" "id:1010,phase:1,pass,nolog,ctl:requestBodyAccess=Off"
+          - SecRule REQUEST_URI "@endsWith /git-upload-pack" "id:1011,phase:1,pass,nolog,ctl:requestBodyAccess=Off"
+          # Git LFS (falls du das nutzt)
+          - SecRule REQUEST_URI "@rx /info/lfs/" "id:1012,phase:1,pass,nolog,ctl:requestBodyAccess=Off"
+
+          - SecAction "id:900200,phase:1,nolog,pass,t:none,setvar:'tx.allowed_methods=GET HEAD POST PUT DELETE OPTIONS PATCH PROPFIND PROPPATCH MKCOL COPY MOVE LOCK UNLOCK REPORT'"
+          - Include @owasp_crs/*.conf
+          - SecRuleRemoveById 920230 920300 920420 921110
