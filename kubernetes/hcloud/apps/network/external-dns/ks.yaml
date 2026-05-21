@@ -8,7 +8,7 @@ spec:
     labels:
       app.kubernetes.io/name: externaldns-netcup
   interval: 1h
-  path: "./kubernetes/apps/network/external-dns/netcup"
+  path: "./kubernetes/hcloud/apps/network/external-dns/netcup"
   prune: true
   sourceRef:
     kind: GitRepository
