@@ -21,6 +21,11 @@ spec:
                 spec:
                   hostNetwork: true
                   dnsPolicy: ClusterFirstWithHostNet
+                  volumes:
+                    - name: dynamic-modules
+                      image:
+                        reference: ghcr.io/tetratelabs/built-on-envoy/composer:0.6.0-dev
+                        pullPolicy: IfNotPresent
         container:
           securityContext:
             runAsUser: 0
@@ -31,6 +36,13 @@ spec:
               cpu: 100m
             limits:
               memory: 1Gi
+          env:
+            - name: GODEBUG
+              value: "cgocheck=0"
+          volumeMounts:
+            - name: dynamic-modules
+              mountPath: /etc/envoy/dynamic-modules
+              readOnly: true
   shutdown:
     drainTimeout: 180s
   telemetry:
@@ -38,6 +50,14 @@ spec:
       prometheus:
         compression:
           type: Zstd
+  dynamicModules:
+    - name: composer
+      source:
+        type: Local
+        local:
+          path: /etc/envoy/dynamic-modules/libcomposer.so
+      doNotClose: true
+      loadGlobally: false
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
@@ -198,3 +218,35 @@ spec:
         path: /filter_chains/0/filters/0/typed_config/upgrade_configs/-
         value:
           upgrade_type: tailscale-control-protocol
+
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: waf-extension
+  namespace: network
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-external
+  dynamicModule:
+    - name: composer
+      filterName: coraza-waf
+      config:
+        directives:
+          - Include @coraza.conf-recommended
+          - SecRuleEngine DetectionOnly
+          - SecResponseBodyAccess Off
+          - SecRequestBodyLimit 134217728
+          - SecRequestBodyInMemoryLimit 131072
+          - SecRequestBodyLimitAction ProcessPartial
+          - SecDebugLogLevel 2
+          - Include @crs-setup.conf
+          - SecRule REQUEST_URI "@rx ^/(remote|public)\.php/(dav|webdav)/" "id:1000,phase:1,pass,nolog,ctl:requestBodyAccess=Off"
+          - SecAction "id:900200,phase:1,nolog,pass,t:none,setvar:'tx.allowed_methods=GET HEAD POST PUT DELETE OPTIONS PATCH PROPFIND PROPPATCH MKCOL COPY MOVE LOCK UNLOCK REPORT'"
+          - Include @owasp_crs/*.conf
+          - SecRuleRemoveById 920230
+          - SecRuleRemoveById 920300
+          - SecRuleRemoveById 920420
+          - SecRuleRemoveById 921110
