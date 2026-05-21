@@ -7,6 +7,7 @@
     "local>lab/k8s//.renovate/registryAliases.json5",
     "local>lab/k8s//.renovate/talosFactory.json5",
     "local>lab/k8s//.renovate/groups.json5",
+    "local>lab/k8s//.renovate/customManagers.json5",
     "local>lab/k8s//.renovate/versioning.json5"
   ],
   "baseBranchPatterns": ["main"],
