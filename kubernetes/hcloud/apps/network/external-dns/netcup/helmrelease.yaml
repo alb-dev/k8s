@@ -47,7 +47,7 @@ spec:
               secretKeyRef:
                 name: externaldns-netcup-secret
                 key: NETCUP_API_PASSWORD
-        extraArgs:
+        args:
           - --netcup-customer-id=$(NETCUP_CUSTOMER_ID)
           - --domain-filter=albdev.cloud
           - --log-level=info
