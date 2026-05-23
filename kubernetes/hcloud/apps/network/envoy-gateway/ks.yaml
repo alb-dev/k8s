@@ -34,7 +34,7 @@ spec:
   dependsOn:
     - name: envoy-gateway
       namespace: network
-  interval: 1h
+  interval: 1m
   path: ./kubernetes/hcloud/apps/network/envoy-gateway/gateway
   prune: true
   sourceRef:
