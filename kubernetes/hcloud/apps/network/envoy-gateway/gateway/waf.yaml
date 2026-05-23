@@ -14,26 +14,55 @@ spec:
       filterName: coraza-waf
       config:
         directives:
+          # Base Coraza configuration (default phase actions, body limits, audit defaults)
           - Include @coraza.conf-recommended
-          - SecRuleEngine On # DetectionOnly
+          # Engine active and blocking. Switch to "DetectionOnly" to log without blocking
+          - SecRuleEngine On
+          # Do not buffer/inspect response bodies (saves RAM, avoids breaking streaming)
           - SecResponseBodyAccess Off
+          # Max request body size to inspect: 128 MB
           - SecRequestBodyLimit 134217728
+          # Keep up to 128 KB in memory, spill larger bodies to disk
           - SecRequestBodyInMemoryLimit 131072
+          # If body exceeds the limit, inspect what we have instead of rejecting
           - SecRequestBodyLimitAction ProcessPartial
+          # Debug verbosity (2 = warnings; set to 0 once stable)
           - SecDebugLogLevel 2
+          # Load OWASP CRS setup (defines anomaly thresholds, allowed methods, etc.)
           - Include @crs-setup.conf
+
+          # Allow WebDAV methods required by Nextcloud sync clients
           - "SecAction \"id:900200,phase:1,nolog,pass,t:none,setvar:'tx.allowed_methods=GET HEAD POST PUT DELETE OPTIONS PATCH PROPFIND PROPPATCH MKCOL COPY MOVE LOCK UNLOCK REPORT'\""
+
+          # Disable request body inspection for Nextcloud DAV upload paths (large file uploads up to 20 GB)
           - "SecRule REQUEST_URI \"@beginsWith /remote.php/dav/\" \"id:1000,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
           - "SecRule REQUEST_URI \"@beginsWith /remote.php/webdav/\" \"id:1001,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
           - "SecRule REQUEST_URI \"@beginsWith /public.php/dav/\" \"id:1002,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
           - "SecRule REQUEST_URI \"@beginsWith /index.php/apps/files/\" \"id:1003,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
+
+          # Disable request body inspection for Git Smart HTTP (binary pack data triggers false positives)
           - "SecRule REQUEST_URI \"@endsWith /git-receive-pack\" \"id:1010,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
           - "SecRule REQUEST_URI \"@endsWith /git-upload-pack\" \"id:1011,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
+          # Disable request body inspection for Git LFS transfers
           - "SecRule REQUEST_URI \"@rx /info/lfs/\" \"id:1012,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
-          - "SecRule REQUEST_URI \"@rx /[^/]+\\.git/(info/refs|HEAD|objects/)\" \"id:1013,phase:1,pass,nolog,ctl:ruleRemoveById=930130\""
+
+          # Remove LFI rule 930130 for any Git repository path (.git/ is a repo name, not an attack)
+          # Broad regex covers info/refs, HEAD, objects/, git-upload-pack AND git-receive-pack
+          - "SecRule REQUEST_URI \"@rx /[^/]+\\.git/\" \"id:1013,phase:1,pass,nolog,ctl:ruleRemoveById=930130\""
+
+          # Load all OWASP CRS attack rules
           - Include @owasp_crs/*.conf
+
+          # --- Global rule exclusions (false positives for Nextcloud + Git) ---
+          # Multiple URL Encoding Detected — encoded slashes in Nextcloud/DAV paths
           - SecRuleRemoveById 920230
+          # Request Missing an Accept Header — DAV and CLI clients omit it
           - SecRuleRemoveById 920300
+          # Request Content-Type not Allowed — DAV uses various content types
           - SecRuleRemoveById 920420
+          # HTTP Header is Restricted by Policy — Git sends Content-Encoding: gzip
+          - SecRuleRemoveById 920450
+          # HTTP Request Smuggling Attack — binary Git pack data triggers this
           - SecRuleRemoveById 921110
+          # Restricted File Access Attempt — .git/ in repo names is legitimate
           - SecRuleRemoveById 930130
