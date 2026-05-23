@@ -260,7 +260,7 @@ spec:
         principal:
           clientCIDRs:
             - 46.224.13.115/32 # albdev
-            - 91.98.37.31/32 #sujiba
+            - 91.98.37.31/32 # sujiba
             - 10.0.0.0/8
             - 192.168.0.0/16
       - name: allow-dach
@@ -268,4 +268,4 @@ spec:
         principal:
           headers:
             - name: x-geo-country
-              values: ["DE", "AT", "CH"]
+              values: ["DE", "AT", "CH", "JP", "NL", "BE"]
