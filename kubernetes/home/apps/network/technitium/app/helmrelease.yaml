@@ -1,0 +1,97 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: technitium
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: technitium
+  values:
+    controllers:
+      technitium:
+        replicas: 1
+        strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/technitium/dns-server
+              tag: 15.0.0
+            env:
+              DNS_SERVER_DOMAIN: "{{ .Release.Name }}.${CLUSTER_DOMAIN}"
+              DNS_SERVER_LOG_FOLDER_PATH: "/etc/dns/logs"
+              DNS_SERVER_LOG_USING_LOCAL_TIME: "true"
+              TZ: ${TIMEZONE}
+              DNS_SERVER_RECURSION: "AllowOnlyForPrivateNetworks"
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop: ["ALL"]
+                add: ["NET_BIND_SERVICE"]   # noetig, um als Non-Root an Port 53 zu binden
+            resources:
+              requests:
+                cpu: 15m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: ${VOLSYNC_UID}
+        runAsGroup: ${VOLSYNC_GID}
+        fsGroup: ${VOLSYNC_GID}
+        fsGroupChangePolicy: OnRootMismatch
+        sysctls:
+          - name: net.ipv4.ip_local_port_range
+            value: "1024 65535"
+
+    service:
+      dns:
+        controller: technitium
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: "${DNS_SERVER_ADDRESS}"
+        ports:
+          dns-udp:
+            enabled: true
+            port: 53
+            protocol: UDP
+          dns-tcp:
+            enabled: true
+            port: 53
+            protocol: TCP
+      app:
+        controller: technitium
+        ports:
+          http:
+            port: 5380
+
+    route:
+      app:
+        hostnames: ["{{ .Release.Name }}.${CLUSTER_DOMAIN}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 5380
+
+    persistence:
+      data:
+        existingClaim: ${VOLSYNC_CLAIM}
+        globalMounts:
+          - path: /etc/dns
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

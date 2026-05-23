@@ -1,3 +1,4 @@
+
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
@@ -26,6 +27,31 @@ spec:
                       image:
                         reference: ghcr.io/tetratelabs/built-on-envoy/composer:0.6.0-dev
                         pullPolicy: IfNotPresent
+                    - name: geoip-db
+                      emptyDir: {}
+                  initContainers:
+                    - name: geoipupdate
+                      image: ghcr.io/maxmind/geoipupdate:v7
+                      env:
+                        - name: GEOIPUPDATE_ACCOUNT_ID
+                          valueFrom:
+                            secretKeyRef:
+                              name: maxmind-license
+                              key: account_id
+                        - name: GEOIPUPDATE_LICENSE_KEY
+                          valueFrom:
+                            secretKeyRef:
+                              name: maxmind-license
+                              key: license_key
+                        - name: GEOIPUPDATE_EDITION_IDS
+                          value: GeoLite2-Country
+                        - name: GEOIPUPDATE_DB_DIR
+                          value: /etc/envoy/geoip
+                        - name: GEOIPUPDATE_FREQUENCY
+                          value: "0"
+                      volumeMounts:
+                        - name: geoip-db
+                          mountPath: /etc/envoy/geoip
         container:
           securityContext:
             runAsUser: 0
@@ -42,6 +68,9 @@ spec:
           volumeMounts:
             - name: dynamic-modules
               mountPath: /etc/envoy/dynamic-modules
+              readOnly: true
+            - name: geoip-db
+              mountPath: /etc/envoy/geoip
               readOnly: true
   shutdown:
     drainTimeout: 180s
@@ -179,3 +208,57 @@ spec:
         value:
           upgrade_type: tailscale-control-protocol
 
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyPatchPolicy
+metadata:
+  name: geoip-country
+  namespace: network
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: envoy-external
+  type: JSONPatch
+  jsonPatches:
+    - type: type.googleapis.com/envoy.config.listener.v3.Listener
+      name: network/envoy-external/https
+      operation:
+        op: add
+        # Index 0 -> Filter laeuft vor dem Authz-Filter der SecurityPolicy
+        path: /filter_chains/0/filters/0/typed_config/http_filters/0
+        value:
+          name: envoy.filters.http.geoip
+          typed_config:
+            "@type": type.googleapis.com/envoy.extensions.filters.http.geoip.v3.Geoip
+            xff_config:
+              xff_num_trusted_hops: 1
+            provider:
+              name: envoy.geoip_providers.maxmind
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.geoip_providers.maxmind.v3.MaxMindConfig
+                common_provider_config:
+                  geo_headers_to_add:
+                    country: x-geo-country
+                country_db_path: /etc/envoy/geoip/GeoLite2-Country.mmdb
+
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: geo-allowlist
+  namespace: network
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-external
+  authorization:
+    defaultAction: Deny
+    rules:
+      - name: allow-dach
+        action: Allow
+        principal:
+          headers:
+            - name: x-geo-country
+              values: ["DE", "AT", "CH"]
