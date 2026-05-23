@@ -9,5 +9,4 @@ resources:
   - ./https-redirect.yaml
   - ./podmonitor.yaml
   - ./waf.yaml
-  - ./geoip.yaml
   - ./secrets.sops.yaml
