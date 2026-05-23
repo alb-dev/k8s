@@ -225,7 +225,6 @@ spec:
       name: network/envoy-external/https
       operation:
         op: add
-        # Index 0 -> Filter laeuft vor dem Authz-Filter der SecurityPolicy
         path: /filter_chains/0/filters/0/typed_config/http_filters/0
         value:
           name: envoy.filters.http.geoip
@@ -256,7 +255,6 @@ spec:
   authorization:
     defaultAction: Deny
     rules:
-      # 1. Vertrauenswuerdige IPs IMMER erlauben (vor GeoIP) — zuerst ausgewertet
       - name: allow-trusted-ips
         action: Allow
         principal:
