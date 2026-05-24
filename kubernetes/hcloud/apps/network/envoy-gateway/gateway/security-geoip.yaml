@@ -20,9 +20,19 @@ spec:
             - 91.98.37.31/32 # sujiba
             - 10.0.0.0/8
             - 192.168.0.0/16
-      - name: allow-dach
-        action: Allow
+      - name: deny-high-risk-countries
+        action: Deny
         principal:
           headers:
             - name: x-geo-country
-              values: ["DE", "AT", "CH", "JP", "NL", "BE"]
+              values:
+                - "CN"  # China
+                - "RU"  # Russia
+                - "KP"  # North Korea
+                - "IR"  # Iran
+                - "BR"  # Brazil
+                - "IN"  # India
+                - "VN"  # Vietnam
+                - "NG"  # Nigeria
+                - "PK"  # Pakistan
+                - "BD"  # Bangladesh
