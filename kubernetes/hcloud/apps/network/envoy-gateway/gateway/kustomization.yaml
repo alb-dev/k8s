@@ -8,5 +8,6 @@ resources:
   - ./grafanadashboard.yaml
   - ./https-redirect.yaml
   - ./podmonitor.yaml
-  - ./waf.yaml
+  - ./security-geoip.yaml
+  - ./security-waf.yaml
   - ./secrets.sops.yaml
