@@ -66,3 +66,5 @@ spec:
           - SecRuleRemoveById 921110
           # Restricted File Access Attempt — .git/ in repo names is legitimate
           - SecRuleRemoveById 930130
+          # Skip WAF entirely for trusted/private IP ranges
+          - "SecRule REMOTE_ADDR \"@ipMatch 192.168.178.0/24,10.0.0.0/8,172.16.0.0/12\" \"id:1,phase:1,pass,nolog,ctl:ruleEngine=Off\""
