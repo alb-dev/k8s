@@ -13,7 +13,7 @@ spec:
     server:
       persistentVolume:
         enabled: true
-        storageClassName: local-hostpath
+        storageClassName: openebs-hostpath
         size: 20Gi
       retentionPeriod: 14d
       route:
