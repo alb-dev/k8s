@@ -10,7 +10,7 @@ spec:
       kind: Gateway
       name: envoy-external
   authorization:
-    defaultAction: Deny
+    defaultAction: Allow
     rules:
       - name: allow-trusted-ips
         action: Allow
