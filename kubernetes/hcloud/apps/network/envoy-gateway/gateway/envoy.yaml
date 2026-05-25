@@ -26,7 +26,7 @@ spec:
                     - name: dynamic-modules
                       image:
                         # renovate: datasource=docker depName=ghcr.io/tetratelabs/built-on-envoy/composer
-                        reference: ghcr.io/tetratelabs/built-on-envoy/composer:0.6.0-dev
+                        reference: ghcr.io/tetratelabs/built-on-envoy/composer:0.7.0-dev
                         pullPolicy: IfNotPresent
                     - name: geoip-db
                       emptyDir: {}
