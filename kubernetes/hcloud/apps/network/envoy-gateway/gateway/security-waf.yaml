@@ -28,27 +28,32 @@ spec:
           - SecRequestBodyLimitAction ProcessPartial
           - SecDebugLogLevel 2
           - Include @crs-setup.conf
-          # Skip WAF for trusted internal IP ranges (this ctl works: whole-engine, phase 1, before any rule)
+          # Skip WAF for trusted internal IP ranges (whole-engine ctl, works at phase 1 entry)
           - "SecRule REMOTE_ADDR \"@ipMatch 192.168.178.0/24,10.0.0.0/8,172.16.0.0/12\" \"id:1,phase:1,pass,nolog,ctl:ruleEngine=Off\""
           # Allow WebDAV methods for Nextcloud
           - "SecAction \"id:900200,phase:1,nolog,pass,t:none,setvar:'tx.allowed_methods=GET HEAD POST PUT DELETE OPTIONS PATCH PROPFIND PROPPATCH MKCOL COPY MOVE LOCK UNLOCK REPORT'\""
-          # Nextcloud DAV — disable body inspection (these phase-2 ctl rules work in your setup)
+          # Nextcloud DAV — disable body inspection (works: requestBodyAccess set before body read)
           - "SecRule REQUEST_URI \"@beginsWith /remote.php/dav/\" \"id:1000,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
           - "SecRule REQUEST_URI \"@beginsWith /remote.php/webdav/\" \"id:1001,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
           - "SecRule REQUEST_URI \"@beginsWith /public.php/dav/\" \"id:1002,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
           - "SecRule REQUEST_URI \"@beginsWith /index.php/apps/files/\" \"id:1003,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
           - Include @owasp_crs/*.conf
-          # --- Global rule exclusions (ctl bypass unreliable on this composer) ---
-          # Nextcloud false positives
+          # === Global exclusions — the only reliable mechanism on this composer ===
+          # Nextcloud false positives (phase 1, header/URI based)
           - SecRuleRemoveById 920230
           - SecRuleRemoveById 920300
           - SecRuleRemoveById 920420
-          # Git Smart HTTP (.git/ paths, gzip body, binary pack data) — Renovate clone/fetch/push
+          # Git/Forgejo phase-1 false positives
           - SecRuleRemoveById 920450
           - SecRuleRemoveById 921110
-          - SecRuleRemoveById 930130
-          # Forgejo API false positives — Renovate Markdown in JSON bodies
           - SecRuleRemoveById 930120
+          - SecRuleRemoveById 930130
+          # Phase-2 body rules — Git binary pack data (ctl bypass ineffective here)
+          - SecRuleRemoveById 920270
+          - SecRuleRemoveById 921150
+          - SecRuleRemoveById 942100
+          - SecRuleRemoveById 942540
+          # Phase-2 body rules — Renovate Markdown in API JSON
           - SecRuleRemoveById 932235
           - SecRuleRemoveById 932140
           - SecRuleRemoveById 932370
