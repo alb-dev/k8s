@@ -4,6 +4,7 @@ apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
   name: envoy
+  namespace: network
 spec:
   logging:
     level:
@@ -25,14 +26,12 @@ spec:
                   volumes:
                     - name: dynamic-modules
                       image:
-                        # renovate: datasource=docker depName=ghcr.io/tetratelabs/built-on-envoy/composer
                         reference: ghcr.io/tetratelabs/built-on-envoy/composer:0.7.0-dev
                         pullPolicy: IfNotPresent
                     - name: geoip-db
                       emptyDir: {}
                   initContainers:
                     - name: geoipupdate
-                      # renovate: datasource=docker depName=ghcr.io/maxmind/geoipupdate
                       image: ghcr.io/maxmind/geoipupdate:v7
                       env:
                         - name: GEOIPUPDATE_ACCOUNT_ID
@@ -45,25 +44,40 @@ spec:
                             secretKeyRef:
                               name: maxmind-license
                               key: license_key
+                        # Country for geo-blocking + ASN for bot/hoster blocking
                         - name: GEOIPUPDATE_EDITION_IDS
-                          value: GeoLite2-Country
+                          value: GeoLite2-Country GeoLite2-ASN
                         - name: GEOIPUPDATE_DB_DIR
                           value: /etc/envoy/geoip
+                        # Update every 168h (weekly) - matches MaxMind release cadence
                         - name: GEOIPUPDATE_FREQUENCY
-                          value: "0"
+                          value: "168"
+                        - name: GEOIPUPDATE_VERBOSE
+                          value: "1"
                       volumeMounts:
                         - name: geoip-db
                           mountPath: /etc/envoy/geoip
+                      resources:
+                        requests:
+                          cpu: 50m
+                          memory: 64Mi
+                        limits:
+                          memory: 128Mi
+                      restartPolicy: Always
+                      startupProbe:
+                        exec:
+                          command:
+                            - sh
+                            - -c
+                            - "test -f /etc/envoy/geoip/GeoLite2-Country.mmdb && test -f /etc/envoy/geoip/GeoLite2-ASN.mmdb"
+                        initialDelaySeconds: 2
+                        periodSeconds: 3
+                        failureThreshold: 20
         container:
           securityContext:
             runAsUser: 0
             allowPrivilegeEscalation: true
           imageRepository: mirror.gcr.io/envoyproxy/envoy
-          resources:
-            requests:
-              cpu: 100m
-            limits:
-              memory: 1Gi
           env:
             - name: GODEBUG
               value: "cgocheck=0"
@@ -74,13 +88,12 @@ spec:
             - name: geoip-db
               mountPath: /etc/envoy/geoip
               readOnly: true
-  shutdown:
-    drainTimeout: 180s
-  telemetry:
-    metrics:
-      prometheus:
-        compression:
-          type: Zstd
+          resources:
+            requests:
+              cpu: 100m
+              memory: 500Mi
+            limits:
+              memory: 1Gi
   dynamicModules:
     - name: composer
       source:
@@ -89,6 +102,23 @@ spec:
           path: /etc/envoy/dynamic-modules/libcomposer.so
       doNotClose: true
       loadGlobally: false
+  geoIP:
+    provider:
+      type: MaxMind
+      maxMind:
+        countryDbSource:
+          local:
+            path: /etc/envoy/geoip/GeoLite2-Country.mmdb
+        asnDbSource:
+          local:
+            path: /etc/envoy/geoip/GeoLite2-ASN.mmdb
+  shutdown:
+    drainTimeout: 180s
+  telemetry:
+    metrics:
+      prometheus:
+        compression:
+          type: Zstd
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
@@ -136,7 +166,7 @@ metadata:
 spec:
   clientIPDetection:
     xForwardedFor:
-      numTrustedHops: 1
+      numTrustedHops: 0
   connection:
     bufferLimit: 8Mi
     maxAcceptPerSocketEvent: 0
@@ -210,35 +240,3 @@ spec:
         value:
           upgrade_type: tailscale-control-protocol
 
----
-apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: EnvoyPatchPolicy
-metadata:
-  name: geoip-country
-  namespace: network
-spec:
-  targetRef:
-    group: gateway.networking.k8s.io
-    kind: Gateway
-    name: envoy-external
-  type: JSONPatch
-  jsonPatches:
-    - type: type.googleapis.com/envoy.config.listener.v3.Listener
-      name: network/envoy-external/https
-      operation:
-        op: add
-        path: /filter_chains/0/filters/0/typed_config/http_filters/0
-        value:
-          name: envoy.filters.http.geoip
-          typed_config:
-            "@type": type.googleapis.com/envoy.extensions.filters.http.geoip.v3.Geoip
-            xff_config:
-              xff_num_trusted_hops: 1
-            provider:
-              name: envoy.geoip_providers.maxmind
-              typed_config:
-                "@type": type.googleapis.com/envoy.extensions.geoip_providers.maxmind.v3.MaxMindConfig
-                common_provider_config:
-                  geo_headers_to_add:
-                    country: x-geo-country
-                country_db_path: /etc/envoy/geoip/GeoLite2-Country.mmdb
