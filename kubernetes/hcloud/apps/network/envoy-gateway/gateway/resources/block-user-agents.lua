@@ -2,6 +2,7 @@ function envoy_on_request(request_handle)
   local user_agent = request_handle:headers():get("user-agent") or ""
   local blocked_patterns = {
     "Meta-ExternalAgent",
+    "meta-externalagent",
     "meta-webindexer",
     "GPTBot",
     "CCBot",
