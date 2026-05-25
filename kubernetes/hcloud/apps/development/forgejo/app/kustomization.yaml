@@ -9,3 +9,4 @@ generatorOptions:
 resources:
   - ./helmrelease.yaml
   - ./ocirepository.yaml
+  - ./envoyextensionpolicy.yaml
