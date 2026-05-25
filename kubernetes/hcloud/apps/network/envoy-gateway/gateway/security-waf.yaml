@@ -14,7 +14,7 @@ spec:
       filterName: coraza-waf
       config:
         directives:
-          # Base Coraza configuration (default phase actions, body limits, audit defaults)
+# Base Coraza configuration (default phase actions, body limits, audit defaults)
           - Include @coraza.conf-recommended
           # Engine active and blocking. Switch to "DetectionOnly" to log without blocking
           - SecRuleEngine On
@@ -31,6 +31,13 @@ spec:
           # Load OWASP CRS setup (defines anomaly thresholds, allowed methods, etc.)
           - Include @crs-setup.conf
 
+          # === Early exclusions — MUST come before @owasp_crs include ===
+
+          # Skip WAF entirely for trusted/private IP ranges
+          - "SecRule REMOTE_ADDR \"@ipMatch 192.168.178.0/24,10.0.0.0/8,172.16.0.0/12\" \"id:1,phase:1,pass,nolog,ctl:ruleEngine=Off\""
+          # Skip WAF entirely for the external Renovate operator (static trusted IP)
+          - "SecRule REMOTE_ADDR \"@ipMatch 213.168.116.250\" \"id:2,phase:1,pass,nolog,ctl:ruleEngine=Off\""
+
           # Allow WebDAV methods required by Nextcloud sync clients
           - "SecAction \"id:900200,phase:1,nolog,pass,t:none,setvar:'tx.allowed_methods=GET HEAD POST PUT DELETE OPTIONS PATCH PROPFIND PROPPATCH MKCOL COPY MOVE LOCK UNLOCK REPORT'\""
 
@@ -45,15 +52,17 @@ spec:
           - "SecRule REQUEST_URI \"@endsWith /git-upload-pack\" \"id:1011,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
           # Disable request body inspection for Git LFS transfers
           - "SecRule REQUEST_URI \"@rx /info/lfs/\" \"id:1012,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
-
           # Remove LFI rule 930130 for any Git repository path (.git/ is a repo name, not an attack)
-          # Broad regex covers info/refs, HEAD, objects/, git-upload-pack AND git-receive-pack
           - "SecRule REQUEST_URI \"@rx /[^/]+\\.git/\" \"id:1013,phase:1,pass,nolog,ctl:ruleRemoveById=930130\""
+
+          # Disable request body inspection for the entire Forgejo/Gitea API
+          # (all endpoints accept free-form text: PRs, issues, comments, labels, contents)
+          - "SecRule REQUEST_URI \"@beginsWith /api/v1/\" \"id:1021,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
 
           # Load all OWASP CRS attack rules
           - Include @owasp_crs/*.conf
 
-          # --- Global rule exclusions (false positives for Nextcloud + Git) ---
+          # === Global rule exclusions (must come AFTER @owasp_crs include) ===
           # Multiple URL Encoding Detected — encoded slashes in Nextcloud/DAV paths
           - SecRuleRemoveById 920230
           # Request Missing an Accept Header — DAV and CLI clients omit it
@@ -66,8 +75,3 @@ spec:
           - SecRuleRemoveById 921110
           # Restricted File Access Attempt — .git/ in repo names is legitimate
           - SecRuleRemoveById 930130
-          # Skip WAF entirely for trusted/private IP ranges
-          - "SecRule REMOTE_ADDR \"@ipMatch 192.168.178.0/24,10.0.0.0/8,172.16.0.0/12\" \"id:1,phase:1,pass,nolog,ctl:ruleEngine=Off\""
-          # Disable request body inspection for the entire Forgejo/Gitea API
-          # (all endpoints accept free-form text: PRs, issues, comments, labels, contents)
-          - "SecRule REQUEST_URI \"@beginsWith /api/v1/\" \"id:1021,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
