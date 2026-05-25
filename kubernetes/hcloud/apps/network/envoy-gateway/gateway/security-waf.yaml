@@ -30,11 +30,12 @@ spec:
           - Include @crs-setup.conf
           # Skip WAF for trusted internal IP ranges
           - "SecRule REMOTE_ADDR \"@ipMatch 192.168.178.0/24,10.0.0.0/8,172.16.0.0/12\" \"id:1,phase:1,pass,nolog,ctl:ruleEngine=Off\""
-          # Disable WAF entirely for the Forgejo/Gitea API.
-          # Renovate (external cluster) writes arbitrary Markdown/paths into API
-          # bodies which constantly trips RCE/LFI/XSS rules. ruleEngine=Off works
-          # where requestBodyAccess=Off did not (it also covers phase-2 body rules).
+          # Disable WAF entirely for the Forgejo/Gitea API (Renovate writes arbitrary
+          # Markdown/paths into API bodies — constant RCE/LFI/XSS false positives)
           - "SecRule REQUEST_URI \"@beginsWith /api/v1/\" \"id:1021,phase:1,pass,nolog,ctl:ruleEngine=Off\""
+          # Disable WAF entirely for all Git Smart HTTP paths (clone/fetch/push).
+          # Covers /info/refs discovery AND git-upload-pack/git-receive-pack transfer
+          - "SecRule REQUEST_URI \"@rx /[^/]+\\.git/\" \"id:1010,phase:1,pass,nolog,ctl:ruleEngine=Off\""
           # Allow WebDAV methods for Nextcloud
           - "SecAction \"id:900200,phase:1,nolog,pass,t:none,setvar:'tx.allowed_methods=GET HEAD POST PUT DELETE OPTIONS PATCH PROPFIND PROPPATCH MKCOL COPY MOVE LOCK UNLOCK REPORT'\""
           # Nextcloud DAV — disable body inspection (large uploads up to 20 GB)
@@ -42,11 +43,6 @@ spec:
           - "SecRule REQUEST_URI \"@beginsWith /remote.php/webdav/\" \"id:1001,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
           - "SecRule REQUEST_URI \"@beginsWith /public.php/dav/\" \"id:1002,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
           - "SecRule REQUEST_URI \"@beginsWith /index.php/apps/files/\" \"id:1003,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
-          # Git Smart HTTP — disable WAF (binary pack data triggers false positives)
-          # Using ruleEngine=Off here too, for the same phase-2 reason as the API
-          - "SecRule REQUEST_URI \"@endsWith /git-receive-pack\" \"id:1010,phase:1,pass,nolog,ctl:ruleEngine=Off\""
-          - "SecRule REQUEST_URI \"@endsWith /git-upload-pack\" \"id:1011,phase:1,pass,nolog,ctl:ruleEngine=Off\""
-          - "SecRule REQUEST_URI \"@rx /info/lfs/\" \"id:1012,phase:1,pass,nolog,ctl:ruleEngine=Off\""
           - Include @owasp_crs/*.conf
           # --- Global exclusions (Nextcloud false positives only) ---
           - SecRuleRemoveById 920230
