@@ -9,6 +9,12 @@ spec:
     - group: gateway.networking.k8s.io
       kind: Gateway
       name: envoy-external
+  lua:
+    - type: ValueRef
+      valueRef:
+        name: envoy-external-extensions
+        kind: ConfigMap
+        group: v1
   dynamicModule:
     - name: composer
       filterName: coraza-waf
