@@ -46,4 +46,4 @@ secrets.env
 *.dec.env
 *.dec.yaml
 *.dec.yml
-development*
+/development*
