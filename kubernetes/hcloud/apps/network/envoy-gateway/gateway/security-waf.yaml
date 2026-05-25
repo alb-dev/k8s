@@ -20,73 +20,35 @@ spec:
       filterName: coraza-waf
       config:
         directives:
-          # Base Coraza configuration (default phase actions, body limits, audit defaults)
           - Include @coraza.conf-recommended
-          # Engine active and blocking. Switch to "DetectionOnly" to log without blocking
           - SecRuleEngine On
-          # Do not buffer/inspect response bodies (saves RAM, avoids breaking streaming)
           - SecResponseBodyAccess Off
-          # Max request body size to inspect: 128 MB
           - SecRequestBodyLimit 134217728
-          # Keep up to 128 KB in memory, spill larger bodies to disk
           - SecRequestBodyInMemoryLimit 131072
-          # If body exceeds the limit, inspect what we have instead of rejecting
           - SecRequestBodyLimitAction ProcessPartial
-          # Debug verbosity (2 = warnings; set to 0 once stable)
           - SecDebugLogLevel 2
-          # Load OWASP CRS setup (defines anomaly thresholds, allowed methods, etc.)
           - Include @crs-setup.conf
-
-          # === Early exclusions — MUST come before @owasp_crs include ===
-
-          # Skip WAF entirely for trusted private/internal IP ranges
+          # Skip WAF for trusted internal IP ranges
           - "SecRule REMOTE_ADDR \"@ipMatch 192.168.178.0/24,10.0.0.0/8,172.16.0.0/12\" \"id:1,phase:1,pass,nolog,ctl:ruleEngine=Off\""
-
-          # Allow WebDAV methods required by Nextcloud sync clients
+          # Disable WAF entirely for the Forgejo/Gitea API.
+          # Renovate (external cluster) writes arbitrary Markdown/paths into API
+          # bodies which constantly trips RCE/LFI/XSS rules. ruleEngine=Off works
+          # where requestBodyAccess=Off did not (it also covers phase-2 body rules).
+          - "SecRule REQUEST_URI \"@beginsWith /api/v1/\" \"id:1021,phase:1,pass,nolog,ctl:ruleEngine=Off\""
+          # Allow WebDAV methods for Nextcloud
           - "SecAction \"id:900200,phase:1,nolog,pass,t:none,setvar:'tx.allowed_methods=GET HEAD POST PUT DELETE OPTIONS PATCH PROPFIND PROPPATCH MKCOL COPY MOVE LOCK UNLOCK REPORT'\""
-
-          # Disable request body inspection for Nextcloud DAV upload paths (large file uploads up to 20 GB)
+          # Nextcloud DAV — disable body inspection (large uploads up to 20 GB)
           - "SecRule REQUEST_URI \"@beginsWith /remote.php/dav/\" \"id:1000,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
           - "SecRule REQUEST_URI \"@beginsWith /remote.php/webdav/\" \"id:1001,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
           - "SecRule REQUEST_URI \"@beginsWith /public.php/dav/\" \"id:1002,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
           - "SecRule REQUEST_URI \"@beginsWith /index.php/apps/files/\" \"id:1003,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
-
-          # Disable request body inspection for Git Smart HTTP (binary pack data triggers false positives)
-          - "SecRule REQUEST_URI \"@endsWith /git-receive-pack\" \"id:1010,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
-          - "SecRule REQUEST_URI \"@endsWith /git-upload-pack\" \"id:1011,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
-          # Disable request body inspection for Git LFS transfers
-          - "SecRule REQUEST_URI \"@rx /info/lfs/\" \"id:1012,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
-          # Remove LFI rule 930130 for any Git repository path (.git/ is a repo name, not an attack)
-          - "SecRule REQUEST_URI \"@rx /[^/]+\\.git/\" \"id:1013,phase:1,pass,nolog,ctl:ruleRemoveById=930130\""
-
-          # Disable request body inspection for the entire Forgejo/Gitea API.
-          # API endpoints accept arbitrary Markdown/JSON (PR/issue bodies, comments,
-          # commit messages) which constantly trips RCE/XSS rules. URI, headers,
-          # method and auth are still inspected. (Renovate dashboard & PR creation)
-          - "SecRule REQUEST_URI \"@beginsWith /api/v1/\" \"id:1021,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
-
-          # Load all OWASP CRS attack rules
+          # Git Smart HTTP — disable WAF (binary pack data triggers false positives)
+          # Using ruleEngine=Off here too, for the same phase-2 reason as the API
+          - "SecRule REQUEST_URI \"@endsWith /git-receive-pack\" \"id:1010,phase:1,pass,nolog,ctl:ruleEngine=Off\""
+          - "SecRule REQUEST_URI \"@endsWith /git-upload-pack\" \"id:1011,phase:1,pass,nolog,ctl:ruleEngine=Off\""
+          - "SecRule REQUEST_URI \"@rx /info/lfs/\" \"id:1012,phase:1,pass,nolog,ctl:ruleEngine=Off\""
           - Include @owasp_crs/*.conf
-
-          # === Global rule exclusions — MUST come after @owasp_crs include ===
-          # Multiple URL Encoding Detected — encoded slashes in Nextcloud/DAV paths
+          # --- Global exclusions (Nextcloud false positives only) ---
           - SecRuleRemoveById 920230
-          # Request Missing an Accept Header — DAV and CLI clients omit it
           - SecRuleRemoveById 920300
-          # Request Content-Type not Allowed — DAV uses various content types
           - SecRuleRemoveById 920420
-          # HTTP Header is Restricted by Policy — Git sends Content-Encoding: gzip
-          - SecRuleRemoveById 920450
-          # HTTP Request Smuggling Attack — binary Git pack data triggers this
-          - SecRuleRemoveById 921110
-          # Restricted File Access Attempt — .git/ in repo names is legitimate
-          - SecRuleRemoveById 930130
-          # --- Forgejo/Gitea API false positives (Renovate Markdown bodies) ---
-          # Unix Command Injection — backticks in Markdown (`docker`, `04ae35e`)
-          - SecRuleRemoveById 932235
-          # Windows FOR/IF Command — "if you want to rebase" in PR text
-          - SecRuleRemoveById 932140
-          # Windows Command Injection — pipe chars in Markdown tables (| Update |)
-          - SecRuleRemoveById 932370
-          # Node-Validator Deny List — HTML comments (<!--) in Markdown
-          - SecRuleRemoveById 941180
