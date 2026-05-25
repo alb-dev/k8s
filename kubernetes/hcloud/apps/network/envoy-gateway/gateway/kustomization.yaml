@@ -11,3 +11,12 @@ resources:
   - ./security-geoip.yaml
   - ./security-waf.yaml
   - ./secrets.sops.yaml
+  
+configMapGenerator:
+  - name: envoy-external-extensions
+    files:
+      - resources/block-user-agents.lua
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
