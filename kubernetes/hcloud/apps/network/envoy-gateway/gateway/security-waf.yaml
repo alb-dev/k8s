@@ -14,7 +14,7 @@ spec:
       filterName: coraza-waf
       config:
         directives:
-# Base Coraza configuration (default phase actions, body limits, audit defaults)
+          # Base Coraza configuration (default phase actions, body limits, audit defaults)
           - Include @coraza.conf-recommended
           # Engine active and blocking. Switch to "DetectionOnly" to log without blocking
           - SecRuleEngine On
@@ -33,10 +33,8 @@ spec:
 
           # === Early exclusions — MUST come before @owasp_crs include ===
 
-          # Skip WAF entirely for trusted/private IP ranges
+          # Skip WAF entirely for trusted private/internal IP ranges
           - "SecRule REMOTE_ADDR \"@ipMatch 192.168.178.0/24,10.0.0.0/8,172.16.0.0/12\" \"id:1,phase:1,pass,nolog,ctl:ruleEngine=Off\""
-          # Skip WAF entirely for the external Renovate operator (static trusted IP)
-          - "SecRule REMOTE_ADDR \"@ipMatch 213.168.116.250\" \"id:2,phase:1,pass,nolog,ctl:ruleEngine=Off\""
 
           # Allow WebDAV methods required by Nextcloud sync clients
           - "SecAction \"id:900200,phase:1,nolog,pass,t:none,setvar:'tx.allowed_methods=GET HEAD POST PUT DELETE OPTIONS PATCH PROPFIND PROPPATCH MKCOL COPY MOVE LOCK UNLOCK REPORT'\""
@@ -55,14 +53,16 @@ spec:
           # Remove LFI rule 930130 for any Git repository path (.git/ is a repo name, not an attack)
           - "SecRule REQUEST_URI \"@rx /[^/]+\\.git/\" \"id:1013,phase:1,pass,nolog,ctl:ruleRemoveById=930130\""
 
-          # Disable request body inspection for the entire Forgejo/Gitea API
-          # (all endpoints accept free-form text: PRs, issues, comments, labels, contents)
+          # Disable request body inspection for the entire Forgejo/Gitea API.
+          # API endpoints accept arbitrary Markdown/JSON (PR/issue bodies, comments,
+          # commit messages) which constantly trips RCE/XSS rules. URI, headers,
+          # method and auth are still inspected. (Renovate dashboard & PR creation)
           - "SecRule REQUEST_URI \"@beginsWith /api/v1/\" \"id:1021,phase:1,pass,nolog,ctl:requestBodyAccess=Off\""
 
           # Load all OWASP CRS attack rules
           - Include @owasp_crs/*.conf
 
-          # === Global rule exclusions (must come AFTER @owasp_crs include) ===
+          # === Global rule exclusions — MUST come after @owasp_crs include ===
           # Multiple URL Encoding Detected — encoded slashes in Nextcloud/DAV paths
           - SecRuleRemoveById 920230
           # Request Missing an Accept Header — DAV and CLI clients omit it
