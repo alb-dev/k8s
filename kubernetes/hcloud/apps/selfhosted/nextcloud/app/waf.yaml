@@ -2,19 +2,13 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyExtensionPolicy
 metadata:
-  name: waf-extension
-  namespace: network
+  name: waf-nextcloud
+  namespace: selfhosted
 spec:
   targetRefs:
     - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: envoy-external
-  lua:
-    - type: ValueRef
-      valueRef:
-        name: envoy-external-extensions
-        kind: ConfigMap
-        group: v1
+      kind: HTTPRoute
+      name: nextcloud
   dynamicModule:
     - name: composer
       filterName: coraza-waf

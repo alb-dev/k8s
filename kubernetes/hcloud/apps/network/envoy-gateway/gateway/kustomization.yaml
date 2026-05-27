@@ -9,9 +9,8 @@ resources:
   - ./https-redirect.yaml
   - ./podmonitor.yaml
   - ./security-geoip.yaml
-  - ./security-waf.yaml
   - ./secrets.sops.yaml
-  
+
 configMapGenerator:
   - name: envoy-external-extensions
     files:
