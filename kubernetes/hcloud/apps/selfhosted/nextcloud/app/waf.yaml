@@ -15,7 +15,7 @@ spec:
       config:
         directives:
           - Include @coraza.conf-recommended
-          - SecRuleEngine On
+          - SecRuleEngine DetectionOnly
           - SecResponseBodyAccess Off
           - SecRequestBodyLimit 134217728
           - SecRequestBodyInMemoryLimit 131072
