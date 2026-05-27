@@ -1,0 +1,17 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: ${APP}-bot-extension
+  namespace: network
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-external
+  lua:
+    - type: ValueRef
+      valueRef:
+        name: envoy-external-extensions
+        kind: ConfigMap
+        group: v1

@@ -240,23 +240,23 @@ spec:
         value:
           upgrade_type: tailscale-control-protocol
 
----
-apiVersion: gateway.envoyproxy.io/v1alpha1
-kind: EnvoyExtensionPolicy
-metadata:
-  name: lua-bot-extension
-  namespace: network
-spec:
-  targetRefs:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: envoy-external
-  lua:
-    - type: ValueRef
-      valueRef:
-        name: envoy-external-extensions
-        kind: ConfigMap
-        group: v1
+#---
+#apiVersion: gateway.envoyproxy.io/v1alpha1
+#kind: EnvoyExtensionPolicy
+#metadata:
+#  name: lua-bot-extension
+#  namespace: network
+#spec:
+#  targetRefs:
+#    - group: gateway.networking.k8s.io
+#      kind: Gateway
+#      name: envoy-external
+#  lua:
+#    - type: ValueRef
+#      valueRef:
+#        name: envoy-external-extensions
+#        kind: ConfigMap
+#        group: v1
 
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
