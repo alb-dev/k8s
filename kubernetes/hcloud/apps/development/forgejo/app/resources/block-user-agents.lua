@@ -1,4 +1,4 @@
-unction envoy_on_request(request_handle)
+function envoy_on_request(request_handle)
   local ua = request_handle:headers():get("user-agent") or ""
   local ua_lower = string.lower(ua)
 
