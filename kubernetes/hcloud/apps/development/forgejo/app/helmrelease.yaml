@@ -13,8 +13,8 @@ spec:
       type: 'Recreate'
       
     httpRoute:
-      enabled: true
-      hostnames: [ "code.${CLUSTER_DOMAIN}" ]
+      enabled: false
+      hostnames: [ "code2.${CLUSTER_DOMAIN}" ]
       parentRefs:
         - name: envoy-external
           namespace: network
