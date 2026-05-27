@@ -8,7 +8,6 @@ resources:
   - ./grafanadashboard.yaml
   - ./https-redirect.yaml
   - ./podmonitor.yaml
-  - ./security-geoip.yaml
   - ./secrets.sops.yaml
 
 configMapGenerator:
