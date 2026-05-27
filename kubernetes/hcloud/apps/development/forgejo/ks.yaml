@@ -7,6 +7,7 @@ spec:
   interval: 1h
   path: ./kubernetes/hcloud/apps/development/forgejo/app
   components:
+    - ../../../../components/anubis
     - ../../../../components/dragonfly
   postBuild:
     substitute:
