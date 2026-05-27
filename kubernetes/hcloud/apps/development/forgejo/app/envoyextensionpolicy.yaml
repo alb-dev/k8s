@@ -9,12 +9,12 @@ spec:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
       name: forgejo
-  lua:
-    - type: ValueRef
-      valueRef:
-        name: envoy-external-extensions
-        kind: ConfigMap
-        group: v1
+#  lua:
+#    - type: ValueRef
+#      valueRef:
+#        name: envoy-external-extensions
+#        kind: ConfigMap
+#        group: v1
   dynamicModule:
     - name: composer
       filterName: coraza-waf
