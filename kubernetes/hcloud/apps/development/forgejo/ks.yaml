@@ -9,6 +9,7 @@ spec:
   components:
     - ../../../../components/anubis
     - ../../../../components/dragonfly
+    - ../../../../components/envoy
   postBuild:
     substitute:
       APP: forgejo
