@@ -21,7 +21,7 @@ spec:
     image:
       registry: docker.io
       repository: nextcloud
-      tag: 33.0.3-fpm-alpine
+      tag: 33.0.4-fpm-alpine
       flavor: fpm-alpine
 
     nginx:
