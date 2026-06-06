@@ -16,7 +16,7 @@ spec:
           volumes:
             - name: dynamic-modules
               image:
-                reference: ghcr.io/tetratelabs/built-on-envoy/composer:0.7.0-dev
+                reference: ghcr.io/tetratelabs/built-on-envoy/composer:0.8.0-dev
                 pullPolicy: IfNotPresent
         container:
           imageRepository: mirror.gcr.io/envoyproxy/envoy
