@@ -1,9 +1,0 @@
----
-apiVersion: v1
-kind: Node
-metadata:
-  name: home-0
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-spec:
-  unschedulable: false
