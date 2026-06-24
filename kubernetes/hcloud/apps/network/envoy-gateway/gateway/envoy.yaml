@@ -24,10 +24,6 @@ spec:
                   hostNetwork: true
                   dnsPolicy: ClusterFirstWithHostNet
                   volumes:
-                    - name: dynamic-modules
-                      image:
-                        reference: ghcr.io/tetratelabs/built-on-envoy/composer:0.8.0-dev
-                        pullPolicy: IfNotPresent
                     - name: geoip-db
                       emptyDir: {}
                   initContainers:
@@ -82,9 +78,6 @@ spec:
             - name: GODEBUG
               value: "cgocheck=0"
           volumeMounts:
-            - name: dynamic-modules
-              mountPath: /etc/envoy/dynamic-modules
-              readOnly: true
             - name: geoip-db
               mountPath: /etc/envoy/geoip
               readOnly: true
@@ -94,14 +87,6 @@ spec:
               memory: 500Mi
             limits:
               memory: 1Gi
-  dynamicModules:
-    - name: composer
-      source:
-        type: Local
-        local:
-          path: /etc/envoy/dynamic-modules/libcomposer.so
-      doNotClose: true
-      loadGlobally: false
   geoIP:
     provider:
       type: MaxMind
