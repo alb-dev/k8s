@@ -12,12 +12,6 @@ spec:
     kubernetes:
       envoyDeployment:
         replicas: 1
-        pod:
-          volumes:
-            - name: dynamic-modules
-              image:
-                reference: ghcr.io/tetratelabs/built-on-envoy/composer:0.8.0-dev
-                pullPolicy: IfNotPresent
         container:
           imageRepository: mirror.gcr.io/envoyproxy/envoy
           resources:
@@ -25,13 +19,6 @@ spec:
               cpu: 100m
             limits:
               memory: 1Gi
-          env:
-            - name: GODEBUG
-              value: "cgocheck=0"
-          volumeMounts:
-            - name: dynamic-modules
-              mountPath: /etc/envoy/dynamic-modules
-              readOnly: true
       envoyService:
         externalTrafficPolicy: Local
   shutdown:
@@ -41,14 +28,6 @@ spec:
       prometheus:
         compression:
           type: Zstd
-  dynamicModules:
-    - name: composer
-      source:
-        type: Local
-        local:
-          path: /etc/envoy/dynamic-modules/libcomposer.so
-      doNotClose: true
-      loadGlobally: false
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass

@@ -9,4 +9,3 @@ resources:
   - ./internal.yaml
   - ./podmonitor.yaml
   - ./vpn.yaml
-  - ./waf.yaml
