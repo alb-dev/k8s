@@ -14,8 +14,7 @@ _hcloud cluster stats:_
 [![Kubernetes](https://kromgo.albdev.cloud/badges/kubernetes_version)](https://kubernetes.io)
 [![Flux](https://kromgo.albdev.cloud/badges/flux_version)](https://fluxcd.io)
 
-![Age](https://kromgo.albdev.cloud/badges/cluster_birth_age)
-![Uptime](https://kromgo.albdev.cloud/badges/cluster_uptime_age)
+![Age](https://kromgo.albdev.cloud/badges/cluster_age_days)
 ![Nodes](https://kromgo.albdev.cloud/badges/cluster_node_count)
 ![Pods](https://kromgo.albdev.cloud/badges/cluster_pod_count)
 ![CPU](https://kromgo.albdev.cloud/badges/cluster_cpu_usage)
