@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: tuppr
 spec:
-  interval: 1h
+  interval: 30m
   path: "./kubernetes/home/apps/system-upgrade/tuppr/app"
   prune: true
   sourceRef:
@@ -18,7 +18,7 @@ kind: Kustomization
 metadata:
   name: tuppr-upgrades
 spec:
-  interval: 1h
+  interval: 30m
   dependsOn:
     - name: tuppr
   path: "./kubernetes/home/apps/system-upgrade/tuppr/upgrades"

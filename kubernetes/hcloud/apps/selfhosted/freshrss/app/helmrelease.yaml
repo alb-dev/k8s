@@ -7,7 +7,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: freshrss
-  interval: 1h
+  interval: 30m
   values:
     controllers:
       freshrss:

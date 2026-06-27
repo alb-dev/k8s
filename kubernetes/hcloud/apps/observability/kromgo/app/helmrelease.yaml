@@ -7,24 +7,26 @@ spec:
   chartRef:
     kind: OCIRepository
     name: kromgo
-  interval: 1h
+  interval: 30m
   values:
     controllers:
       kromgo:
-        strategy: RollingUpdate
-
         annotations:
           reloader.stakater.com/auto: "true"
-
+        pod:
+          securityContext:
+            runAsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 2000
         containers:
-          app:
+          kromgo:
             image:
-              repository: ghcr.io/kashalls/kromgo
-              tag: v0.10.0@sha256:965ecc92d68dc1a4a969397855367bbc70da03227a941ea607b73bb7e0b78fd6
+              repository: ghcr.io/home-operations/kromgo
+              tag: 0.14.11@sha256:12ff4049710f325ba94db0fff593f0289dacd94c4b59d5cf0349dba84a926ea3
             env:
               PROMETHEUS_URL: http://prometheus-operated.observability.svc.cluster.local:9090
-              SERVER_PORT: &port 80
-              HEALTH_PORT: &healthPort 8080
+              SERVER_PORT: &port 8080
+              HEALTH_PORT: &healthPort 8888
             probes:
               liveness: &probes
                 enabled: true
@@ -41,18 +43,15 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities:
+                drop:
+                  - "ALL"
             resources:
               requests:
-                cpu: 10m
+                cpu: 5m
+                memory: 10M
               limits:
-                memory: 64Mi
-
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
+                memory: 64M
 
     service:
       app:
@@ -79,5 +78,5 @@ spec:
         type: configMap
         name: kromgo-configmap
         globalMounts:
-          - path: /kromgo/config.yaml
+          - path: /config/config.yaml
             subPath: config.yaml

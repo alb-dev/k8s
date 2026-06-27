@@ -7,7 +7,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: envoy-gateway
-  interval: 1h
+  interval: 30m
   path: ./kubernetes/home/apps/network/envoy-gateway/app
   postBuild:
     substituteFrom:
@@ -33,7 +33,7 @@ spec:
   dependsOn:
     - name: envoy-gateway
       namespace: network
-  interval: 1h
+  interval: 30m
   path: ./kubernetes/home/apps/network/envoy-gateway/gateway
   prune: true
   sourceRef:
@@ -51,7 +51,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: envoy-gateway
-  interval: 1h
+  interval: 30m
   path: ./kubernetes/home/apps/network/envoy-gateway/nas-service
   postBuild:
     substituteFrom:

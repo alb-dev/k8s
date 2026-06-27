@@ -10,7 +10,7 @@ spec:
   dependsOn:
     - name: democratic-csi
       namespace: storage
-  interval: 1h
+  interval: 30m
   path: ./kubernetes/home/apps/observability/victoria-logs/app
   prune: true
   sourceRef:
@@ -31,7 +31,7 @@ spec:
       app.kubernetes.io/name: victoria-logs-collector
   dependsOn:
     - name: victoria-logs
-  interval: 1h
+  interval: 30m
   path: ./kubernetes/home/apps/observability/victoria-logs/collector
   prune: true
   sourceRef:

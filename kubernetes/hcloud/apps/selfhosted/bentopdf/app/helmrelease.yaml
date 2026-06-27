@@ -7,7 +7,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: bentopdf
-  interval: 1h
+  interval: 30m
   values:
     defaultPodOptions:
       securityContext:

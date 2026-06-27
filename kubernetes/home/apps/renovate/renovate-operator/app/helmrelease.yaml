@@ -7,7 +7,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: renovate-operator
-  interval: 1h
+  interval: 30m
   values:
     fullnameOverride: renovate-operator
     route:
