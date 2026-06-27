@@ -40,7 +40,7 @@ badges:
     title: CPU
 
   - id: cluster_memory_usage
-    colorExpr: 'colorScale(result, [400.0, 750.0], ["green", "orange", "red"])'
+    colorExpr: 'colorScale(result, [35.0, 75.0], ["green", "orange", "red"])'
     query: round(sum(node_memory_MemTotal_bytes{pod!=""} - node_memory_MemAvailable_bytes{pod!=""}) / sum(node_memory_MemTotal_bytes{pod!=""}) * 100, 0.1)
     title: Memory
     valueExpr: string(result) + "%"
