@@ -10,16 +10,16 @@ _... managed by FluxCD, Renovate, and Forgejo Actions_ 🤖
 
 _hcloud cluster stats:_
 
-[![Talos](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/talos_version&style=for-the-badge&logo=talos&logoColor=white&color=D14459&label=%20)](https://talos.dev)
-[![Kubernetes](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/kubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=white&color=416BDD&label=%20)](https://kubernetes.io)
-[![Flux](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/flux_version&style=for-the-badge&logo=flux&logoColor=white&color=416BDD&label=%20)](https://fluxcd.io)
+[![Talos](https://kromgo.albdev.cloud/badges/talos_version)](https://talos.dev)
+[![Kubernetes](https://kromgo.albdev.cloud/badges/kubernetes_version)](https://kubernetes.io)
+[![Flux](https://kromgo.albdev.cloud/badges/flux_version)](https://fluxcd.io)
 
-![Age-Days](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/cluster_age_days&style=flat-square&label=Age)
-![Uptime-Days](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/cluster_uptime_days&style=flat-square&label=Uptime)
-![Node-Count](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/cluster_node_count&style=flat-square&label=Nodes)
-![Pod-Count](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/cluster_pod_count&style=flat-square&label=Pods)
-![CPU-Usage](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/cluster_cpu_usage&style=flat-square&label=CPU)
-![Memory-Usage](https://img.shields.io/endpoint?url=https://kromgo.albdev.cloud/cluster_memory_usage&style=flat-square&label=Memory)
+![Age](https://kromgo.albdev.cloud/badges/cluster_birth_age)
+![Uptime](https://kromgo.albdev.cloud/badges/cluster_uptime_age)
+![Nodes](https://kromgo.albdev.cloud/badges/cluster_node_count)
+![Pods](https://kromgo.albdev.cloud/badges/cluster_pod_count)
+![CPU](https://kromgo.albdev.cloud/badges/cluster_cpu_usage)
+![Memory](https://kromgo.albdev.cloud/badges/cluster_memory_usage)
 
 </div>
 
