@@ -21,7 +21,7 @@ spec:
           pihole:
             image:
               repository: ghcr.io/pi-hole/pihole
-              tag: 2026.06.0@sha256:8ea95136e7c8c15b42d88eadf1a3875421aa1be30ad39e50f661188cc986fb27
+              tag: 2026.07.0@sha256:f496b37c729b0eb740327c5f3e16cfa22860c5a4e592ac20e4d09407ab72bbc3
             env:
               TZ: ${TIMEZONE}
               FTLCONF_dns_listeningMode: all
