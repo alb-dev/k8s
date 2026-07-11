@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: docker.io/technitium/dns-server
-              tag: 15.3.0
+              tag: 15.4.0
             env:
               DNS_SERVER_DOMAIN: "{{ .Release.Name }}.${CLUSTER_DOMAIN}"
               DNS_SERVER_LOG_FOLDER_PATH: "/etc/dns/logs"
