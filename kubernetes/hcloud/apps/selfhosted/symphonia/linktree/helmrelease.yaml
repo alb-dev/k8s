@@ -1,0 +1,73 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: symphonia-linktree
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: symphonia-linktree
+  interval: 30m
+  values:
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101
+        runAsGroup: 101
+        fsGroup: 101
+        fsGroupChangePolicy: OnRootMismatch
+ 
+    controllers:
+      symphonia:
+        replicas: 2
+        strategy: RollingUpdate
+
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          app:
+            image:
+              repository: code.albdev.cloud/lab/container-images/symphonia-linktree
+              tag: 2.1.1
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 10m
+                memory: 50Mi
+              limits:
+                memory: 100Mi
+
+    service:
+      app:
+        controller: symphonia
+        ports:
+          http:
+            port: 8080
+
+    route:
+      app:
+        hostnames: ["symphonia.${CLUSTER_DOMAIN}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+
+    rules:
+      - backendRefs:
+          - identifier: app
+            port: 8080
+        filters:
+          - type: ResponseHeaderModifier
+            responseHeaderModifier:
+              set:
+                - name: X-Robots-Tag
+                  value: ""
+                  
+    persistence:
+      tmp:
+        type: emptyDir
+        sizeLimit: 1Gi
