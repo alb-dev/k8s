@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: code.albdev.cloud/lab/container-images/symphonia-homepage
-              tag: 2.1.1
+              tag: 0.1.0
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
