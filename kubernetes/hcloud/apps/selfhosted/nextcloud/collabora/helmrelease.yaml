@@ -11,6 +11,8 @@ spec:
   values:
     controllers:
       collabora:
+        pod:
+          hostUsers: false
         containers:
           app:
             image:
@@ -25,6 +27,8 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
+              seccompProfile:
+                type: Unconfined
               capabilities:
                 drop:
                   - ALL
