@@ -163,7 +163,10 @@ spec:
   timeout:
     http:
       requestReceivedTimeout: 0s
-  http3: {}
+  # HTTP/3/QUIC disabled: ~17% of QUIC connections stalled 33-92s with 0 bytes
+  # (handshake starts, no data flows) while HTTP/2 over TCP is 100% reliable.
+  # QUIC uses its own PMTU (DPLPMTUD), so the ICMP firewall fix did not help it.
+  # http3: {}
   #  Required for Collabora WebSocket paths with encoded URLs
   path:
     escapedSlashesAction: KeepUnchanged
