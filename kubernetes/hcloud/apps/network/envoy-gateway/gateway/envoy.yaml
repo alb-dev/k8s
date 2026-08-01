@@ -210,7 +210,13 @@ spec:
           value: SAMEORIGIN
         - name: server
           value: "albcloud"
-        - name: X-Robots-tag
+      # Default every site to noindex, but let a route opt out by setting its own
+      # X-Robots-Tag: addIfAbsent skips when the route already set the header
+      # (route-level headers are applied by the router before this runs, whereas a
+      # `set` here would always overwrite them — Envoy Gateway applies late headers
+      # after the whole HTTP filter chain, so per-route overrides can't beat `set`).
+      addIfAbsent:
+        - name: X-Robots-Tag
           value: "noindex, nofollow"
 
 ---
