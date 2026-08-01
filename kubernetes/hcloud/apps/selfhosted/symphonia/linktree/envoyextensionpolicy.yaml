@@ -1,0 +1,17 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: symphonia-linktree-bot-exempt
+spec:
+  # Overrides the gateway-level `lua-bot-extension` for this route only (EG: route > gateway),
+  # so search-engine and social-preview crawlers can fetch the public linktree.
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: symphonia-linktree
+  lua:
+    - type: Inline
+      inline: |
+        function envoy_on_request(request_handle) end
+        function envoy_on_response(response_handle) end

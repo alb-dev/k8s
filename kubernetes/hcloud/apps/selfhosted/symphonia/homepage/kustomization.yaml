@@ -6,3 +6,4 @@ namespace: selfhosted
 resources:
   - ./helmrelease.yaml
   - ./ocirepository.yaml
+  - ./envoyextensionpolicy.yaml
