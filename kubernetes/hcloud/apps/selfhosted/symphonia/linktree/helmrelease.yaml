@@ -65,7 +65,7 @@ spec:
             responseHeaderModifier:
               set:
                 - name: X-Robots-Tag
-                  value: ""
+                  value: "all"
                   
     persistence:
       tmp:
