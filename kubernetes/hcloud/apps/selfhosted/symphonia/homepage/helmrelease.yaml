@@ -55,17 +55,16 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
-
-    rules:
-      - backendRefs:
-          - identifier: app
-            port: 8080
-        filters:
-          - type: ResponseHeaderModifier
-            responseHeaderModifier:
-              set:
-                - name: X-Robots-Tag
-                  value: "all"
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 8080
+            filters:
+              - type: ResponseHeaderModifier
+                responseHeaderModifier:
+                  set:
+                    - name: X-Robots-Tag
+                      value: "all"
                   
     persistence:
       tmp:
