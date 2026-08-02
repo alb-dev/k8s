@@ -328,13 +328,6 @@ spec:
             - country: "LI" # Liechtenstein
             - country: "GB" # United Kingdom
 
-      # Allow america
-      - name: allow-america
-        action: Allow
-        principal:
-          clientIPGeoLocations:
-            - country: "US" # USA
-
       # Allow japan
       - name: allow-japan
         action: Allow
