@@ -152,28 +152,19 @@ spec:
   clientIPDetection:
     xForwardedFor:
       numTrustedHops: 0
-  connection:
-    bufferLimit: 32Mi
-    maxAcceptPerSocketEvent: 0
   http2:
-    initialStreamWindowSize: 2Mi
-    initialConnectionWindowSize: 32Mi
     onInvalidMessage: TerminateStream
+  http3: {}
   tcpKeepalive: {}
   timeout:
     http:
-      requestReceivedTimeout: 0s
-  # HTTP/3/QUIC disabled: ~17% of QUIC connections stalled 33-92s with 0 bytes
-  # (handshake starts, no data flows) while HTTP/2 over TCP is 100% reliable.
-  # QUIC uses its own PMTU (DPLPMTUD), so the ICMP firewall fix did not help it.
-  # http3: {}
+      idleTimeout: 60s
   #  Required for Collabora WebSocket paths with encoded URLs
   path:
     escapedSlashesAction: KeepUnchanged
     disableMergeSlashes: true
   tls:
     minVersion: "1.2"
-    maxVersion: "1.3"
     ecdhCurves:
       - X25519MLKEM768
       - X25519               
