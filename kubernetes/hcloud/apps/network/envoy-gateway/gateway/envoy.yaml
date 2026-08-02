@@ -154,7 +154,7 @@ spec:
       numTrustedHops: 0
   http2:
     onInvalidMessage: TerminateStream
-  http3: {}
+  #http3: {}
   tcpKeepalive: {}
   timeout:
     http:
