@@ -28,8 +28,8 @@ spec:
         containers:
           app:
             image:
-              repository: code.albdev.cloud/lab/container-images/symphonia-homepage
-              tag: 0.1.7
+              repository: code.albdev.cloud/lab/container-images/symphonia-site
+              tag: 0.0.6
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
