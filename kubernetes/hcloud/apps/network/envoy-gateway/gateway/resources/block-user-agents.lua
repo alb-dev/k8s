@@ -69,7 +69,7 @@ function envoy_on_request(request_handle)
     "linguee bot", "linkupbot", "exabot",
     "wardbot", "wrtnbot", "zanistabot", "channel3bot",
     "chatglm-spider", "devin", "manus-user",
-    "twinagent", "trae", "opencode",
+    "twinagent", "trae",
     "yak", "awario", "echoboxbot",
     "nagetbot", "kunatocrawler",
     "poseidon research crawler",
