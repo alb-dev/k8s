@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: litellm
 spec:
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/hcloud/apps/ai/litellm/app
   components:
     - ../../../../components/dragonfly
@@ -12,9 +12,6 @@ spec:
     substitute:
       APP: litellm
       DRAGONFLY_REPLICAS: "1"
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
   prune: true
   sourceRef:
     kind: GitRepository
