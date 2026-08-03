@@ -29,7 +29,7 @@ spec:
           app:
             image:
               repository: code.albdev.cloud/lab/container-images/symphonia-linktree
-              tag: 2.1.6
+              tag: 2.1.7
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
