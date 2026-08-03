@@ -1,5 +1,4 @@
 ---
-
 apiVersion: litellm.home-operations.com/v1alpha1
 kind: LiteLLMProxy
 metadata:
