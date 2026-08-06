@@ -1,0 +1,24 @@
+---
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: ClusterRepository
+metadata:
+  name: nas
+spec:
+  allowedNamespaces:
+    all: true
+  backend:
+    filesystem:
+      path: /repo
+      volume:
+        nfs:
+          path: /volume1/kubernetes/kopiur
+          server: "${SECRET_MEDIA_SERVER}"
+  credentialProjection:
+    allowed: true
+  encryption:
+    passwordSecretRef:
+      name: kopiur-repository-secret
+      namespace: kopiur-system
+      key: KOPIA_PASSWORD
+  scheduleDefaults:
+    timezone: Europe/Berlin
