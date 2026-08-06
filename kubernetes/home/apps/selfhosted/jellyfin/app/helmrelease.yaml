@@ -76,10 +76,14 @@ spec:
 
     service:
       app:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: 192.168.178.5
+        externalTrafficPolicy: Local
         ports:
           http:
+            appProtocol: kubernetes.io/ws
             port: *port
-
     route:
       app:
         hostnames: ["jellyfin.${CLUSTER_DOMAIN}"]
