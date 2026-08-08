@@ -44,7 +44,7 @@ spec:
   endpoints:
     - ip:
         address: "${SECRET_MEDIA_SERVER}"
-        port: 9000
+        port: 9001
 #  tls:
 #    insecureSkipVerify: true
 ---
