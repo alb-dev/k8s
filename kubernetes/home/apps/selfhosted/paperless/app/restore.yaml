@@ -7,6 +7,7 @@ spec:
   trigger:
     manual: restore-once
   kopia:
+    copyMethod: Direct
     accessModes:
       - ${VOLSYNC_ACCESSMODES:=ReadWriteOnce}
     cacheAccessModes:
@@ -16,7 +17,6 @@ spec:
     capacity: ${VOLSYNC_CAPACITY:=5Gi}
     cleanupCachePVC: true
     cleanupTempPVC: true
-    copyMethod: Snapshot
     enableFileDeletion: true
     moverSecurityContext:
       runAsNonRoot: true
@@ -28,6 +28,7 @@ spec:
         type: RuntimeDefault
     repository: volsync-kopia-secret
     sourceIdentity:
-      sourceName: ${APP}
+      sourceName: ${APP}-backup
+      sourcePVCName: ${APP}  
     storageClassName: ${VOLSYNC_STORAGECLASS:=local-hostpath}
     volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-local-hostpath}
