@@ -81,31 +81,6 @@ spec:
               capabilities:
                 drop:
                   - ALL
-      code-server:
-        annotations:
-          reloader.stakater.com/auto: "true"
-        containers:
-          code-server:
-            image:
-              repository: ghcr.io/coder/code-server
-              tag: 4.131.0@sha256:3623e6362abdec6258472882b06fdeec9d6ce2ad3fda316b3c5d7ed092b89add
-            args:
-              - --auth
-              - none
-              - --disable-telemetry
-              - --disable-update-check
-              - --user-data-dir
-              - /mnt/code-server
-              - --extensions-dir
-              - /mnt/code-server
-              - --port
-              - "12321"
-              - /data
-            resources:
-              requests:
-                cpu: 10m
-              limits:
-                memory: 512Mi
 
     defaultPodOptions:
       securityContext:
@@ -123,11 +98,6 @@ spec:
             port: *httpPort
           metrics:
             port: 9000
-      code-server:
-        controller: code-server
-        ports:
-          http:
-            port: 12321
 
     route:
       app:
@@ -139,15 +109,6 @@ spec:
           - backendRefs:
               - identifier: app
                 port: *httpPort
-      code-server:
-        hostnames: ["{{ .Release.Name }}-code.${CLUSTER_DOMAIN}"]
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-        rules:
-          - backendRefs:
-              - identifier: code-server
-                port: 12321
 
     persistence:
       data:
@@ -157,9 +118,3 @@ spec:
             app:
               - path: /data
                 subPath: data
-          code-server:
-            code-server:
-              - path: /data
-                subPath: data
-              - path: /mnt/code-server
-                subPath: code-server
