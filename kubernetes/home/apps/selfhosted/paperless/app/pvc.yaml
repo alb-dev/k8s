@@ -7,5 +7,5 @@ spec:
   accessModes: ["ReadWriteOnce"]
   resources:
     requests:
-      storage: ${VOLSYNC_CAPACITY}
+      storage: 15Gi
   storageClassName: local-hostpath
