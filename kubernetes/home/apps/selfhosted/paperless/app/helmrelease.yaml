@@ -92,7 +92,7 @@ spec:
 
     persistence:
       data:
-        existingClaim: ${VOLSYNC_CLAIM}
+        existingClaim: "{{ .Release.Name }}"
         advancedMounts:
           paperless:
             app:
