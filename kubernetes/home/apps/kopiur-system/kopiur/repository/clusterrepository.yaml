@@ -2,19 +2,21 @@
 apiVersion: kopiur.home-operations.com/v1alpha1
 kind: ClusterRepository
 metadata:
-  name: nas
+  name: athena
 spec:
   allowedNamespaces:
     all: true
   backend:
-    filesystem:
-      path: /repo
-      volume:
-        nfs:
-          path: /volume1/kubernetes/kopiur
-          server: "${SECRET_MEDIA_SERVER}"
-  credentialProjection:
-    allowed: true
+    s3:
+      auth:
+        secretRef:
+          name: kopiur-repository-secret
+          namespace: kopiur-system
+      bucket: homelab-backup
+      endpoint: "${SECRET_MEDIA_SERVER}:9000"
+      region: us-east-1
+      tls:
+        disableTls: true
   encryption:
     passwordSecretRef:
       name: kopiur-repository-secret
