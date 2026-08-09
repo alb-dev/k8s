@@ -6,7 +6,7 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
-  interval: 1h
+  interval: 1m
   path: "./kubernetes/home/apps/home-automation/home-assistant/app"
   postBuild:
     substituteFrom:
