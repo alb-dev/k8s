@@ -13,9 +13,9 @@ spec:
       dashboards:
         enabled: true
         grafanaOperator:
-          enabled: true
-          matchLabels:
-            grafana.internal/instance: grafana
+          enabled: false
+        #  matchLabels:
+        #    grafana.internal/instance: grafana
       prometheusRule:
         enabled: true
       serviceMonitor:
