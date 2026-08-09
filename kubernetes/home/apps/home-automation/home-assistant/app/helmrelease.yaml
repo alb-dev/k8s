@@ -56,11 +56,13 @@ spec:
                 cpu: 10m
               limits:
                 memory: 2Gi
+
+    defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 65333
-        runAsGroup: 65334
-        fsGroup: 65334
+        runAsUser: 65533
+        runAsGroup: 65534
+        fsGroup: 65534
         fsGroupChangePolicy: OnRootMismatch
 
     service:
