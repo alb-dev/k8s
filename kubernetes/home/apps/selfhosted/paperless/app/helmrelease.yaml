@@ -100,6 +100,15 @@ spec:
                 subPath: data
               - path: /usr/src/paperless/media
                 subPath: media
+      backup:
+        existingClaim: paperless-data
+        advancedMounts:
+          paperless:
+            app:
+              - path: /usr/src/paperless/backup_data
+                subPath: data
+              - path: /usr/src/paperless/backup_media
+                subPath: media
     route:
       app:
         hostnames: ["{{ .Release.Name }}.${CLUSTER_DOMAIN}"]
