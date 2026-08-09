@@ -19,7 +19,7 @@ spec:
       route:
         enabled: true
         hostnames:
-          - "victoria-logs.${CLUSTER_DOMAIN}"
+          - victoria-logs.${CLUSTER_DOMAIN}
         parentRefs:
           - name: envoy-internal
             namespace: network

@@ -4,14 +4,15 @@ kind: Kustomization
 metadata:
   name: victoria-logs
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: victoria-logs
   dependsOn:
     - name: democratic-csi
       namespace: storage
   interval: 1h
   path: ./kubernetes/home/apps/observability/victoria-logs/app
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   sourceRef:
     kind: GitRepository
@@ -26,13 +27,14 @@ kind: Kustomization
 metadata:
   name: victoria-logs-collector
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: victoria-logs-collector
   dependsOn:
     - name: victoria-logs
   interval: 1h
   path: ./kubernetes/home/apps/observability/victoria-logs/collector
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
   sourceRef:
     kind: GitRepository
