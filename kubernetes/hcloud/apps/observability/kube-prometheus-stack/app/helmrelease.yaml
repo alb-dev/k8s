@@ -51,7 +51,7 @@ spec:
         dashboardsConfigMapRefEnabled: true
         folder: Kubernetes
         matchLabels:
-          dashboards: grafana
+          grafana.internal/instance: grafana
 
     ###
     ### Prometheus operator values
