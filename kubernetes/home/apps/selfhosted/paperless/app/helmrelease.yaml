@@ -37,7 +37,7 @@ spec:
               PAPERLESS_OCR_LANGUAGES: deu
               PAPERLESS_OCR_LANGUAGE: deu
               # Configure redis integration
-              PAPERLESS_REDIS: redis://paperless-redis.selfhosted.svc.cluster.local:6379
+              PAPERLESS_REDIS: redis://paperless-dragonfly:6379
               # Configure user permissions
               # Configure admin user
               PAPERLESS_FILENAME_FORMAT: "{correspondent}/{created_year}/{correspondent}_{document_type}_{created}"
@@ -60,21 +60,6 @@ spec:
                 memory: 256Mi
               limits:
                 memory: 2500Mi
-      redis:
-        replicas: 1
-        strategy: RollingUpdate
-        
-        containers:
-          redis:
-            image:
-              repository: ghcr.io/valkey-io/valkey
-              tag: 9.1.1
-            resources:
-              requests:
-                cpu: 5m
-                memory: 32Mi
-              limits:
-                memory: 128Mi
 
     service:
       app:

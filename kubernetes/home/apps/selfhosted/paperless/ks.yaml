@@ -14,6 +14,7 @@ spec:
         kind: Secret
     substitute:
       APP: paperless
+      DRAGONFLY_REPLICAS: "1"
       VOLSYNC_CLAIM: paperless-data
       VOLSYNC_CAPACITY: 5Gi
   prune: true
