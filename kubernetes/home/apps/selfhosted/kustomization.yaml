@@ -5,7 +5,7 @@ namespace: selfhosted
 
 components:
   - ../../components/sops
-#  - ../../components/kopiur
+  - ../../components/kopiur/secret
 
 resources:
   - ./namespace.yaml
