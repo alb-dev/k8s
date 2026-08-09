@@ -7,7 +7,7 @@ spec:
   components:
     - ../../../../components/kopiur/backup
   interval: 1h
-  path: "./kubernetes/home/apps/home-automation/home-assistant/app"
+  path: "./kubemnetes/home/apps/home-automation/home-assistant/app"
   postBuild:
     substituteFrom:
       - name: cluster-secrets
