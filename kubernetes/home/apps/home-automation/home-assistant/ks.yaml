@@ -15,7 +15,6 @@ spec:
     substitute:
       APP: home-assistant
       KOPIUR_CAPACITY: 8Gi
-      VOLSYNC_CAPACITY: 8Gi
   prune: true
   sourceRef:
     kind: GitRepository
