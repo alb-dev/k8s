@@ -6,4 +6,4 @@ resources:
   - ./pvc.yaml
  # - ./volsync.yaml
   - ./ocirepository.yaml
-  #- ./restore.yaml
+  - ./restore.yaml
