@@ -9,7 +9,7 @@ spec:
       kind: HelmRelease
       name: kopiur
       namespace: kopiur-system
-  interval: 1h
+  interval: 1m
   path: ./kubernetes/home/apps/kopiur-system/kopiur/app
   postBuild:
     substituteFrom:
@@ -30,7 +30,7 @@ metadata:
 spec:
   dependsOn:
     - name: kopiur
-  interval: 1h
+  interval: 1m
   path: ./kubernetes/home/apps/kopiur-system/kopiur/repository
   postBuild:
     substituteFrom:
