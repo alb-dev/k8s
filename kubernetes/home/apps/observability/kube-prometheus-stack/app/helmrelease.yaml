@@ -99,7 +99,7 @@ spec:
         retentionSize: 50GB
         ruleSelectorNilUsesHelmValues: false
         scrapeConfigSelectorNilUsesHelmValues: false
-        scrapeInterval: 1h # Must match interval in Grafana Helm chart
+        scrapeInterval: 1m # Must match interval in Grafana Helm chart
         serviceMonitorSelectorNilUsesHelmValues: false
         storageSpec:
           volumeClaimTemplate:

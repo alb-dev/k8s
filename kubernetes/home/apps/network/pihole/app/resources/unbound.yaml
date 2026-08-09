@@ -70,7 +70,7 @@ data:
         num-threads: 1
 
         # Ensure kernel buffer is large enough to not lose messages in traffic spikes
-        so-rcvbuf: 1h
+        so-rcvbuf: 1m
 
         # increase cache size to utilize more RAM
         msg-cache-size: 128m

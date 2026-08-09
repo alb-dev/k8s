@@ -6,8 +6,8 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
-  interval: 1h
-  path: "./kubemnetes/home/apps/home-automation/home-assistant/app"
+  interval: 1m
+  path: "./kubernetes/home/apps/home-automation/home-assistant/app"
   postBuild:
     substituteFrom:
       - name: cluster-secrets
@@ -15,6 +15,7 @@ spec:
     substitute:
       APP: home-assistant
       KOPIUR_CAPACITY: 8Gi
+      VOLSYNC_CAPACITY: 8Gi
   prune: true
   sourceRef:
     kind: GitRepository
