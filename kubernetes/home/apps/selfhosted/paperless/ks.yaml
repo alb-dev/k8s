@@ -14,8 +14,6 @@ spec:
         kind: Secret
     substitute:
       APP: paperless
-      VOLSYNC_UID: "1000"
-      VOLSYNC_GID: "1000"
       VOLSYNC_CLAIM: paperless-data
       VOLSYNC_CAPACITY: 5Gi
   prune: true
