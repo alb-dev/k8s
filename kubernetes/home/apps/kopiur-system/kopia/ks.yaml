@@ -5,12 +5,12 @@ metadata:
   name: kopia
 spec:
   interval: 1h
-  path: ./kubernetes/home/apps/volsync-system/kopia/app
+  path: ./kubernetes/home/apps/kopiur-system/kopia/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-      - name: volsync-kopia-secret
+      - name: kopiur-repository-secret
         kind: Secret
     substitute:
       APP: kopia

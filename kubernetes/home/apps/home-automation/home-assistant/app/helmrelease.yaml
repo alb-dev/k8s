@@ -20,9 +20,9 @@ spec:
           hostNetwork: true
           securityContext:
             runAsNonRoot: true
-            runAsUser: ${VOLSYNC_UID}
-            runAsGroup: ${VOLSYNC_GID}
-            fsGroup: ${VOLSYNC_GID}
+            runAsUser: 65533
+            runAsGroup: 65534
+            fsGroup: 65534
             fsGroupChangePolicy: OnRootMismatch
 
         containers:
