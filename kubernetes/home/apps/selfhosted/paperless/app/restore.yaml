@@ -29,6 +29,6 @@ spec:
     repository: volsync-kopia-secret
     sourceIdentity:
       sourceName: ${APP}-backup
-      sourcePVCName: ${APP}  
+      sourcePVCName: paperless
     storageClassName: ${VOLSYNC_STORAGECLASS:=local-hostpath}
     volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-local-hostpath}
