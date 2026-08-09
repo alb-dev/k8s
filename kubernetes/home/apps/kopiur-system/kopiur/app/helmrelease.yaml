@@ -9,14 +9,6 @@ spec:
     name: kopiur
   interval: 1h
   values:
-    extraVolumes:
-      - name: repo
-        nfs:
-          path: /volume1/kubernetes/kopiur
-          server: "${SECRET_MEDIA_SERVER}"
-    extraVolumeMounts:
-      - name: repo
-        mountPath: /repo
     monitoring:
       dashboards:
         enabled: true
