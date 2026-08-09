@@ -16,7 +16,7 @@ spec:
       runAsGroup: ${KOPIUR_PGID:=1000}
   repository:
     kind: ClusterRepository
-    name: expanse
+    name: athena
   retention:
     keepLatest: 3
     keepHourly: 24
