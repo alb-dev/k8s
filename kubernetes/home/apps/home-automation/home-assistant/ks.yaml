@@ -15,8 +15,8 @@ spec:
     substitute:
       APP: home-assistant
       KOPIUR_CAPACITY: 8Gi
-      KOPIUR_PUID: 65533
-      KOPIUR_PGID: 65534
+      KOPIUR_PUID: "65533"
+      KOPIUR_PGID: "65534"
   prune: true
   sourceRef:
     kind: GitRepository

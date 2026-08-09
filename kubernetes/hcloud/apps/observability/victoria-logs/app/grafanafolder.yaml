@@ -6,5 +6,5 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
-      dashboards: grafana
+      grafana.internal/instance: grafana
   title: VictoriaLogs
