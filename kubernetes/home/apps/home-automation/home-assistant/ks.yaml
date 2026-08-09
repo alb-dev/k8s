@@ -4,10 +4,9 @@ kind: Kustomization
 metadata:
   name: home-assistant
 spec:
+  components:
+    - ../../../../components/kopiur/backup
   interval: 1h
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: home-assistant
   path: "./kubernetes/home/apps/home-automation/home-assistant/app"
   postBuild:
     substituteFrom:
@@ -15,15 +14,11 @@ spec:
         kind: Secret
     substitute:
       APP: home-assistant
-      VOLSYNC_CAPACITY: 8Gi
-      VOLSYNC_CLAIM: home-assistant
-      VOLSYNC_GID: "65534"
-      VOLSYNC_UID: "65533"
+      KOPIUR_CAPACITY: 8Gi
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   targetNamespace: home-automation
-  timeout: 5m
   wait: false
