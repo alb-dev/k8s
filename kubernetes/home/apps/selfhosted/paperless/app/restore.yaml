@@ -2,12 +2,13 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: "${APP}-dst-3"
+  name: "${APP}-dst-4"
 spec:
   trigger:
     manual: restore-once
   kopia:
     copyMethod: Direct
+    destinationPVC: paperless
     accessModes:
       - ${VOLSYNC_ACCESSMODES:=ReadWriteOnce}
     cacheAccessModes:
@@ -29,6 +30,5 @@ spec:
     repository: volsync-kopia-secret
     sourceIdentity:
       sourceName: ${APP}-backup
-      sourcePVCName: paperless
     storageClassName: ${VOLSYNC_STORAGECLASS:=local-hostpath}
     volumeSnapshotClassName: ${VOLSYNC_SNAPSHOTCLASS:=csi-local-hostpath}
