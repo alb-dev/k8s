@@ -78,7 +78,7 @@ spec:
                 "type": "s3",
                 "config": {
                   "bucket": "homelab-backup",
-                  "endpoint": "${SECRET_MEDIA_SERVER}",
+                  "endpoint": "${SECRET_MEDIA_SERVER}:9000",
                   "accessKeyID": "${AWS_ACCESS_KEY_ID}",
                   "secretAccessKey": "${AWS_SECRET_ACCESS_KEY}",
                   "region": "us-east-1"
