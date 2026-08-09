@@ -75,6 +75,7 @@ spec:
             mountPropagation: Bidirectional
       extraVolumes:
         - name: local-hostpath
+          defaultClass: true
           hostPath:
             path: *storagePath
             type: DirectoryOrCreate
