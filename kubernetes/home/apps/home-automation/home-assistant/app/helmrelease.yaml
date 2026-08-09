@@ -58,9 +58,9 @@ spec:
                 memory: 2Gi
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 65333
+        runAsGroup: 65334
+        fsGroup: 65334
         fsGroupChangePolicy: OnRootMismatch
 
     service:
