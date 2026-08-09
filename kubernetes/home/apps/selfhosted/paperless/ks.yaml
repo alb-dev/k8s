@@ -6,6 +6,7 @@ metadata:
 spec:
   components:
     - ../../../../components/kopiur/backup
+    - ../../../../components/dragonfly
   interval: 1m
   path: ./kubernetes/home/apps/selfhosted/paperless/app
   postBuild:
