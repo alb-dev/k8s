@@ -12,7 +12,7 @@ spec:
       kind: HelmRelease
       name: dragonfly-operator
       namespace: databases
-  interval: 30m
+  interval: 1h
   path: "./kubernetes/hcloud/apps/databases/dragonfly-operator/app"
   prune: true
   sourceRef:

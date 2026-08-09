@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: symphonia-linktree
 spec:
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/hcloud/apps/selfhosted/symphonia/linktree
   postBuild:
     substituteFrom:
@@ -25,7 +25,7 @@ kind: Kustomization
 metadata:
   name: symphonia-homepage
 spec:
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/hcloud/apps/selfhosted/symphonia/homepage
   postBuild:
     substituteFrom:

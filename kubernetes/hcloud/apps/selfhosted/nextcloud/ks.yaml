@@ -7,7 +7,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: nextcloud
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/hcloud/apps/selfhosted/nextcloud/app
   components:
     - ../../../../components/dragonfly
@@ -35,7 +35,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: nextcloud-collabora
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/hcloud/apps/selfhosted/nextcloud/collabora
   postBuild:
     substituteFrom:
