@@ -5,8 +5,8 @@ namespace: selfhosted
 
 components:
   - ../../components/sops
-  - ../../components/kopiur
-  
+#  - ../../components/kopiur
+
 resources:
   - ./namespace.yaml
   - ./jellyfin/ks.yaml
