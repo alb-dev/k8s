@@ -90,7 +90,7 @@ spec:
                 subPath: media
       media:
         type: nfs
-        server: expanse.internal
+        server: "${SECRET_MEDIA_SERVER}"
         path: /volume1/kubernetes/paperless
         globalMounts:
           - path: /usr/src/paperless/export
